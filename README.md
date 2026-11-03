@@ -81,13 +81,32 @@ Entregables: informe PDF, este repo (carpetas `F1/` y `F2/`, README, dependencia
 
 El código y la documentación de este repo están bajo licencia MIT (ver `LICENSE`). Los datos de LMArena tienen su propia licencia, indicada arriba.
 
+## Cómo correrlo
+
+Necesitas Python 3.12 (sirve cualquier 3.11 o superior; ajusta `PYTHON=` en el `Makefile`).
+
+```bash
+git clone https://github.com/JoseFredes/lmarena-sumativa1.git
+cd lmarena-sumativa1
+make install   # crea .venv e instala requirements.txt (versiones fijas)
+make test      # corre pytest, sin red
+```
+
+`make data` y `make run` (descarga y notebooks) están como pendientes; `make all` los encadena cuando estén listos.
+
 ## Estructura del repo
 
 ```
-README.md     esta descripción
-LICENSE       MIT
-F1/           notebook de la Fase 1
-F2/           notebooks de la Fase 2
+README.md          esta descripción
+LICENSE            MIT
+Makefile           install, test, data, run, all
+requirements.txt   dependencias con versión fija
+pytest.ini         configuración de pytest
+src/arena/         paquete del proyecto (se irá llenando)
+tests/             pruebas con datos sintéticos, sin red
+F1/                notebook de la Fase 1
+F2/                notebooks de la Fase 2
+data/raw/          dato descargado (no se versiona)
+data/processed/    dato procesado
+docs/evidencias/   salidas de pruebas y ejecución
 ```
-
-Se irá completando (`src/`, `tests/`, `requirements.txt`, `docs/`) a medida que avancemos.
