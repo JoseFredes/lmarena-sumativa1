@@ -12,13 +12,13 @@ install: venv
 	$(PY) -m pip install -r requirements.txt
 
 data:
-	@echo "TODO: descarga del dataset (se implementa en src/arena/io.py)"
+	@echo "TODO: dataset download (implemented in src/arena/io.py)"
 
 test:
 	$(PY) -m pytest -q
 
 run:
-	@echo "TODO: ejecutar notebooks de F1 y F2 con nbconvert"
+	@echo "TODO: run F1 and F2 notebooks with nbconvert"
 
 all: install data test run
 

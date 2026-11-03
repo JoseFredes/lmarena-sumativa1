@@ -1,4 +1,4 @@
-# Python 3.12 (>= 3.11). Versiones fijadas; instalar con: make install
+# Python 3.12 (>= 3.11). Pinned versions; install with: make install
 numpy==2.5.4
 pandas==3.1.0
 pyarrow==26.0.0

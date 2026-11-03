@@ -1,10 +1,10 @@
 import arena
 
 
-def test_paquete_importa():
+def test_package_imports():
     assert arena.__version__
 
 
-def test_fixture_sintetica(df_sintetico):
-    assert len(df_sintetico) == 3
-    assert df_sintetico["winner"].isin(["model_a", "model_b", "tie", "both_bad"]).all()
+def test_synthetic_fixture(synthetic_df):
+    assert len(synthetic_df) == 3
+    assert synthetic_df["winner"].isin(["model_a", "model_b", "tie", "both_bad"]).all()

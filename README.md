@@ -54,7 +54,7 @@ Entregables: informe PDF, este repo (carpetas `F1/` y `F2/`, README, dependencia
 
 ## Cómo trabajamos
 
-- Una rama por tema (`f1/definicion`, `f2/exploracion`, `f2/limpieza`, …) y se integra a `main` por merge o PR.
+- Una rama por tema (`f1/definition`, `f2/exploration`, `f2/cleaning`, …) y se integra a `main` por merge o PR.
 - Commits chicos, en inglés, con el formato `type(scope): what was done`. Ejemplo: `feat(f2): parse conversation metadata`.
 - Cada persona hace sus propios commits con su usuario, y no hacemos squash: el historial es parte de la evidencia.
 - Cualquier decisión que no sea obvia (por ejemplo, qué hacer con los empates) se anota en el notebook correspondiente.
@@ -108,5 +108,5 @@ F1/                notebook de la Fase 1
 F2/                notebooks de la Fase 2
 data/raw/          dato descargado (no se versiona)
 data/processed/    dato procesado
-docs/evidencias/   salidas de pruebas y ejecución
+docs/evidence/     test and execution outputs (pytest, nbconvert)
 ```
