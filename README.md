@@ -77,10 +77,15 @@ Entregables: informe PDF, este repo (carpetas `F1/` y `F2/`, README, dependencia
 - [ ] Mapa conceptual de la actividad formativa (lo tiene que completar el grupo)
 - [ ] Confirmar la estructura real de las columnas anidadas una vez descargado el dato
 
+## Licencia
+
+El código y la documentación de este repo están bajo licencia MIT (ver `LICENSE`). Los datos de LMArena tienen su propia licencia, indicada arriba.
+
 ## Estructura del repo
 
 ```
 README.md     esta descripción
+LICENSE       MIT
 F1/           notebook de la Fase 1
 F2/           notebooks de la Fase 2
 ```
