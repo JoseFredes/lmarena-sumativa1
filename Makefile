@@ -11,6 +11,7 @@ install: venv
 	$(PY) -m pip install --upgrade pip
 	$(PY) -m pip install -r requirements.txt
 	$(PY) -m pip install -e .
+	$(PY) -c "import matplotlib.pyplot"  # builds the font cache once, so notebooks stay silent
 
 data:
 	@echo "TODO: dataset download (implemented in src/arena/io.py)"
