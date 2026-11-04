@@ -1,0 +1,8 @@
+== F2/F2_01_acquisition_exploration.ipynb
+[NbConvertApp] Converting notebook F2/F2_01_acquisition_exploration.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 217613 bytes to F2/F2_01_acquisition_exploration.ipynb
+== F2/F2_03_validation.ipynb
+[NbConvertApp] Converting notebook F2/F2_03_validation.ipynb to notebook
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+[NbConvertApp] Writing 24679 bytes to F2/F2_03_validation.ipynb

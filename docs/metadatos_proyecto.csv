@@ -1,0 +1,13 @@
+clave,valor
+proyecto.nombre,¿Contenido o formato? Preferencias humanas en LMArena
+proyecto.semilla,42
+datos.fuente.plataforma,Hugging Face
+datos.fuente.autor,lmarena-ai
+datos.fuente.url,https://huggingface.co/datasets/lmarena-ai/arena-human-preference-140k
+datos.licencia,Prompts CC-BY-4.0; respuestas segun cada proveedor
+decisiones.dataset,completo (135634 filas); el muestreo por sesiones se usa solo para pruebas
+decisiones.columnas_cargadas,11 de 14; se excluyen las 3 de conversaciones (peso y licencia)
+decisiones.python,3.12
+decisiones.tokens_transformacion,"pendiente de F2_02 (comparar crudo, logaritmo y z-score)"
+decisiones.tie_both_bad,se crean variables en F2; el tratamiento se decide en F3
+decisiones.idioma,se conserva todo en F2; el filtro se decide en F3

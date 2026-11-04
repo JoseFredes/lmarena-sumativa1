@@ -129,14 +129,13 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 - **Ambiente virtual:** `make install` crea `.venv` con Python 3.12 e instala `requirements.txt` (versiones fijas con `==`) y el paquete del proyecto en modo editable (`pip install -e .`).
 - **Verificación de la instalación:** `pip check` informa que no hay dependencias rotas.
-- **Pruebas:** `make test` ejecuta 25 pruebas automáticas que no usan la red.
+- **Pruebas:** `make test` ejecuta 51 pruebas automáticas que no usan la red.
 - **Rutas y semilla:** todas las rutas son relativas a la raíz del proyecto (calculada desde el propio código) y la semilla aleatoria está fijada en 42.
 - **Integridad del dato:** `data/raw/CHECKSUMS.txt` guarda la huella SHA-256 de los 7 archivos y `verify_checksums()` las recalcula.
 
-`[PENDIENTE]` Evidencia de ejecución de punta a punta (`make all` desde un entorno nuevo) guardada en `docs/evidence/`.
-`[PENDIENTE]` Prueba en un segundo equipo: un integrante que no armó el entorno clona el repositorio, ejecuta `make install` y corre los notebooks desde cero.
-`[PENDIENTE]` Ampliar la celda de entorno de los notebooks para listar la versión de cada dependencia declarada, y registrar el commit y la rama de cada ejecución.
-`[PENDIENTE]` Dejar generados `docs/metadatos_fase1.json` y `docs/metadatos_proyecto.csv`, como en el proyecto modelo.
+- **Evidencia de ejecución de punta a punta:** `make all` se ejecutó desde un clon limpio y terminó sin errores en unos 3 minutos (entorno nuevo, descarga y verificación de los 7 archivos, 51 pruebas y notebooks ejecutados). Las salidas están en `docs/evidence/` (`entorno.txt`, `pytest.txt`, `nbconvert.txt`). El log de `nbconvert` contiene un aviso informativo de Jupyter sobre la comunicación local con el kernel; no es una advertencia del código y no aparece en los notebooks.
+`[PENDIENTE]` Prueba en un segundo equipo (la del clon limpio se hizo en el mismo computador): un integrante que no armó el entorno clona el repositorio, ejecuta `make install` y corre los notebooks desde cero.
+- **Registro del entorno en los notebooks:** la celda de entorno lista cada dependencia con su versión fijada frente a la instalada, la semilla, la rama y el commit de la ejecución. Los metadatos quedan además en `docs/metadatos_fase1.json` y `docs/metadatos_proyecto.csv`.
 
 ---
 
@@ -159,7 +158,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 2. `load_raw()` carga 11 de las 14 columnas (135.634 filas, 115 MB en memoria); las tres columnas de conversaciones se excluyen por peso y licencia.
 3. `structure_summary()` y `frequency_table()` describen cada variable; `nested_paths()` revela la estructura de las columnas anidadas.
 4. `[PENDIENTE]` Limpieza y transformación (`preprocessing`), que produce el dataset procesado en `data/processed/`.
-5. `[PENDIENTE]` Validación (`validation`) y pruebas.
+5. `validate_dataset()` comprueba el dato (`F2_03`); `[PENDIENTE]` aplicarlo al dataset procesado.
 
 **Decisiones técnicas.** El registro completo, con motivo, impacto y commit, está en `docs/decisiones.md` y se resume en la sección 11 del informe final. Principales decisiones hasta ahora: cambio de dataset, foco en dos preguntas, uso del dataset completo, exclusión de las columnas de conversaciones, muestreo por sesión para pruebas, y validación con el script del curso sobre una versión aplanada del dato.
 
@@ -185,15 +184,17 @@ Diagnóstico ya disponible (F2_01): 0 nulos en 11 columnas; 10 filas con `model_
 
 ## 11. Validación técnica y verificación del código · 🟡
 - **Dataset:** `docs/validacion_dataset.md`, generado con `validar_dataset.py` del curso sobre la versión aplanada del dato (135.634 filas × 47 columnas). Resultado: cumple todos los requisitos obligatorios y tiene un aviso (sin valores faltantes). El criterio de tamaño (37,6 MB) se evaluó sobre el CSV aplanado; el dato original pesa 1,6 GB.
-- **Código:** 25 pruebas con pytest, sin red, que cubren casos normales, límite (archivo vacío, sesión de un voto) y excepciones (archivo de huellas inexistente, parquet ausente, tamaños de muestra inválidos).
-`[PENDIENTE]` Pruebas de `preprocessing` y `validation`, y `docs/evidence/pytest.txt` con la salida.
+- **Código:** 51 pruebas con pytest, sin red, que cubren casos normales (datos válidos), límite (`evaluation_order` en 1 y 28, 0 tokens, archivo vacío, sesión de un voto) y excepciones (columna faltante, ganador inválido, tokens negativos, id repetido, entrada que no es DataFrame, archivo de huellas inexistente, huella que no coincide, tamaños de muestra inválidos). Salida guardada en `docs/evidence/pytest.txt`.
+- **Validador del dataset:** `validate_dataset` devuelve un `ValidationReport` con chequeos críticos (lanzan `ValueError` con `assert_ok()`) y advertencias. Sobre el dato original: 0 fallos críticos y 1 advertencia (10 filas con el mismo modelo en ambos lados). El notebook `F2_03` provoca errores a propósito para mostrar que se detectan.
+`[PENDIENTE]` Pruebas del módulo `preprocessing` y validación del dataset procesado (dependen de F2_02).
 
 ## 12. Notebook F1_Definicion.ipynb · ⬜
 `[PENDIENTE]` Texto de problema, objetivos y alcance (reutilizar las secciones 2 y 3), celda de verificación del entorno con todas las dependencias, estructura del proyecto y reconocimiento inicial del dato. No debe limpiar ni transformar. Verificar con *Restart & Run All*.
 
 ## 13. Notebooks ejecutables de la Fase 2 · 🟡
 - `F2/F2_01_acquisition_exploration.ipynb` ✅ ejecutado de punta a punta, sin errores ni advertencias; secciones 0 a 9 con interpretación y tabla de hallazgos.
-- `F2_02` (limpieza y transformación) ⬜ y `F2_03` (validación) ⬜.
+- `F2/F2_03_validation.ipynb` 🟡 ejecutado sobre el dato original, con casos límite y excepciones; falta la validación del dataset procesado.
+- `F2_02` (limpieza y transformación) ⬜.
 
 ## 14. Vinculación del mapa conceptual con el avance · ⬜
 `TODO(humano)`: requiere el mapa conceptual del grupo. La guía pide una tabla con los seis tipos de elemento y el estado de cada uno:
