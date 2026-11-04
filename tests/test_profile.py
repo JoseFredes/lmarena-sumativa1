@@ -44,3 +44,21 @@ def test_structure_summary_nulls_and_nested(raw_dir):
     assert summary.loc["winner", "nulls"] == 2
     assert summary.loc["id", "n_unique"] == 6
     assert pd.isna(summary.loc["conv_metadata", "n_unique"])
+
+
+def test_frequency_table_counts_and_pct():
+    from arena.profile import frequency_table
+
+    table = frequency_table(pd.Series(["a", "a", "b", None]))
+    assert table.loc["a", "count"] == 2
+    assert table.loc["a", "pct"] == 50.0
+    assert len(frequency_table(pd.Series(list("aabbc")), top=2)) == 2
+
+
+def test_nested_paths_and_frame():
+    from arena.profile import nested_paths, nested_to_frame
+
+    value = {"a": 1, "b": {"c": True, "d": "x"}}
+    assert nested_paths(value) == {"a": "int", "b.c": "bool", "b.d": "str"}
+    flat = nested_to_frame(pd.Series([value]))
+    assert list(flat.columns) == ["a", "b_c", "b_d"]

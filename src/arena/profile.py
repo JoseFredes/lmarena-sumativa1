@@ -65,3 +65,28 @@ def structure_summary(df: pd.DataFrame) -> pd.DataFrame:
             }
         )
     return pd.DataFrame(rows)
+
+
+def frequency_table(s: pd.Series, top: int | None = None) -> pd.DataFrame:
+    """Counts and percentages of each value in ``s``, most frequent first (NA included)."""
+    counts = s.value_counts(dropna=False)
+    if top is not None:
+        counts = counts.head(top)
+    return pd.DataFrame({"count": counts, "pct": (counts / len(s) * 100).round(2)})
+
+
+def nested_paths(value: dict, prefix: str = "") -> dict[str, str]:
+    """Map every leaf of a nested dict to its Python type name, using dotted paths."""
+    paths = {}
+    for key, item in value.items():
+        path = f"{prefix}.{key}" if prefix else str(key)
+        if isinstance(item, dict):
+            paths.update(nested_paths(item, path))
+        else:
+            paths[path] = type(item).__name__
+    return paths
+
+
+def nested_to_frame(s: pd.Series) -> pd.DataFrame:
+    """Expand a column of dicts into flat columns (inspection only; cleaning does the real flatten)."""
+    return pd.json_normalize(s.tolist(), sep="_")
