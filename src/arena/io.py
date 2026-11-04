@@ -65,3 +65,20 @@ def verify_checksums(raw_dir: Path = RAW_DIR) -> dict[str, bool]:
         target = raw_dir / rel
         result[rel] = target.exists() and sha256_of(target) == expected
     return result
+
+
+def ensure_dataset(raw_dir: Path = RAW_DIR, repo_id: str = REPO_ID) -> dict[str, bool]:
+    """Download what is missing and check every file against ``CHECKSUMS.txt``.
+
+    If the checksums file is already versioned, it is the reference and is never rewritten.
+    Raises ``RuntimeError`` if any file does not match.
+    """
+    raw_dir = Path(raw_dir)
+    paths = download_dataset(raw_dir, repo_id)
+    if not (raw_dir / CHECKSUMS_NAME).exists():
+        write_checksums(paths, raw_dir)
+    result = verify_checksums(raw_dir)
+    bad = [name for name, ok in result.items() if not ok]
+    if bad:
+        raise RuntimeError(f"checksum mismatch for: {bad}")
+    return result

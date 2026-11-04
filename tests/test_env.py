@@ -50,3 +50,16 @@ def test_write_project_metadata_rows(tmp_path):
     lines = out.read_text(encoding="utf-8").splitlines()
     assert lines[0] == "clave,valor"
     assert "decisiones.dataset,completo" in lines
+
+
+def test_project_metadata_defaults_include_decisions(tmp_path):
+    lines = write_project_metadata(tmp_path / "m.csv").read_text(encoding="utf-8")
+    assert "decisiones.dataset" in lines and "proyecto.semilla,42" in lines
+
+
+def test_read_evidence_existing_and_missing(tmp_path):
+    from arena.env import read_evidence
+
+    (tmp_path / "a.txt").write_text("hello", encoding="utf-8")
+    assert read_evidence("a.txt", tmp_path) == "hello"
+    assert "not generated yet" in read_evidence("b.txt", tmp_path)

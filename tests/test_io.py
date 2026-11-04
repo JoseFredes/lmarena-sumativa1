@@ -45,3 +45,25 @@ def test_verify_detects_missing_file(tmp_path):
 def test_verify_without_checksums_file_raises(tmp_path):
     with pytest.raises(FileNotFoundError, match="CHECKSUMS.txt"):
         verify_checksums(tmp_path)
+
+
+def test_ensure_dataset_writes_checksums_when_absent(tmp_path, monkeypatch):
+    from arena import io
+
+    f = tmp_path / "x.parquet"
+    f.write_bytes(b"abc")
+    monkeypatch.setattr(io, "download_dataset", lambda raw_dir, repo_id: [f])
+    assert io.ensure_dataset(tmp_path) == {"x.parquet": True}
+    assert (tmp_path / CHECKSUMS_NAME).exists()
+
+
+def test_ensure_dataset_keeps_existing_checksums_as_reference(tmp_path, monkeypatch):
+    from arena import io
+
+    f = tmp_path / "x.parquet"
+    f.write_bytes(b"abc")
+    write_checksums([f], tmp_path)
+    f.write_bytes(b"corrupted")  # same name, different content
+    monkeypatch.setattr(io, "download_dataset", lambda raw_dir, repo_id: [f])
+    with pytest.raises(RuntimeError, match="checksum mismatch"):
+        io.ensure_dataset(tmp_path)

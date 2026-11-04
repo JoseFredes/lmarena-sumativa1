@@ -11,6 +11,16 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 REQUIREMENTS = PROJECT_ROOT / "requirements.txt"
 SEED = 42
+EVIDENCE_DIR = PROJECT_ROOT / "docs" / "evidence"
+# Decision log in compact form (full detail with figures in docs/decisiones.md).
+PROJECT_DECISIONS = {
+    "dataset": "completo (135634 filas); el muestreo por sesiones se usa solo para pruebas",
+    "columnas_cargadas": "11 de 14; se excluyen las 3 de conversaciones (peso y licencia)",
+    "python": "3.12",
+    "tokens_transformacion": "pendiente de F2_02 (comparar crudo, logaritmo y z-score)",
+    "tie_both_bad": "se crean variables en F2; el tratamiento se decide en F3",
+    "idioma": "se conserva todo en F2; el filtro se decide en F3",
+}
 DATASET_URL = "https://huggingface.co/datasets/lmarena-ai/arena-human-preference-140k"
 
 
@@ -101,7 +111,8 @@ def write_project_metadata(path: Path, decisions: dict[str, str] | None = None) 
         "datos.fuente.url": DATASET_URL,
         "datos.licencia": "Prompts CC-BY-4.0; respuestas segun cada proveedor",
     }
-    rows.update({f"decisiones.{k}": v for k, v in (decisions or {}).items()})
+    decisions = PROJECT_DECISIONS if decisions is None else decisions
+    rows.update({f"decisiones.{k}": v for k, v in decisions.items()})
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as f:
@@ -109,3 +120,11 @@ def write_project_metadata(path: Path, decisions: dict[str, str] | None = None) 
         writer.writerow(["clave", "valor"])
         writer.writerows(rows.items())
     return path
+
+
+def read_evidence(name: str, directory: Path = EVIDENCE_DIR) -> str:
+    """Return the text of an evidence file (e.g. ``pytest.txt``) or a hint if it was not generated yet."""
+    path = Path(directory) / name
+    if not path.exists():
+        return f"{name} not generated yet; run `make all` (or the matching make target)"
+    return path.read_text(encoding="utf-8")
