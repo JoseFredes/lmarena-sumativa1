@@ -62,3 +62,19 @@ def test_nested_paths_and_frame():
     assert nested_paths(value) == {"a": "int", "b.c": "bool", "b.d": "str"}
     flat = nested_to_frame(pd.Series([value]))
     assert list(flat.columns) == ["a", "b_c", "b_d"]
+
+
+def test_flat_view_expands_nested_columns(raw_dir):
+    from arena.profile import flat_view
+
+    flat = flat_view(load_raw(raw_dir))
+    assert "conv_metadata" not in flat.columns
+    assert "tokens" in flat.columns
+    assert len(flat) == 6
+
+
+def test_export_flat_csv_roundtrip(raw_dir, tmp_path):
+    from arena.profile import export_flat_csv
+
+    out = export_flat_csv(tmp_path / "interim" / "flat.csv", raw_dir)
+    assert len(pd.read_csv(out)) == 6

@@ -90,3 +90,22 @@ def nested_paths(value: dict, prefix: str = "") -> dict[str, str]:
 def nested_to_frame(s: pd.Series) -> pd.DataFrame:
     """Expand a column of dicts into flat columns (inspection only; cleaning does the real flatten)."""
     return pd.json_normalize(s.tolist(), sep="_")
+
+
+def flat_view(df: pd.DataFrame) -> pd.DataFrame:
+    """Return ``df`` with ``conv_metadata`` and ``category_tag`` expanded into flat columns.
+
+    Inspection/validation view only: the cleaning step owns the real flattening.
+    """
+    nested = [c for c in ("conv_metadata", "category_tag") if c in df.columns]
+    parts = [df.drop(columns=nested).reset_index(drop=True)]
+    parts += [nested_to_frame(df[c]) for c in nested]
+    return pd.concat(parts, axis=1)
+
+
+def export_flat_csv(out_path: Path, raw_dir: Path = RAW_DIR) -> Path:
+    """Write the flat view of the raw data (no conversation text) as CSV, e.g. for validar_dataset.py."""
+    out_path = Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    flat_view(load_raw(raw_dir)).to_csv(out_path, index=False)
+    return out_path

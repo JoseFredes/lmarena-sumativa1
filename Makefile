@@ -2,7 +2,7 @@ PYTHON ?= python3.12
 VENV   := .venv
 PY     := $(VENV)/bin/python
 
-.PHONY: venv install data test run all clean
+.PHONY: venv install data validate-dataset test run all clean
 
 venv:
 	$(PYTHON) -m venv $(VENV)
@@ -15,6 +15,10 @@ install: venv
 
 data:
 	@echo "TODO: dataset download (implemented in src/arena/io.py)"
+
+validate-dataset:
+	$(PY) -c "from arena.profile import export_flat_csv; export_flat_csv('data/interim/arena_flat.csv')"
+	$(PY) validar_dataset.py data/interim/arena_flat.csv --informe docs/validacion_dataset.md
 
 test:
 	$(PY) -m pytest -q
