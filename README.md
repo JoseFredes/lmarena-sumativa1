@@ -70,10 +70,22 @@ Entregables: informe PDF, este repo (carpetas `F1/` y `F2/`, README, dependencia
 | Sáb 7 nov | Todo ejecutándose de punta a punta, informe armado |
 | Dom 8 nov | Revisión final y entrega antes de las 23:59 (la sube una sola persona en Canvas) |
 
+## Supuestos y avisos del dataset
+
+Revisamos el dataset con el `validar_dataset.py` del curso, sobre una muestra aplanada (1 de los 7 archivos, 19.377 filas). Cumple todos los requisitos obligatorios (filas, columnas, roles analíticos, variable numérica y categórica). Lo que no cumple o no podemos asegurar, lo declaramos acá:
+
+- **Sin valores faltantes.** La muestra tiene 0 % de nulos. Lo "sucio" de este dataset está en otro lado: 126 idiomas, empates (`tie`, `both_bad`), votos agrupados en sesiones y etiquetas puestas por un sistema automático.
+- **Tamaño.** El dato original pesa ~1,6 GB, más que los 100 MB sugeridos. No se sube al repo (`data/raw/` está ignorado); se descarga con `make data`. El dataset procesado no incluye texto, así que debería pesar mucho menos.
+- **Datos personales.** Los prompts son texto libre de personas reales y no podemos asegurar que no contengan datos identificables. Solo usamos su largo y no publicamos ningún texto.
+- **Licencia.** Los prompts son CC-BY-4.0; las respuestas de los modelos dependen de cada proveedor.
+- **Ventana temporal.** Los datos cubren abril–julio de 2025 (unos 3 meses), así que no hacemos análisis de tendencias de largo plazo.
+- **Alcance de las conclusiones.** Es un estudio observacional: hablamos de asociaciones, no de causas.
+
 ## Por resolver
 
 - [ ] ¿Trabajamos con el dataset completo (~1,6 GB) o con una muestra?
 - [ ] ¿Qué hacemos con los votos `tie` y `both_bad`? (la ficha no los define)
+- [ ] Confirmar con el docente que el dataset no esté repetido en otro equipo
 - [ ] Mapa conceptual de la actividad formativa (lo tiene que completar el grupo)
 - [ ] Confirmar la estructura real de las columnas anidadas una vez descargado el dato
 
