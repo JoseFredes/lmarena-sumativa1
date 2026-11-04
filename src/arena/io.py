@@ -34,9 +34,13 @@ def download_dataset(raw_dir: Path = RAW_DIR, repo_id: str = REPO_ID) -> list[Pa
     raw_dir = Path(raw_dir)
     paths = []
     for name in list_remote_files(repo_id):
+        target = raw_dir / name
+        if target.exists():
+            logger.info("Reusing %s", name)
+            paths.append(target)
+            continue
         logger.info("Downloading %s", name)
-        local = hf_hub_download(repo_id, name, repo_type="dataset", local_dir=raw_dir)
-        paths.append(Path(local))
+        paths.append(Path(hf_hub_download(repo_id, name, repo_type="dataset", local_dir=raw_dir)))
     return paths
 
 
