@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: arena
+Version: 0.1.0
+Summary: Human preferences in LMArena: content or format?
+Requires-Python: >=3.11
+License-File: LICENSE
+Dynamic: license-file
