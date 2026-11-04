@@ -34,7 +34,7 @@ run:
 	@: > $(EVIDENCE)/nbconvert.txt
 	@for nb in $(NOTEBOOKS); do \
 		echo "== $$nb" | tee -a $(EVIDENCE)/nbconvert.txt; \
-		$(PY) -m jupyter nbconvert --to notebook --execute --inplace --KernelManager.transport=ipc $$nb >> $(EVIDENCE)/nbconvert.txt 2>&1 \
+		$(PY) -m jupyter nbconvert --to notebook --execute --inplace $$nb >> $(EVIDENCE)/nbconvert.txt 2>&1 \
 			|| { echo "FAILED: $$nb"; tail -20 $(EVIDENCE)/nbconvert.txt; exit 1; }; \
 	done
 
