@@ -16,5 +16,8 @@ def synthetic_df() -> pd.DataFrame:
             "evaluation_order": [1, 2, 1],
             "language": ["en", "es", "en"],
             "is_code": [False, False, True],
+            "timestamp": pd.to_datetime(["2025-04-17 00:20", "2025-06-01 12:00", "2025-07-24 23:59"]),
+            "sum_assistant_a_tokens": [0, 120, 4000],
+            "sum_assistant_b_tokens": [35, 0, 800],
         }
     )
