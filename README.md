@@ -87,7 +87,9 @@ Revisamos el dataset con el `validar_dataset.py` del curso, sobre una muestra ap
 - [x] Descarga con SHA-256 y exploración inicial: `F2/F2_01_acquisition_exploration.ipynb` (Jose)
 - [ ] Notebook F1 (Alejandro)
 - [ ] Limpieza y transformación, `F2_02` (Alejandro). Parte de `load_raw()`; los hallazgos de `F2_01` (sección 9) dicen qué limpiar
-- [ ] Validación y pruebas, `F2_03` (Jose; depende de `F2_02`)
+- [x] Validación (`validation.py`, 51 pruebas) y notebook `F2_03` sobre el dato original (Jose)
+- [ ] `F2_03` sobre el dataset procesado (depende de `F2_02`)
+- [x] Evidencias de `make all` desde un clon limpio, en `docs/evidence/`
 - [ ] Informe PDF, mapa conceptual y bibliografía
 
 ## Por resolver
@@ -104,16 +106,38 @@ El código y la documentación de este repo están bajo licencia MIT (ver `LICEN
 
 ## Cómo correrlo
 
-Necesitas Python 3.12 (sirve cualquier 3.11 o superior; ajusta `PYTHON=` en el `Makefile`).
+Necesitas Python 3.12 (sirve cualquier 3.11 o superior; ajusta `PYTHON=` en el `Makefile`) y `make`.
 
 ```bash
 git clone https://github.com/JoseFredes/lmarena-sumativa1.git
 cd lmarena-sumativa1
-make install   # crea .venv e instala requirements.txt (versiones fijas)
-make test      # corre pytest, sin red
+make all
 ```
 
-`make data` y `make run` (descarga y notebooks) están como pendientes; `make all` los encadena cuando estén listos.
+`make all` crea `.venv` e instala `requirements.txt` (versiones fijas), descarga los 7 archivos del dataset (~1,6 GB) y los verifica contra `data/raw/CHECKSUMS.txt`, corre las pruebas, ejecuta los notebooks y guarda las evidencias en `docs/evidence/`. Se probó desde un clon limpio: termina sin errores en unos 3 minutos.
+
+También se puede ir por partes:
+
+| Comando | Qué hace |
+|---|---|
+| `make install` | crea el entorno virtual e instala las dependencias |
+| `make data` | descarga lo que falte y verifica las huellas SHA-256 |
+| `make test` | corre `pytest` (sin red) y guarda la salida en `docs/evidence/pytest.txt` |
+| `make run` | ejecuta los notebooks de `F1/` y `F2/` y guarda el log en `docs/evidence/nbconvert.txt` |
+| `make evidence` | guarda versión de Python, commit y `pip freeze` en `docs/evidence/entorno.txt` |
+| `make validate-dataset` | valida el dato con el script del curso y escribe `docs/validacion_dataset.md` |
+| `make metadata` | genera `docs/metadatos_fase1.json` y `docs/metadatos_proyecto.csv` |
+
+Nota: el log de `nbconvert` incluye un aviso de Jupyter (`Kernel is running over TCP without encryption`). Es un mensaje informativo de la comunicación local con el kernel y no una advertencia del código; no aparece en las salidas de los notebooks.
+
+### Notebooks
+
+| Notebook | Qué hace | Estado |
+|---|---|---|
+| `F1/F1_Definicion.ipynb` (es el "F1_Definición.ipynb" solicitado, sin tilde por portabilidad) | definición del problema y entorno | pendiente |
+| `F2/F2_01_acquisition_exploration.ipynb` | descarga, estructura, variables, tiempo, sesiones y muestreo | listo |
+| `F2/F2_02_cleaning_transformation.ipynb` | limpieza y transformación | pendiente |
+| `F2/F2_03_validation.ipynb` | validación y pruebas | dato original listo; falta el procesado |
 
 ## Estructura del repo
 
@@ -123,7 +147,7 @@ LICENSE            MIT
 Makefile           install, test, data, run, all
 requirements.txt   dependencias con versión fija
 pytest.ini         configuración de pytest
-src/arena/         paquete: env, io (descarga y SHA-256), profile (inspección), plots, sampling
+src/arena/         paquete: env, io (descarga y SHA-256), profile (inspección), plots, sampling, validation
 tests/             pruebas con datos sintéticos, sin red
 F1/                notebook de la Fase 1
 F2/                notebooks de la Fase 2
