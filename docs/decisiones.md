@@ -12,9 +12,12 @@ Una línea por decisión, con su motivo, su impacto medido y el commit donde que
 | D-006 | 2026-11-04 | Python 3.12 en el entorno | El Python por defecto del equipo era 3.15; se eligió una versión estable con las librerías fijadas | `requirements.txt` con `==`; 25 pruebas en verde | `6716c57` |
 | D-007 | 2026-11-04 | Reutilizar archivos ya descargados sin llamar al Hub | Evitar advertencias de la red en la ejecución y hacer la descarga idempotente | Cero advertencias en el notebook | `0800dce` |
 | D-008 | 2026-11-04 | Muestreo por sesiones (no por filas) para pruebas rápidas | Con 10 % de filas, solo el 3,9 % de las sesiones con más de un voto quedan completas; por sesiones, el 100 % | Se declara que las filas no son independientes | `3ac488e` |
-| D-009 | 2026-11-04 | Validar el dataset con `validar_dataset.py` del curso sobre una versión aplanada | El script solo lee CSV/Excel y el original es parquet anidado | 135.634 × 47; cumple los obligatorios, 1 aviso (0 % de nulos); CSV de 37,6 MB frente a 1,6 GB originales | rama `docs/report-draft` |
+| D-009 | 2026-11-04 | Validar el dataset con `validar_dataset.py` del curso sobre una versión aplanada | El script solo lee CSV/Excel y el original es parquet anidado | 135.634 × 47; cumple los obligatorios, 1 aviso (0 % de nulos); CSV de 37,6 MB frente a 1,6 GB originales | `e7dd744` |
 | D-010 | 2026-11-04 | Commits, código, carpetas y ramas en inglés | Convención del grupo | README actualizado | `dc90064` |
-| D-011 | 2026-11-04 | Trabajar con ramas y pull request desde la redacción del informe | La guía pide ramas e integración mediante PR | Rama `docs/report-draft` | rama `docs/report-draft` |
+| D-011 | 2026-11-04 | Trabajar con ramas y pull request desde la redacción del informe | La guía pide ramas e integración mediante PR | PR #1 mergeado; este trabajo en `feat/env-validation-evidence` | `4d7b6bd` |
+| D-012 | 2026-11-04 | Chequeos críticos que lanzan `ValueError` y advertencias que no | El caso `model_a == model_b` (10 filas) es raro pero no invalida el dato | 0 fallos críticos y 1 advertencia sobre el dato original | `2078783` |
+| D-013 | 2026-11-04 | `make data` usa `CHECKSUMS.txt` versionado como referencia y no lo reescribe | Detectar descargas corruptas o distintas entre integrantes | 7 de 7 archivos coinciden en un clon limpio | `828d3ec` |
+| D-014 | 2026-11-04 | No usar transporte IPC para silenciar el aviso del kernel en `nbconvert` | Falló en un clon con ruta larga y no existe en Windows | El log conserva un aviso informativo de Jupyter; se documenta en el README | `cb42166` |
 
 ## Pendientes de decisión
 
