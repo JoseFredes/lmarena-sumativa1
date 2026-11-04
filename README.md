@@ -81,6 +81,15 @@ Revisamos el dataset con el `validar_dataset.py` del curso, sobre una muestra ap
 - **Ventana temporal.** Los datos cubren abril–julio de 2025 (unos 3 meses), así que no hacemos análisis de tendencias de largo plazo.
 - **Alcance de las conclusiones.** Es un estudio observacional: hablamos de asociaciones, no de causas.
 
+## Avance
+
+- [x] Repo, entorno, `requirements.txt` y estructura (Jose)
+- [x] Descarga con SHA-256 y exploración inicial: `F2/F2_01_acquisition_exploration.ipynb` (Jose)
+- [ ] Notebook F1 (Alejandro)
+- [ ] Limpieza y transformación, `F2_02` (Alejandro). Parte de `load_raw()`; los hallazgos de `F2_01` (sección 9) dicen qué limpiar
+- [ ] Validación y pruebas, `F2_03` (Jose; depende de `F2_02`)
+- [ ] Informe PDF, mapa conceptual y bibliografía
+
 ## Por resolver
 
 - [ ] ¿Trabajamos con el dataset completo (~1,6 GB) o con una muestra?
@@ -114,7 +123,7 @@ LICENSE            MIT
 Makefile           install, test, data, run, all
 requirements.txt   dependencias con versión fija
 pytest.ini         configuración de pytest
-src/arena/         paquete del proyecto (se irá llenando)
+src/arena/         paquete: env, io (descarga y SHA-256), profile (inspección), plots, sampling
 tests/             pruebas con datos sintéticos, sin red
 F1/                notebook de la Fase 1
 F2/                notebooks de la Fase 2
