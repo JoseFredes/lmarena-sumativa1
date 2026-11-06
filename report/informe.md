@@ -196,19 +196,21 @@ Diagnóstico ya disponible (F2_01): 0 nulos en 11 columnas; 10 filas con `model_
 - `F2/F2_03_validation.ipynb` 🟡 ejecutado sobre el dato original, con casos límite y excepciones; falta la validación del dataset procesado.
 - `F2_02` (limpieza y transformación) ⬜.
 
-## 14. Vinculación del mapa conceptual con el avance · ⬜
-`TODO(humano)`: requiere el mapa conceptual del grupo. La guía pide una tabla con los seis tipos de elemento y el estado de cada uno:
+
+## 14. Vinculación del mapa conceptual con el avance · 🟡
+
+La siguiente matriz relaciona los componentes del mapa conceptual del grupo con los elementos disponibles en el repositorio. Se distingue entre lo implementado en la rama principal y lo que permanece proyectado o pendiente de integración.
 
 | Elemento del mapa | Tipo | Estado (implementado / proyectado) | Evidencia |
 |---|---|---|---|
-| TODO(humano) | Herramientas | | |
-| TODO(humano) | Procesos | | |
-| TODO(humano) | Flujo reproducible | | |
-| TODO(humano) | Decisiones técnicas | | |
-| TODO(humano) | Organización del repositorio | | |
-| TODO(humano) | Estructura del notebook | | |
+| Python + pandas, Jupyter, entorno de ejecución, Git local y GitHub remoto | Herramientas | Implementado parcialmente: se encuentran disponibles los módulos Python, las dependencias y los notebooks de Fase 2. El notebook F1 está propuesto en el PR #4, aún abierto. | `requirements.txt`, `src/arena/`, `F2/F2_01_acquisition_exploration.ipynb`, `F2/F2_03_validation.ipynb`, PR #4 |
+| Carga del dataset, exploración de preferencias, limpieza y preparación, análisis de contenido y formato | Procesos | Implementado parcialmente: la descarga, exploración y validación inicial están desarrolladas. La limpieza y transformación están pendientes; el análisis de contenido y formato se proyecta para Fase 3. | `src/arena/io.py`, `src/arena/profile.py`, `src/arena/validation.py`, notebooks F2_01 y F2_03 |
+| Entorno virtual, dependencias, semilla, descarga verificada y ejecución automatizada | Flujo reproducible | Implementado parcialmente: existe automatización para instalar dependencias, descargar datos, ejecutar pruebas y notebooks. Está pendiente la verificación en un segundo equipo. | `Makefile`, `requirements.txt`, `docs/evidence/` |
+| Selección del dataset LMArena, exclusión de textos de respuestas, criterios de análisis y tratamiento del dato | Decisiones técnicas | Implementado y documentado: se registran las decisiones sobre selección del dataset, uso de datos, muestreo y enfoque de asociación. Algunas decisiones de transformación quedan pendientes. | `docs/decisiones.md`, `README.md` |
+| `data/raw/`, notebooks, `requirements.txt`, `src/` y `.gitignore` | Organización del repositorio | Implementado: el repositorio organiza los datos, notebooks, código fuente, pruebas y documentación en carpetas diferenciadas por función y fase. | `F1/`, `F2/`, `F3/`, `F4/`, `data/`, `src/`, `tests/`, `docs/`, `report/`, `.gitignore` |
+| Notebooks organizados por fase y con documentación del proceso | Estructura del notebook | Implementado parcialmente: F2_01 y F2_03 están disponibles; F2_02 está pendiente. El notebook F1 se encuentra propuesto en el PR #4, aún no integrado en la rama principal. | `F2/F2_01_acquisition_exploration.ipynb`, `F2/F2_03_validation.ipynb`, PR #4 |
 
-Seguida de dos o tres frases que justifiquen por qué lo implementado corresponde a lo proyectado y por qué lo pendiente sigue siendo pertinente.
+La implementación sigue la planificación del mapa conceptual al integrar herramientas, procesos de análisis, código reutilizable y documentación dentro de una estructura organizada y reproducible. Los componentes pendientes, especialmente la limpieza y transformación del dataset, la validación de los datos procesados y la integración del notebook F1, corresponden a actividades previstas en las fases del proyecto. La matriz deberá actualizarse a medida que estos componentes se implementen y cuenten con evidencia de ejecución.
 
 ## 15. Bibliografía · 🟡
 
