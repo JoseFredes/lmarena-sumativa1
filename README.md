@@ -23,7 +23,6 @@ Descartamos `Anthropic/persuasion` (nuestra idea inicial) porque es de 2024 y so
 ## Preguntas
 
 - **P1 · Estilo vs. calidad:** ¿gana más seguido la respuesta más larga y con más formato?
-- **P3 · Posición y sesión:** ¿le va mejor al modelo que aparece como A? ¿Cambian los empates a medida que avanza la sesión de votación?
 
 Son preguntas para la Fase 3. Solo vamos a hablar de **asociación**, no de causas.
 
