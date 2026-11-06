@@ -15,8 +15,8 @@
 | Programa | Magíster en Ciencia de Datos e Inteligencia Artificial · Universidad Andrés Bello |
 | Título del proyecto | ¿Contenido o formato? Preferencias humanas en LMArena |
 | Subtítulo | Avance del proyecto, Fases 1 y 2 |
-| Integrantes | TODO(humano): nombres completos de los 3 o 4 integrantes |
-| Grupo | TODO(humano): número de grupo |
+| Integrantes | Alejandro Poirier Gomez, Angelo Morales Serrano, Jose Fredes Acevedo y Valentina Carvajal Jacob |
+| Grupo | 6 |
 | Docente responsable | Dr. Omar Salinas Silva |
 | Fecha | 8 de noviembre de 2026 |
 | Repositorio | https://github.com/JoseFredes/lmarena-sumativa1 |
@@ -25,7 +25,7 @@
 
 **Observaciones sobre la plantilla institucional** (`f1_s01_evaluacion_entregable.docx`), a resolver antes de entregar:
 - Dice "MCDIA500" y "AVANCE DEL PROYECTO FASE 1"; la entrega cubre las Fases 1 y 2 y el curso se llama MCDI500.
-- La portada solo tiene "Nombre integrante/s", "Curso" y "Fecha". Faltan título del proyecto, docente, grupo, datos institucionales y enlace al repositorio.
+- La plantilla original solo contempla "Nombre integrante/s", "Curso" y "Fecha". En esta portada se agregaron el título del proyecto, docente, grupo y enlace al repositorio. Revisar si faltan otros datos institucionales solicitados.
 - La lista de "Apartados" no incluye codificación funcional, preprocesamiento, validación técnica ni los notebooks de la Fase 2.
 - No trae índice automático ni estilos de título: hay que agregarlos.
 - Nombre del archivo: la instrucción pide `f1_s01_evaluacion_entregable_grupox` y a la vez "no superar los 20 caracteres", lo que es incompatible (el nombre base ya tiene 35). Consultar al docente.
