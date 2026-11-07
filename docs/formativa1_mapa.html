@@ -1,0 +1,243 @@
+<title>Mapa del flujo reproducible</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: two letter-size pages stacked (portada + mapa), each printable on its own sheet */
+:root{
+  --paper:#faf8f5; --ink:#1c1b19; --ink-soft:#5a564e;
+  --accent:#b23a5c; --accent-soft:#f3dde3;
+  --line:#d8d2c6; --line-strong:#1c1b19;
+  --mono-bg:#efece4;
+  --font:Calibri, Carlito, Arial, sans-serif;
+  --mono:Consolas, 'Courier New', monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1b1a18; --ink:#f0ede6; --ink-soft:#b8b2a4;
+    --accent:#e08aa3; --accent-soft:#3a232b;
+    --line:#3a372f; --line-strong:#f0ede6;
+    --mono-bg:#242320; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1b1a18; --ink:#f0ede6; --ink-soft:#b8b2a4;
+  --accent:#e08aa3; --accent-soft:#3a232b;
+  --line:#3a372f; --line-strong:#f0ede6;
+  --mono-bg:#242320; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:#e9e5dc; color:var(--ink);
+  font-family:var(--font); font-size:11pt; line-height:1.3;
+  padding-left:max(16px, env(safe-area-inset-left,0px));
+  padding-right:max(16px, env(safe-area-inset-right,0px));
+  padding-block:24px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) body{background:#111110} }
+:root[data-theme="dark"] body{background:#111110}
+
+h1,h2,h3{font-family:var(--font); text-wrap:balance; margin:0; font-weight:700}
+
+.sheet{
+  width:min(100%, 816px); margin:0 auto 24px; background:var(--paper); color:var(--ink);
+  border:1px solid var(--line); border-radius:4px;
+  padding:44px 40px; min-height:1056px;
+  display:flex; flex-direction:column;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+@page{size:letter; margin:0}
+@media print{
+  :root{
+    --paper:#fff; --ink:#1c1b19; --ink-soft:#5a564e;
+    --accent:#b23a5c; --accent-soft:#f3dde3;
+    --line:#d8d2c6; --line-strong:#1c1b19; --mono-bg:#efece4; color-scheme:light;
+  }
+  body{background:#fff; padding:0}
+  .sheet{box-shadow:none; border:none; border-radius:0; width:8.5in; height:11in; min-height:0; margin:0; overflow:hidden; break-after:page}
+  .sheet:last-child{break-after:auto}
+  .no-print{display:none}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+@media (max-width:480px){ .sheet{padding:28px 20px} }
+
+/* ---------- Página 1: portada ---------- */
+.cover{justify-content:space-between}
+.cover .kicker{font-size:11pt; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); font-weight:700}
+.cover h1{font-size:24pt; line-height:1.15; margin-top:10px}
+.cover .subtitle{color:var(--ink-soft); font-size:13pt; margin-top:14px; max-width:50ch}
+
+.cover-meta{
+  margin-top:40px; border-top:1px solid var(--line); padding-top:20px;
+  display:grid; grid-template-columns:1fr 1fr; gap:16px 24px; font-size:11pt;
+}
+.cover-meta dt{color:var(--ink-soft); font-size:11pt; text-transform:uppercase; letter-spacing:.04em}
+.cover-meta dd{margin:2px 0 0; font-weight:700}
+
+.roster{margin-top:auto; padding-top:32px}
+.roster h2{font-size:11pt; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft)}
+.roster ol{list-style:decimal; margin:10px 0 0; padding-left:1.3em; font-size:13pt; display:grid; gap:6px}
+
+.cover-footer{margin-top:28px; font-size:11pt; color:var(--ink-soft); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+
+/* ---------- Página 2: mapa conceptual ---------- */
+.map-page h2{font-size:16pt}
+.map-page .eyebrow{font-size:11pt; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); font-weight:700; margin-bottom:4px}
+
+.root-node{
+  margin:12px auto 0; max-width:540px; text-align:center;
+  border:1.5px solid var(--line-strong); border-radius:10px; padding:10px 16px;
+  font-size:12pt; font-weight:700; line-height:1.3;
+}
+.phase-note{
+  margin:6px auto 10px; max-width:600px; text-align:center;
+  font-size:11pt; color:var(--ink-soft); line-height:1.3;
+}
+.phase-note strong{color:var(--accent)}
+
+.connectors{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:6px}
+.connectors span{
+  justify-self:center; font-size:11pt; font-style:italic; color:var(--accent);
+  border:1px dashed var(--accent); border-radius:999px; padding:1px 10px; background:var(--paper);
+}
+@media (max-width:620px){ .connectors{display:none} }
+
+.columns{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+@media (max-width:620px){ .columns{grid-template-columns:1fr} }
+
+.col-title{font-size:11pt; text-transform:uppercase; letter-spacing:.02em; color:var(--ink-soft); font-weight:700; margin-bottom:2px; text-align:center; line-height:1.2}
+.col{display:flex; flex-direction:column; gap:6px}
+.col.framed{border:1px solid var(--accent); border-radius:8px; padding:8px; background:var(--accent-soft)}
+
+.node{
+  border:1px solid var(--line); border-radius:7px; background:var(--paper);
+  padding:6px 8px; font-size:11pt; line-height:1.25; text-align:center;
+}
+.node.step{border-color:var(--line-strong)}
+.node.key{border-color:var(--accent); border-width:1.5px; font-weight:700}
+.node.commit, .node.tree{
+  font-family:var(--mono); background:var(--mono-bg);
+  font-size:11pt; text-align:left; padding:6px 7px; border-style:dashed; line-height:1.25;
+}
+.node.commit{font-size:10pt; word-break:break-word}
+.node.tree{white-space:pre; overflow-x:auto; font-size:10pt; line-height:1.35}
+.node .sub{display:block; font-size:11pt; color:var(--ink-soft); font-weight:400; margin-top:2px}
+
+.rel{font-size:11pt; font-style:italic; color:var(--accent); text-align:center; margin:-2px 0}
+
+.legend{
+  margin-top:14px; padding-top:10px; border-top:1px solid var(--line);
+  display:flex; gap:8px 18px; flex-wrap:wrap; font-size:11pt; color:var(--ink-soft); align-items:center;
+}
+.legend strong{color:var(--ink)}
+.legend .swatch{display:inline-flex; align-items:center; gap:6px}
+.legend .ln{width:26px; height:0; border-top:2px solid var(--ink)}
+.legend .box{width:18px; height:12px; border:1px solid var(--accent); background:var(--accent-soft); border-radius:3px}
+.legend .chip{font-style:italic; color:var(--accent); border:1px dashed var(--accent); border-radius:999px; padding:0 8px}
+.legend .mono-chip{font-family:var(--mono); font-size:10pt; background:var(--mono-bg); padding:1px 6px; border-radius:4px; border:1px dashed var(--line)}
+
+.ref{margin-top:auto; padding-top:10px; border-top:1px solid var(--line); font-size:11pt; color:var(--ink-soft); padding-left:2em; text-indent:-2em}
+.ref-title{font-weight:700; color:var(--ink); text-indent:0; padding-left:0; margin-bottom:2px; display:block}
+</style>
+
+<!-- Página 1 — Portada -->
+<section class="sheet cover">
+  <div>
+    <div class="kicker">MCDI500 · Programación para la Ciencia de Datos</div>
+    <h1>Mapa conceptual: exploración guiada de herramientas colaborativas en ciencia de datos</h1>
+    <p class="subtitle">Formativa 1 · Avance del proyecto, Fase 1 — Magíster en Inteligencia Artificial, Universidad Andrés Bello.</p>
+
+    <dl class="cover-meta">
+      <div><dt>Proyecto</dt><dd>¿Contenido o formato? Preferencias humanas en LMArena</dd></div>
+      <div><dt>Grupo</dt><dd>6</dd></div>
+      <div><dt>Docente</dt><dd>Dr. Omar Salinas Silva</dd></div>
+      <div><dt>Entrega</dt><dd>29 de noviembre de 2026</dd></div>
+    </dl>
+  </div>
+
+  <div class="roster">
+    <h2>Integrantes</h2>
+    <ol>
+      <li>Alejandro Poirier Gomez</li>
+      <li>Angelo Morales Serrano</li>
+      <li>Jose Fredes Acevedo</li>
+      <li>Valentina Carvajal Jacob</li>
+    </ol>
+  </div>
+
+  <div class="cover-footer">
+    <span>github.com/JoseFredes/lmarena-sumativa1</span>
+    <span>mcdi500_s1_grupo6.pdf</span>
+  </div>
+</section>
+
+<!-- Página 2 — Mapa conceptual -->
+<section class="sheet map-page">
+  <div class="eyebrow">Flujo de trabajo reproducible</div>
+  <h2>Del dataset LMArena al repositorio versionado</h2>
+
+  <div class="root-node">Problemática: "¿Contenido o formato? Preferencias humanas en LMArena"</div>
+  <p class="phase-note"><strong>Fase 1 del ABP · Definición y orientación de la situación</strong> — este mapa es la base del mapa que se integrará en la entrega sumativa.</p>
+
+  <div class="connectors" aria-hidden="true">
+    <span>↓ genera</span>
+    <span>↓ requiere</span>
+    <span>↓ depende de</span>
+    <span>↓ incluye</span>
+  </div>
+
+  <div class="columns">
+    <div class="col">
+      <div class="col-title">Flujo de datos</div>
+      <div class="node step">Carga de arena-human-preference-140k (LMArena, 2025)</div>
+      <div class="rel">↓ se procesa con</div>
+      <div class="node step">Exploración de preferencias</div>
+      <div class="rel">↓ conduce a</div>
+      <div class="node step">Limpieza y preparación</div>
+      <div class="rel">↓ conduce a</div>
+      <div class="node step">Análisis de contenido y formato (P1)</div>
+    </div>
+
+    <div class="col framed">
+      <div class="col-title">Herramientas y entorno</div>
+      <div class="node">Python + pandas</div>
+      <div class="node">Jupyter Notebooks</div>
+      <div class="node">Entorno reproducible (Makefile, requirements.txt, semilla = 42)</div>
+      <div class="node">Git local</div>
+      <div class="node">GitHub remoto</div>
+    </div>
+
+    <div class="col framed">
+      <div class="col-title">Repositorio y versionamiento</div>
+      <div class="node tree">repo/
+├─ F1/  definición
+├─ F2/  notebooks
+├─ src/arena/
+│       código
+├─ data/raw/
+│       dataset
+└─ docs/ decisiones</div>
+      <div class="node commit">docs(f1): define problem and scope</div>
+      <div class="node commit">feat(f2): parse conversation metadata</div>
+      <div class="node commit">test(validation): add zero-token check</div>
+      <div class="node">Criterios: 1 rama por tema, commits chicos en inglés, PR sin squash</div>
+    </div>
+
+    <div class="col framed">
+      <div class="col-title">Documentación e información</div>
+      <div class="node key">Notebook reproducible<span class="sub">= código + celdas narrativas + referencias + resultados</span></div>
+      <div class="node">README.md — guía de reproducción</div>
+      <div class="node">docs/decisiones.md — trazabilidad de decisiones</div>
+      <div class="node">Fuente y licencia (LMArena, CC-BY-4.0 en prompts)</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <strong>Leyenda:</strong>
+    <span class="swatch"><span class="ln"></span> jerarquía / secuencia</span>
+    <span class="swatch"><span class="chip">verbo</span> conector lógico (genera, requiere, depende de, incluye, conduce a)</span>
+    <span class="swatch"><span class="box"></span> componente del ecosistema</span>
+    <span class="swatch"><span class="mono-chip">repo/ · commit</span> estructura y commits proyectados</span>
+  </div>
+
+  <p class="ref"><span class="ref-title">Referencia</span>LMArena. (2025). <em>Arena-human-preference-140k</em> [Conjunto de datos]. Hugging Face. https://huggingface.co/datasets/lmarena-ai/arena-human-preference-140k</p>
+</section>
