@@ -56,7 +56,6 @@ Las evaluaciones por preferencia humana se usan como medida de calidad de los mo
 ### 3.2 Preguntas del análisis
 - **Pregunta central.** ¿En qué medida las preferencias humanas registradas en LMArena se asocian a características de estilo y de presentación de la respuesta, y no solo a su contenido?
 - **P1 · Estilo frente a calidad.** ¿El lado ganador tiende a ser el de respuesta más larga y con más formato? ¿Cambia según categoría de prompt, idioma o modelo?
-- **P3 · Posición y sesión.** ¿El modelo que aparece como A gana más que el que aparece como B? ¿Cambian los empates y los votos `both_bad` con el orden del voto dentro de la sesión?
 
 Estas preguntas se responden en las Fases 3 y 4.
 
@@ -77,7 +76,7 @@ Construir y validar un conjunto de datos reproducible que permita analizar si la
 ### 3.6 Restricciones
 Condiciones impuestas por el dato o por el contexto, distintas de las decisiones de alcance:
 - **Ventana temporal:** los datos cubren cerca de 3 meses (17 de abril a 24 de julio de 2025) y la recolección es despareja: abril es parcial y hay días con 330 votos y otros con 2.865.
-- **Estructura de sesiones:** el 79,9 % de los votos es el primero de su sesión y solo el 11,4 % de las sesiones tiene más de un voto, lo que limita el análisis del efecto del orden (P3).
+- **Estructura de sesiones:** el 79,9 % de los votos es el primero de su sesión y solo el 11,4 % de las sesiones tiene más de un voto, lo que limita el análisis del efecto del orden.
 - **Definiciones faltantes:** la ficha del dataset no define la diferencia entre `tie` y `both_bad` ni documenta el método de las etiquetas de categoría, que son automáticas.
 - **Tamaño:** el dato original pesa 1,6 GB, por sobre los 100 MB sugeridos; no se versiona y se descarga con verificación de integridad.
 - **Licencia:** los prompts son CC-BY-4.0; las respuestas de los modelos dependen de cada proveedor, por lo que no se redistribuyen.

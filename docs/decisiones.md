@@ -5,7 +5,7 @@ Una línea por decisión, con su motivo, su impacto medido y el commit donde que
 | ID | Fecha | Decisión | Motivo | Impacto / cifra | Commit |
 |---|---|---|---|---|---|
 | D-001 | 2026-11-02 | Descartar `Anthropic/persuasion` y usar `lmarena-ai/arena-human-preference-140k` | El primero es de 2024, con modelos de una sola familia (Claude); no permite escalar. LMArena es de abr–jul 2025, 53 modelos | Se reescribe esquema, preprocesamiento y validación. 135.634 filas frente a ~3.940 | `2e1ab81` |
-| D-002 | 2026-11-02 | Foco en dos preguntas: P1 (estilo vs. calidad) y P3 (posición y sesión) | P1 usa casi directo `conv_metadata`; P3 es calidad de dato y refuerza la validación | P2, P4 y P5 quedan como trabajo futuro | `2e1ab81` |
+| D-002 | 2026-11-02 | Foco en una pregunta: P1 (estilo vs. calidad) | P1 usa casi directo `conv_metadata` | P2, P4 y P5 quedan como trabajo futuro | `2e1ab81` |
 | D-003 | 2026-11-02 | Plantear los resultados como asociaciones, no como causas | Longitud y formato se confunden con calidad, modelo y tipo de prompt | Se declara en restricciones y supuestos | `be6a217` |
 | D-004 | 2026-11-04 | Usar el dataset completo, sin muestrear para el análisis | Cargando 11 de 14 columnas ocupa 115 MB y carga en menos de 1 s | Se evita justificar una muestra; el muestreo queda para pruebas rápidas | `ae2f4f0` |
 | D-005 | 2026-11-04 | Excluir las columnas de conversaciones al cargar | Pesan mucho y las respuestas de los modelos no se redistribuyen (licencia) | De 14 a 11 columnas; del texto solo se extraerá el largo del prompt | `ae2f4f0` |
