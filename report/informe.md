@@ -15,8 +15,8 @@
 | Programa | Magíster en Ciencia de Datos e Inteligencia Artificial · Universidad Andrés Bello |
 | Título del proyecto | ¿Contenido o formato? Preferencias humanas en LMArena |
 | Subtítulo | Avance del proyecto, Fases 1 y 2 |
-| Integrantes | TODO(humano): nombres completos de los 3 o 4 integrantes |
-| Grupo | TODO(humano): número de grupo |
+| Integrantes | Alejandro Poirier Gomez, Angelo Morales Serrano, Jose Fredes Acevedo y Valentina Carvajal Jacob |
+| Grupo | 6 |
 | Docente responsable | Dr. Omar Salinas Silva |
 | Fecha | 8 de noviembre de 2026 |
 | Repositorio | https://github.com/JoseFredes/lmarena-sumativa1 |
@@ -25,7 +25,7 @@
 
 **Observaciones sobre la plantilla institucional** (`f1_s01_evaluacion_entregable.docx`), a resolver antes de entregar:
 - Dice "MCDIA500" y "AVANCE DEL PROYECTO FASE 1"; la entrega cubre las Fases 1 y 2 y el curso se llama MCDI500.
-- La portada solo tiene "Nombre integrante/s", "Curso" y "Fecha". Faltan título del proyecto, docente, grupo, datos institucionales y enlace al repositorio.
+- La plantilla original solo contempla "Nombre integrante/s", "Curso" y "Fecha". En esta portada se agregaron el título del proyecto, docente, grupo y enlace al repositorio. Revisar si faltan otros datos institucionales solicitados.
 - La lista de "Apartados" no incluye codificación funcional, preprocesamiento, validación técnica ni los notebooks de la Fase 2.
 - No trae índice automático ni estilos de título: hay que agregarlos.
 - Nombre del archivo: la instrucción pide `f1_s01_evaluacion_entregable_grupox` y a la vez "no superar los 20 caracteres", lo que es incompatible (el nombre base ya tiene 35). Consultar al docente.
@@ -196,19 +196,21 @@ Diagnóstico ya disponible (F2_01): 0 nulos en 11 columnas; 10 filas con `model_
 - `F2/F2_03_validation.ipynb` 🟡 ejecutado sobre el dato original, con casos límite y excepciones; falta la validación del dataset procesado.
 - `F2_02` (limpieza y transformación) ⬜.
 
-## 14. Vinculación del mapa conceptual con el avance · ⬜
-`TODO(humano)`: requiere el mapa conceptual del grupo. La guía pide una tabla con los seis tipos de elemento y el estado de cada uno:
+
+## 14. Vinculación del mapa conceptual con el avance · 🟡
+
+A continuación, se muestra cómo se relacionan los elementos del mapa conceptual con los avances que tiene ya el repositorio y con las tareas que todavía están pendientes
 
 | Elemento del mapa | Tipo | Estado (implementado / proyectado) | Evidencia |
 |---|---|---|---|
-| TODO(humano) | Herramientas | | |
-| TODO(humano) | Procesos | | |
-| TODO(humano) | Flujo reproducible | | |
-| TODO(humano) | Decisiones técnicas | | |
-| TODO(humano) | Organización del repositorio | | |
-| TODO(humano) | Estructura del notebook | | |
+| Python, pandas, Jupyter, Git y GitHub | Herramientas | El proyecto utiliza Python y pandas para trabajar con los datos. También están disponibles los notebooks de F2. El notebook F1 está en el PR #4 y todavía está pendiente de integrar. | `requirements.txt`, `src/arena/`, `F2/F2_01_acquisition_exploration.ipynb`, `F2/F2_03_validation.ipynb`, PR #4 |
+| Descarga, exploración, limpieza y validación de los datos | Procesos | La descarga, exploración y validación inicial ya están realizadas. Falta desarrollar la limpieza y transformación de los datos en F2_02. El análisis del largo y formato de las respuestas se realizará en F3. | `src/arena/io.py`, `src/arena/profile.py`, `src/arena/validation.py`, notebooks F2_01 y F2_03 |
+| Instalación de dependencias, descarga de datos y ejecución de pruebas y notebooks | Flujo reproducible | Ya se puede instalar el entorno, descargar los datos y ejecutar las pruebas y notebooks mediante Makefile. También se guardaron evidencias de estas ejecuciones. Falta probar el proceso en otro equipo. | `Makefile`, `requirements.txt`, `docs/evidence/` |
+| Elección del dataset y criterios para trabajar con los datos | Decisiones técnicas | Ya se definió qué dataset utilizar, qué información cargar y por qué no se guardarán los textos de las respuestas. Estas decisiones están registradas en la bitácora. Todavía quedan algunas definiciones pendientes para la limpieza de los datos. | `docs/decisiones.md`, `README.md` |
+| Carpetas para separar los datos, notebooks, código, pruebas y documentos | Organización del repositorio | Implementado. El repositorio cuenta con carpetas separadas según la fase y el tipo de contenido, lo que permite mantener ordenados los archivos del proyecto. | `F1/`, `F2/`, `F3/`, `F4/`, `data/`, `src/`, `tests/`, `docs/`, `report/`, `.gitignore` |
+| Notebooks separados según el trabajo de cada fase | Estructura del notebook | F2_01 y F2_03 ya están disponibles en el repositorio. F2_02 sigue pendiente y el notebook F1 está incluido en el PR #4, que todavía no se ha integrado. | `F2/F2_01_acquisition_exploration.ipynb`, `F2/F2_03_validation.ipynb`, PR #4 |
 
-Seguida de dos o tres frases que justifiquen por qué lo implementado corresponde a lo proyectado y por qué lo pendiente sigue siendo pertinente.
+Los avances que se muestran en la tabla corresponden a las primeras tareas del mapa: preparar el entorno, organizar el repositorio y comenzar a trabajar con el dataset. Todavía falta completar la limpieza y transformación de los datos y revisar que el proceso funcione en otro equipo. Estos pasos son necesarios para dejar el dataset listo para los análisis de las siguientes fases.
 
 ## 15. Bibliografía · 🟡
 
