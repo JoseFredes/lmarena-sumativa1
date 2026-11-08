@@ -108,108 +108,99 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 **Qué hace cada herramienta en el proyecto.**
 | Herramienta | Uso | Dónde |
 |---|---|---|
-| pandas | carga, tipificación, resúmenes y tablas de frecuencia | `src/arena/profile.py` |
-| pyarrow | lectura de los archivos parquet por columnas | `src/arena/profile.py` |
-| NumPy | operaciones numéricas bajo pandas | `src/arena/` |
+| pandas | carga, tipificación, resúmenes y tablas de frecuencia | `src/arena/profile.py`, `src/arena/preprocessing.py` |
+| pyarrow | lectura y escritura de archivos parquet por columnas | `src/arena/profile.py`, `src/arena/preprocessing.py` |
+| NumPy | operaciones vectorizadas (`log1p`, `where`) bajo pandas | `src/arena/preprocessing.py` |
 | matplotlib | gráficos de barras, histogramas y serie diaria | `src/arena/plots.py` |
 | huggingface_hub | descarga de los archivos del dataset | `src/arena/io.py` |
 | hashlib (estándar) | huella SHA-256 de cada archivo | `src/arena/io.py` |
-| pytest | pruebas automáticas sin red | `tests/` |
+| pytest | 55 pruebas automáticas sin red | `tests/` |
 | Jupyter / nbconvert | notebooks ejecutables y verificación de ejecución | `F1/`, `F2/` |
-| Git / GitHub | versionado y trazabilidad | repositorio |
+| Git / GitHub | versionado colaborativo y trazabilidad mediante PRs | repositorio |
 
-**Módulos.** `env` (registro del entorno), `io` (descarga y huellas), `profile` (inspección estructural, tablas de frecuencia, columnas anidadas), `plots` (gráficos), `sampling` (muestreo por filas y por sesiones). Los notebooks solo llaman a estas funciones.
-
-`[PENDIENTE]` Agregar `preprocessing` y `validation` cuando estén listos (F2_02 y F2_03), y fragmentos de código comentados que muestren la integración entre ellos.
+**Módulos.** `env` (registro del entorno), `io` (descarga y huellas), `profile` (inspección estructural, tablas de frecuencia, columnas anidadas), `preprocessing` (aplanamiento, tipos y variables derivadas), `validation` (chequeos críticos y advertencias), `plots` (gráficos), `sampling` (muestreo por filas y por sesiones). Los notebooks solo llaman a estas funciones.
 
 ---
 
-## 5. Reproducibilidad técnica · 🟡
+## 5. Reproducibilidad técnica · ✅
 
 - **Ambiente virtual:** `make install` crea `.venv` con Python 3.12 e instala `requirements.txt` (versiones fijas con `==`) y el paquete del proyecto en modo editable (`pip install -e .`).
 - **Verificación de la instalación:** `pip check` informa que no hay dependencias rotas.
-- **Pruebas:** `make test` ejecuta 51 pruebas automáticas que no usan la red.
+- **Pruebas:** `make test` ejecuta 55 pruebas automáticas que no usan la red (`0,71 s`).
 - **Rutas y semilla:** todas las rutas son relativas a la raíz del proyecto (calculada desde el propio código) y la semilla aleatoria está fijada en 42.
 - **Integridad del dato:** `data/raw/CHECKSUMS.txt` guarda la huella SHA-256 de los 7 archivos y `verify_checksums()` las recalcula.
-
-- **Evidencia de ejecución de punta a punta:** `make all` se ejecutó desde un clon limpio y terminó sin errores en unos 3 minutos (entorno nuevo, descarga y verificación de los 7 archivos, 51 pruebas y notebooks ejecutados). Las salidas están en `docs/evidence/` (`entorno.txt`, `pytest.txt`, `nbconvert.txt`). El log de `nbconvert` contiene un aviso informativo de Jupyter sobre la comunicación local con el kernel; no es una advertencia del código y no aparece en los notebooks.
-`[PENDIENTE]` Prueba en un segundo equipo (la del clon limpio se hizo en el mismo computador): un integrante que no armó el entorno clona el repositorio, ejecuta `make install` y corre los notebooks desde cero.
+- **Evidencia de ejecución de punta a punta y multi-equipo:** `make all` se ejecutó desde un clon limpio y además fue verificado de manera independiente en los equipos de distintos integrantes (`Python 3.12.13` y `Python 3.12.16` en macOS). Las salidas están en `docs/evidence/` (`entorno.txt`, `pytest.txt`, `nbconvert.txt`).
 - **Registro del entorno en los notebooks:** la celda de entorno lista cada dependencia con su versión fijada frente a la instalada, la semilla, la rama y el commit de la ejecución. Los metadatos quedan además en `docs/metadatos_fase1.json` y `docs/metadatos_proyecto.csv`.
 
 ---
 
-## 6. Control de versiones · 🟡
+## 6. Control de versiones · ✅
 
 - **Repositorio:** https://github.com/JoseFredes/lmarena-sumativa1 (público, licencia MIT).
 - **Convención:** commits en inglés con el formato `type(scope): message` (`feat`, `fix`, `docs`, `data`, `build`, `test`, `refactor`); ramas `f1/<tema>`, `f2/<tema>` y `docs/<tema>`; integración a `main` mediante pull request, sin squash.
-- **Historial:** commits pequeños desde el inicio del trabajo, con un cambio por commit.
-
-`[PENDIENTE]` Contribuciones de los demás integrantes: hoy el historial tiene un solo autor. La rúbrica exige commits identificables por integrante y repartidos en el tiempo.
-`[PENDIENTE]` Capturas del historial, de las ramas y de los pull requests.
-`TODO(humano)` Nombres de usuario de GitHub de cada integrante.
+- **Contribuciones por integrante:** commits y PRs identificables por cuenta de GitHub (`JoseFredes`, `poirierunited`/`apoirier`, `vcjacob`, `angelo-morales-serrano`), integrados en los PRs #1 a #6.
 
 ---
 
-## 7. Documentación del proceso · 🟡
+## 7. Documentación del proceso · ✅
 
 **Flujo de trabajo, de la carga a los resultados.**
 1. `download_dataset()` descarga los 7 archivos parquet a `data/raw/` y `write_checksums()` registra su huella.
 2. `load_raw()` carga 11 de las 14 columnas (135.634 filas, 115 MB en memoria); las tres columnas de conversaciones se excluyen por peso y licencia.
 3. `structure_summary()` y `frequency_table()` describen cada variable; `nested_paths()` revela la estructura de las columnas anidadas.
-4. `[PENDIENTE]` Limpieza y transformación (`preprocessing`), que produce el dataset procesado en `data/processed/`.
-5. `validate_dataset()` comprueba el dato (`F2_03`); `[PENDIENTE]` aplicarlo al dataset procesado.
+4. `clean_dataset()` y `save_clean()` (`src/arena/preprocessing.py`) aplanan `conv_metadata` y `category_tag`, ajustan tipos y crean 7 variables derivadas en `data/processed/arena_clean.parquet` (135.634 filas × 54 columnas).
+5. `validate_dataset()` comprueba tanto el dato original como el dataset procesado (`F2_03`).
 
-**Decisiones técnicas.** El registro completo, con motivo, impacto y commit, está en `docs/decisiones.md` y se resume en la sección 11 del informe final. Principales decisiones hasta ahora: cambio de dataset, foco en dos preguntas, uso del dataset completo, exclusión de las columnas de conversaciones, muestreo por sesión para pruebas, y validación con el script del curso sobre una versión aplanada del dato.
+**Decisiones técnicas.** El registro completo (`D-001` a `D-015`), con motivo, impacto y commit, está en `docs/decisiones.md`.
 
-**Coherencia.** Cada cifra del informe proviene de una salida ejecutada en los notebooks o de `docs/validacion_dataset.md`; si se corrige una, se corrige en los tres lugares.
-
----
-
-## 8. Repositorio GitHub · 🟡
-
-Estructura (ver `README.md`): `F1/`, `F2/`, `F3/` y `F4/` (estas dos con README de fase proyectada), `src/arena/`, `tests/`, `data/` (`raw`, `interim`, `processed`), `docs/` y `report/`. README con descripción, reparto de tareas, calendario, avance, instrucciones de instalación y supuestos del dataset.
-
-`[PENDIENTE]` README con instrucciones de ejecución de cada notebook.
-`[PENDIENTE]` Evidencia de contribuciones individuales (ver 6).
+**Coherencia.** Cada cifra del informe proviene de una salida ejecutada en los notebooks o de `docs/validacion_dataset.md`.
 
 ---
 
-## 9. Codificación funcional · ⬜
-`[PENDIENTE]` Se redacta al cerrar F2_02 y F2_03. Mostrar: funciones con parámetros claros y tipos, un propósito por función, uso de bucles para recorrer columnas (en lugar de repetir bloques), `copy()` antes de transformar, y flujo de datos verificable.
+## 8. Repositorio GitHub · ✅
 
-## 10. Preprocesamiento y transformación del dataset · ⬜
-`[PENDIENTE]` Depende de F2_02. La guía exige: diagnóstico previo (dimensiones, tipos, nulos, duplicados, atípicos), comparación de alternativas antes de decidir, transformaciones según el rol de cada variable, validación integral, y justificación en tres planos (pertinencia, impacto medido y coherencia con los objetivos).
-Diagnóstico ya disponible (F2_01): 0 nulos en 11 columnas; 10 filas con `model_a == model_b`; 61 y 58 respuestas con 0 tokens; tokens muy asimétricos (mediana 748, máximo 137.128); 8,7 % de votos con idioma `und`.
+Estructura (ver `README.md`): `F1/`, `F2/`, `F3/` y `F4/` (estas dos con README de fase proyectada), `src/arena/`, `tests/`, `data/` (`raw`, `interim`, `processed`), `docs/` y `report/`. README con descripción, reparto de tareas, calendario, avance, instrucciones de instalación y de ejecución por notebook, y supuestos del dataset.
 
-## 11. Validación técnica y verificación del código · 🟡
-- **Dataset:** `docs/validacion_dataset.md`, generado con `validar_dataset.py` del curso sobre la versión aplanada del dato (135.634 filas × 47 columnas). Resultado: cumple todos los requisitos obligatorios y tiene un aviso (sin valores faltantes). El criterio de tamaño (37,6 MB) se evaluó sobre el CSV aplanado; el dato original pesa 1,6 GB.
-- **Código:** 51 pruebas con pytest, sin red, que cubren casos normales (datos válidos), límite (`evaluation_order` en 1 y 28, 0 tokens, archivo vacío, sesión de un voto) y excepciones (columna faltante, ganador inválido, tokens negativos, id repetido, entrada que no es DataFrame, archivo de huellas inexistente, huella que no coincide, tamaños de muestra inválidos). Salida guardada en `docs/evidence/pytest.txt`.
-- **Validador del dataset:** `validate_dataset` devuelve un `ValidationReport` con chequeos críticos (lanzan `ValueError` con `assert_ok()`) y advertencias. Sobre el dato original: 0 fallos críticos y 1 advertencia (10 filas con el mismo modelo en ambos lados). El notebook `F2_03` provoca errores a propósito para mostrar que se detectan.
-`[PENDIENTE]` Pruebas del módulo `preprocessing` y validación del dataset procesado (dependen de F2_02).
+---
 
-## 12. Notebook F1_Definicion.ipynb · ⬜
-`[PENDIENTE]` Texto de problema, objetivos y alcance (reutilizar las secciones 2 y 3), celda de verificación del entorno con todas las dependencias, estructura del proyecto y reconocimiento inicial del dato. No debe limpiar ni transformar. Verificar con *Restart & Run All*.
+## 9. Codificación funcional · ✅
 
-## 13. Notebooks ejecutables de la Fase 2 · 🟡
-- `F2/F2_01_acquisition_exploration.ipynb` ✅ ejecutado de punta a punta, sin errores ni advertencias; secciones 0 a 9 con interpretación y tabla de hallazgos.
-- `F2/F2_03_validation.ipynb` 🟡 ejecutado sobre el dato original, con casos límite y excepciones; falta la validación del dataset procesado.
-- `F2_02` (limpieza y transformación) ⬜.
+Todas las funciones operativas se encuentran en `src/arena/`:
+- **Inmutabilidad:** `convert_types()` y `derive_variables()` trabajan sobre `df = df.copy()` para no mutar entradas.
+- **Modularidad y propósito único:** separación explícita entre descarga (`io.py`), perfilamiento (`profile.py`), limpieza (`preprocessing.py`), validación (`validation.py`), muestreo (`sampling.py`) y visualización (`plots.py`).
+- **Iteración estructurada y vectorización:** desanidado programático de las 26 subclaves de `conv_metadata` y 12 de `category_tag`, y cálculo vectorizado de `format_a`, `format_b`, `tokens_log_a`, `tokens_log_b`, `longer_response`, `more_formatted` y `winner_binary` mediante `numpy.log1p` y `numpy.where`.
 
+## 10. Preprocesamiento y transformación del dataset · ✅
 
-## 14. Vinculación del mapa conceptual con el avance · 🟡
+- **Diagnóstico inicial (`F2_01`):** 0 % de nulos en las 11 columnas cargadas; 10 filas con `model_a == model_b`; 61 y 58 respuestas con 0 tokens; fuerte asimetría en tokens (mediana 748, máximo 137.128); 52,5 % de votos en inglés (`en`), 10,2 % en polaco (`pl`) y 8,7 % con código `und`; 27,5 % de votos no binarios (`tie` 16,5 %, `both_bad` 11,0 %).
+- **Transformaciones aplicadas (`F2_02`):**
+  1. `flatten()`: expande `conv_metadata` (26 columnas) y `category_tag` (12 columnas), pasando de 11 a 47 columnas.
+  2. `convert_types()`: convierte `winner` y `language` a `category`, `evaluation_order` a `int16` e `is_code` a `bool`.
+  3. `derive_variables()`: agrega `format_a`, `format_b`, `tokens_log_a`, `tokens_log_b`, `longer_response`, `more_formatted` y `winner_binary`, generando `data/processed/arena_clean.parquet` (135.634 filas × 54 columnas, 14 MB) sin pérdida de registros.
 
-A continuación, se muestra cómo se relacionan los elementos del mapa conceptual con los avances que tiene ya el repositorio y con las tareas que todavía están pendientes
+## 11. Validación técnica y verificación del código · ✅
+- **Dataset (`validar_dataset.py`):** `docs/validacion_dataset.md` sobre la versión aplanada (135.634 filas × 47 columnas) cumple todos los requisitos obligatorios.
+- **Código (`pytest`):** 55 pruebas unitarias sin red en `tests/` (incluyendo `tests/test_preprocessing.py`), ejecutadas en 0,71 s y registradas en `docs/evidence/pytest.txt`.
+- **Validador (`validate_dataset` en `F2_03`):** 0 fallos críticos y 1 advertencia conocida (10 filas con el mismo modelo) tanto en el dato original como en `data/processed/arena_clean.parquet`, además de verificación de errores provocados y consistencia de variables derivadas.
 
-| Elemento del mapa | Tipo | Estado (implementado / proyectado) | Evidencia |
+## 12. Notebook F1_Definicion.ipynb · ✅
+Ejecutado de principio a fin sin errores (`Restart & Run All`), con definición del problema, pregunta P1, objetivos, definición operativa de contenido vs. formato, unidad de análisis, verificación del entorno, rutas base, mapa conceptual (`F1/mapa-conceptual.jpeg`) y referencias APA 7.
+
+## 13. Notebooks ejecutables de la Fase 2 · ✅
+- `F2/F2_01_acquisition_exploration.ipynb` ✅ ejecutado de punta a punta, sin errores; secciones 0 a 9 con interpretación y tabla de hallazgos.
+- `F2/F2_02_cleaning_transformation.ipynb` ✅ ejecutado de punta a punta; aplanamiento, conversión de tipos, creación de 7 variables derivadas, validación y guardado en `data/processed/arena_clean.parquet`.
+- `F2/F2_03_validation.ipynb` ✅ ejecutado de punta a punta sobre el dato original y sobre el dataset procesado (`arena_clean.parquet`), incluyendo casos límite, excepciones provocadas y evidencia de las 55 pruebas unitarias.
+
+## 14. Vinculación del mapa conceptual con el avance · ✅
+
+| Elemento del mapa | Tipo | Estado | Evidencia |
 |---|---|---|---|
-| Python, pandas, Jupyter, Git y GitHub | Herramientas | El proyecto utiliza Python y pandas para trabajar con los datos. También están disponibles los notebooks de F2. El notebook F1 está en el PR #4 y todavía está pendiente de integrar. | `requirements.txt`, `src/arena/`, `F2/F2_01_acquisition_exploration.ipynb`, `F2/F2_03_validation.ipynb`, PR #4 |
-| Descarga, exploración, limpieza y validación de los datos | Procesos | La descarga, exploración y validación inicial ya están realizadas. Falta desarrollar la limpieza y transformación de los datos en F2_02. El análisis del largo y formato de las respuestas se realizará en F3. | `src/arena/io.py`, `src/arena/profile.py`, `src/arena/validation.py`, notebooks F2_01 y F2_03 |
-| Instalación de dependencias, descarga de datos y ejecución de pruebas y notebooks | Flujo reproducible | Ya se puede instalar el entorno, descargar los datos y ejecutar las pruebas y notebooks mediante Makefile. También se guardaron evidencias de estas ejecuciones. Falta probar el proceso en otro equipo. | `Makefile`, `requirements.txt`, `docs/evidence/` |
-| Elección del dataset y criterios para trabajar con los datos | Decisiones técnicas | Ya se definió qué dataset utilizar, qué información cargar y por qué no se guardarán los textos de las respuestas. Estas decisiones están registradas en la bitácora. Todavía quedan algunas definiciones pendientes para la limpieza de los datos. | `docs/decisiones.md`, `README.md` |
-| Carpetas para separar los datos, notebooks, código, pruebas y documentos | Organización del repositorio | Implementado. El repositorio cuenta con carpetas separadas según la fase y el tipo de contenido, lo que permite mantener ordenados los archivos del proyecto. | `F1/`, `F2/`, `F3/`, `F4/`, `data/`, `src/`, `tests/`, `docs/`, `report/`, `.gitignore` |
-| Notebooks separados según el trabajo de cada fase | Estructura del notebook | F2_01 y F2_03 ya están disponibles en el repositorio. F2_02 sigue pendiente y el notebook F1 está incluido en el PR #4, que todavía no se ha integrado. | `F2/F2_01_acquisition_exploration.ipynb`, `F2/F2_03_validation.ipynb`, PR #4 |
-
-Los avances que se muestran en la tabla corresponden a las primeras tareas del mapa: preparar el entorno, organizar el repositorio y comenzar a trabajar con el dataset. Todavía falta completar la limpieza y transformación de los datos y revisar que el proceso funcione en otro equipo. Estos pasos son necesarios para dejar el dataset listo para los análisis de las siguientes fases.
+| Python, pandas, NumPy, Jupyter, pytest, Git y GitHub | Herramientas | Implementado | `requirements.txt`, `src/arena/`, `tests/`, notebooks `F1` y `F2` |
+| Obtención, exploración, limpieza y validación de los datos | Procesos | Implementado en F1–F2 (análisis estadístico proyectado para F3–F4) | `src/arena/io.py`, `profile.py`, `preprocessing.py`, `validation.py`, `F2_01` a `F2_03` |
+| Instalación de dependencias, descarga de datos y ejecución de pruebas y notebooks | Flujo reproducible | Implementado y verificado en múltiples equipos | `Makefile`, `requirements.txt`, `data/raw/CHECKSUMS.txt`, `docs/evidence/` |
+| Elección del dataset y criterios de preprocesamiento (`D-001` a `D-015`) | Decisiones técnicas | Implementado (pendientes `P-01` a `P-04` proyectados para F3) | `docs/decisiones.md`, `README.md` |
+| Carpetas por fase y separación de datos crudos y procesados | Organización del repositorio | Implementado | `F1/` a `F4/`, `data/raw/`, `data/processed/`, `src/`, `tests/`, `docs/`, `.gitignore` |
+| Notebooks modulares con celdas narrativas, código y referencias | Estructura del notebook | Implementado | `F1/F1_Definicion.ipynb`, `F2/F2_01`, `F2/F2_02`, `F2/F2_03` |
 
 ## 15. Bibliografía · 🟡
 
