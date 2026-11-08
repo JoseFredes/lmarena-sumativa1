@@ -141,14 +141,24 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 ## 6. Control de versiones · 🟡
 
 - **Repositorio:** https://github.com/JoseFredes/lmarena-sumativa1 (público, licencia MIT).
-- **Convención:** commits en inglés con el formato `type(scope): message` (`feat`, `fix`, `docs`, `data`, `build`, `test`, `refactor`); ramas `f1/<tema>`, `f2/<tema>` y `docs/<tema>`; integración a `main` mediante pull request, sin squash.
-- **Historial:** commits pequeños desde el inicio del trabajo, con un cambio por commit.
+- **Convención:** commits en inglés con el formato `type(scope): message` (`feat`, `fix`, `docs`, `data`, `build`, `test`, `refactor`); ramas `f1/<tema>`, `f2/<tema>` y `docs/<tema>`; integración a `main` mediante pull request.
+- **Historial:** la rama `main` registra commits realizados por las cuentas de GitHub de los cuatro integrantes del grupo.
 
-`[PENDIENTE]` Contribuciones de los demás integrantes: hoy el historial tiene un solo autor. La rúbrica exige commits identificables por integrante y repartidos en el tiempo.
-`[PENDIENTE]` Capturas del historial, de las ramas y de los pull requests.
-`TODO(humano)` Nombres de usuario de GitHub de cada integrante.
+**Contribuciones identificadas:**
 
----
+- `JoseFredes`: contribuciones relacionadas con la configuración del entorno, reproducibilidad, validación y documentación del proyecto.
+- `poirierunited`: desarrollo de la definición del problema y del proceso de limpieza y transformación de los datos.
+- `vcjacob`: aportes a la documentación del informe y a la trazabilidad del mapa conceptual.
+- `angelo-morales-serrano`: incorporación de instrucciones para ejecutar los notebooks desde el README.
+
+**Pull Requests incorporados a main:**
+
+- **PR #4 – F2/cleaning:** incorpora el notebook y el proceso de limpieza y transformación de los datos, desarrollado por `poirierunited`.
+- **PR #5 – Instrucciones del README:** incorpora las indicaciones para ejecutar los notebooks, desarrollado por `angelo-morales-serrano`.
+
+Para la actualización del presente informe se creó la rama `docs/report-update` en el repositorio personal de `vcjacob`, inicialmente sincronizada con `main`.
+
+[PENDIENTE] Incorporar las capturas del historial de commits, los Pull Requests y las ramas como evidencia del control de versiones (ver Anexo E).
 
 ## 7. Documentación del proceso · 🟡
 
