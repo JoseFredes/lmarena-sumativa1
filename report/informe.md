@@ -180,12 +180,18 @@ La evidencia del historial de commits, los Pull Requests y las ramas se presenta
 
 ---
 
+
 ## 8. Repositorio GitHub · 🟡
 
-Estructura (ver `README.md`): `F1/`, `F2/`, `F3/` y `F4/` (estas dos con README de fase proyectada), `src/arena/`, `tests/`, `data/` (`raw`, `interim`, `processed`), `docs/` y `report/`. README con descripción, reparto de tareas, calendario, avance, instrucciones de instalación y supuestos del dataset.
+El repositorio está organizado en carpetas según las fases y el tipo de trabajo realizado. Cuenta con `F1/` y `F2/` para los notebooks, `F3/` y `F4/` para las fases proyectadas, `src/arena/` para el código, `tests/` para las pruebas, `data/` para los datos y `docs/` y `report/` para la documentación.
 
-`[PENDIENTE]` README con instrucciones de ejecución de cada notebook.
-`[PENDIENTE]` Evidencia de contribuciones individuales (ver 6).
+El archivo `README.md` contiene la descripción del proyecto, las preguntas de investigación, el reparto de tareas, el calendario, los supuestos del dataset y las instrucciones para trabajar con el repositorio.
+
+También se incorporaron instrucciones para ejecutar los notebooks. Se explica cómo instalar las dependencias, activar el entorno virtual, abrir Jupyter y seleccionar el kernel correspondiente. Además, se incluyen comandos para ejecutar las distintas etapas del proyecto mediante el `Makefile`.
+
+Las contribuciones individuales se encuentran respaldadas mediante el historial de commits y los Pull Requests incorporados a `main`. Las capturas correspondientes se presentan en la sección 6 y en el Anexo E.
+
+[PENDIENTE] Revisar y actualizar la tabla de avance del README antes de la entrega. Actualmente `F2_02` sigue figurando como pendiente, aunque el notebook ya fue incorporado a `main` mediante el PR #4. También se debe revisar la diferencia entre el estado del notebook F1 indicado en la tabla y el que aparece en la lista de avance.
 
 ---
 
