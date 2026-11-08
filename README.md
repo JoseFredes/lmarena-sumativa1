@@ -3,8 +3,8 @@
 Sumativa 1 · Fases 1 y 2 · MCDI500 Programación para la Ciencia de Datos · Magíster en Inteligencia Artificial, UNAB
 Entrega: **domingo 8 de noviembre de 2026, 23:59** · Vale 40 % de la nota · Trabajo grupal
 
-**Integrantes:** Jose, Ale Poirer, TODO(humano): completar con nombres completos y el resto del grupo
-**Docente:** TODO(humano)
+**Integrantes:** Jose Fredes, Alejandro Poirer, Valentina Carvajal, Angelo Morales
+**Docente:** Omar Salinas
 
 ---
 
@@ -46,9 +46,9 @@ Entregables: informe PDF, este repo (carpetas `F1/` y `F2/`, README, dependencia
 | Validación y pruebas (`F2_03`) | Jose |
 | Notebook F1 (problema, objetivos, alcance) | Ale |
 | Limpieza y transformación (`F2_02`) | Ale |
-| Informe PDF (portada, índice, formato) | TODO(humano) |
-| Mapa conceptual y su vinculación con el proyecto | TODO(humano) |
-| Bibliografía APA 7 (mínimo 5 fuentes) | TODO(humano) |
+| Informe PDF (portada, índice, formato) | Todos |
+| Mapa conceptual y su vinculación con el proyecto | Valentina, Angelo |
+| Bibliografía APA 7 (mínimo 5 fuentes) | Valentina, Jose |
 | Revisión cruzada antes de entregar | Todos |
 
 ## Cómo trabajamos
@@ -95,8 +95,8 @@ Revisamos el dataset con el `validar_dataset.py` del curso, sobre una muestra ap
 
 - [ ] ¿Trabajamos con el dataset completo (~1,6 GB) o con una muestra?
 - [ ] ¿Qué hacemos con los votos `tie` y `both_bad`? (la ficha no los define)
-- [ ] Confirmar con el docente que el dataset no esté repetido en otro equipo
-- [ ] Mapa conceptual de la actividad formativa (lo tiene que completar el grupo)
+- [x] Confirmar con el docente que el dataset no esté repetido en otro equipo
+- [x] Mapa conceptual de la actividad formativa (lo tiene que completar el grupo)
 - [ ] Confirmar la estructura real de las columnas anidadas una vez descargado el dato
 
 ## Licencia
@@ -131,12 +131,23 @@ Nota: el log de `nbconvert` incluye un aviso de Jupyter (`Kernel is running over
 
 ### Notebooks
 
+Pasos comunes, desde la raíz:
+
+1. Crear el entorno e instalar dependencias: "make install"
+2. Activar el entorno:
+- macOS / Linux: "source .venv/bin/activate"
+- Windows (Git Bash): "source .venv/bin/activate"
+3. Abrir Jupyter desde la raíz, para que funcionen las rutas realtivas: "python -m jupyter lab"
+4. Elegir como kernel el Python de ".venv" (Jupyter: Kernel > Change Kernel ; VS Code: Select Kernel)
+5. Ejecutar Notebook de arriba a abajo
+
+
 | Notebook | Qué hace | Estado |
 |---|---|---|
-| `F1/F1_Definicion.ipynb` (es el "F1_Definición.ipynb" solicitado, sin tilde por portabilidad) | definición del problema y entorno | pendiente |
+| `F1/F1_Definicion.ipynb` (es el "F1_Definición.ipynb" solicitado, sin tilde por portabilidad) | definición del problema, entorno y condiciones iniciales | listo |
 | `F2/F2_01_acquisition_exploration.ipynb` | descarga, estructura, variables, tiempo, sesiones y muestreo | listo |
 | `F2/F2_02_cleaning_transformation.ipynb` | limpieza y transformación | pendiente |
-| `F2/F2_03_validation.ipynb` | validación y pruebas | dato original listo; falta el procesado |
+| `F2/F2_03_validation.ipynb` | validación y pruebas, casos limites | dato original listo; falta el procesado y limpieza |
 
 ## Estructura del repo
 
