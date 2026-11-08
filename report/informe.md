@@ -154,14 +154,12 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 - `JoseFredes`: contribuciones relacionadas con la configuración del entorno, reproducibilidad, validación y documentación del proyecto.
 - `poirierunited`: desarrollo de la definición del problema y del proceso de limpieza y transformación de los datos.
 - `vcjacob`: aportes a la documentación del informe y a la trazabilidad del mapa conceptual.
-- `angelo-morales-serrano`: incorporación de instrucciones para ejecutar los notebooks desde el README.
+- `angelo-morales-serrano`: incorporación de instrucciones para ejecutar los notebooks desde README.
 
 **Pull Requests incorporados a main:**
 
 - **PR #4 – F2/cleaning:** incorpora el notebook y el proceso de limpieza y transformación de los datos, desarrollado por `poirierunited`.
 - **PR #5 – Instrucciones del README:** incorpora las indicaciones para ejecutar los notebooks, desarrollado por `angelo-morales-serrano`.
-
-Para la actualización del presente informe se creó la rama `docs/report-update` en el repositorio personal de `vcjacob`, inicialmente sincronizada con `main`.
 
 La evidencia del historial de commits, los Pull Requests y las ramas se presenta en el Anexo E.
 
@@ -232,18 +230,18 @@ El notebook cuenta con dos celdas de código que ya tienen resultados guardados.
 
 ## 14. Vinculación del mapa conceptual con el avance · 🟡
 
-A continuación, se muestra cómo se relacionan los elementos del mapa conceptual con los avances que tiene ya el repositorio y con las tareas que todavía están pendientes
+A continuación, se muestra cómo se relacionan los elementos del mapa conceptual con los avances que tiene ya el repositorio y lo que todavía falta completar.
 
 | Elemento del mapa | Tipo | Estado (implementado / proyectado) | Evidencia |
 |---|---|---|---|
-| Python, pandas, Jupyter, Git y GitHub | Herramientas | El proyecto utiliza Python y pandas para trabajar con los datos. También están disponibles los notebooks de F2. El notebook F1 está en el PR #4 y todavía está pendiente de integrar. | `requirements.txt`, `src/arena/`, `F2/F2_01_acquisition_exploration.ipynb`, `F2/F2_03_validation.ipynb`, PR #4 |
-| Descarga, exploración, limpieza y validación de los datos | Procesos | La descarga, exploración y validación inicial ya están realizadas. Falta desarrollar la limpieza y transformación de los datos en F2_02. El análisis del largo y formato de las respuestas se realizará en F3. | `src/arena/io.py`, `src/arena/profile.py`, `src/arena/validation.py`, notebooks F2_01 y F2_03 |
-| Instalación de dependencias, descarga de datos y ejecución de pruebas y notebooks | Flujo reproducible | Ya se puede instalar el entorno, descargar los datos y ejecutar las pruebas y notebooks mediante Makefile. También se guardaron evidencias de estas ejecuciones. Falta probar el proceso en otro equipo. | `Makefile`, `requirements.txt`, `docs/evidence/` |
-| Elección del dataset y criterios para trabajar con los datos | Decisiones técnicas | Ya se definió qué dataset utilizar, qué información cargar y por qué no se guardarán los textos de las respuestas. Estas decisiones están registradas en la bitácora. Todavía quedan algunas definiciones pendientes para la limpieza de los datos. | `docs/decisiones.md`, `README.md` |
-| Carpetas para separar los datos, notebooks, código, pruebas y documentos | Organización del repositorio | Implementado. El repositorio cuenta con carpetas separadas según la fase y el tipo de contenido, lo que permite mantener ordenados los archivos del proyecto. | `F1/`, `F2/`, `F3/`, `F4/`, `data/`, `src/`, `tests/`, `docs/`, `report/`, `.gitignore` |
-| Notebooks separados según el trabajo de cada fase | Estructura del notebook | F2_01 y F2_03 ya están disponibles en el repositorio. F2_02 sigue pendiente y el notebook F1 está incluido en el PR #4, que todavía no se ha integrado. | `F2/F2_01_acquisition_exploration.ipynb`, `F2/F2_03_validation.ipynb`, PR #4 |
+| Python, pandas, Jupyter, Git y GitHub | Herramientas | Implementado. Se cuenta con el entorno de trabajo, las librerías necesarias y los notebooks para desarrollar el proyecto. | `requirements.txt`, carpeta `src/arena/`, notebooks F1 y F2|
+| Descarga, exploración, limpieza y validación de los datos | Procesos | La descarga y exploración ya están realizadas. También se completó la limpieza y transformación de los datos. La validación del dataset procesado todavía está pendiente. El análisis se realizará en F3. | Notebooks `F2_01`, `F2_02` y `F2_03`, carpeta `src/arena/` |
+| Instalación de dependencias, descarga de datos y ejecución de pruebas y notebooks | Flujo reproducible | Ya se cuenta con comandos para instalar las dependencias, descargar los datos y ejecutar las pruebas y notebooks. También se guardaron los resultados de estas ejecuciones. Falta comprobar el proceso en otro computador. | `Makefile`, `requirements.txt`, `docs/evidence/` |
+| Elección del dataset y criterios para trabajar con los datos | Decisiones técnicas | Ya se definió qué dataset utilizar y qué información se necesita para el proyecto. También se dejó registrado por qué no se guardan los textos de las respuestas. Todavía quedan algunos aspectos por revisar, como el tratamiento de los empates. | `docs/decisiones.md`, `README.md` |
+| Carpetas para separar los datos, notebooks, código, pruebas y documentos | Organización del repositorio | Implementado. El repositorio cuenta con carpetas separadas según la fase y el tipo de contenido, lo que permite mantener ordenados los archivos del proyecto. | `F1/`, `F2/`, `F3/`, `F4/`, `data/`, `src/`, `tests/`, `docs/`, `report/` |
+| Notebooks separados según el trabajo de cada fase | Estructura del notebook | Los notebooks de F1 y F2 ya están incorporados al repositorio. F2_01 contiene la exploración de los datos, F2_02 la limpieza y transformación, y F2_03 la validación. Todavía falta completar la validación de los datos procesados. | `F1/F1_Definicion.ipynb`, notebooks de `F2/`, PR #4 |
 
-Los avances que se muestran en la tabla corresponden a las primeras tareas del mapa: preparar el entorno, organizar el repositorio y comenzar a trabajar con el dataset. Todavía falta completar la limpieza y transformación de los datos y revisar que el proceso funcione en otro equipo. Estos pasos son necesarios para dejar el dataset listo para los análisis de las siguientes fases.
+Los avances muestran que ya se cuenta con el entorno, la estructura del repositorio y los notebooks necesarios para trabajar con los datos. También se completó la limpieza y transformación del dataset. Sin embargo, todavía falta terminar su validación. Una vez completada esta etapa, se podrá continuar con el análisis de los datos en F3.
 
 ## 15. Bibliografía · 🟡
 
