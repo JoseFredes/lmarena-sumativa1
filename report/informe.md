@@ -1,6 +1,11 @@
 # Informe técnico · Avance del proyecto, Fases 1 y 2
 
 > **Borrador de trabajo.** Sigue el orden y la numeración de la guía de desarrollo de la Sumativa 1 (apartados 4.1 a 4.15) para que el índice del informe final coincida con lo que pide la rúbrica.
+<!-- REVISIÓN FINAL ANTES DE LA ENTREGA:
+Cuando el informe esté aproximadamente al 90% de avance, actualizar y verificar la información de todas las secciones.
+Revisar especialmente cifras, resultados, estado de los notebooks, contribuciones, commits, Pull Requests, bibliografía y evidencias del repositorio.
+Confirmar que las capturas correspondan a la versión definitiva del proyecto.
+-->
 > Estado de cada apartado: ✅ redactado · 🟡 redactado con datos pendientes · ⬜ por redactar.
 > Marcas: `[PENDIENTE]` depende de trabajo aún no hecho; `TODO(humano)` lo debe completar el grupo; `[VERIFICAR]` es un dato que hay que confirmar antes de entregar.
 > Este texto es un punto de partida: cada integrante debe leerlo, corregirlo y dejarlo en su propia voz, porque el informe debe ser de elaboración propia.
@@ -138,7 +143,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 ---
 
-## 6. Control de versiones · 🟡
+## 6. Control de versiones · ✅
 
 - **Repositorio:** https://github.com/JoseFredes/lmarena-sumativa1 (público, licencia MIT).
 - **Convención:** commits en inglés con el formato `type(scope): message` (`feat`, `fix`, `docs`, `data`, `build`, `test`, `refactor`); ramas `f1/<tema>`, `f2/<tema>` y `docs/<tema>`; integración a `main` mediante pull request.
@@ -158,7 +163,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 Para la actualización del presente informe se creó la rama `docs/report-update` en el repositorio personal de `vcjacob`, inicialmente sincronizada con `main`.
 
-[PENDIENTE] Incorporar las capturas del historial de commits, los Pull Requests y las ramas como evidencia del control de versiones (ver Anexo E).
+La evidencia del historial de commits, los Pull Requests y las ramas se presenta en el Anexo E.
 
 ## 7. Documentación del proceso · 🟡
 
@@ -246,9 +251,43 @@ Mínimo exigido: 5 fuentes en APA 7, con al menos 2 del material docente, 2 de d
 
 ---
 
-## Anexos (propuestos)
+
+## Anexos
+
 - A. Informe de validación del dataset (`docs/validacion_dataset.md`).
 - B. Evaluación de criterios del dataset (`docs/evaluacion_criterios_dataset.csv`).
 - C. Salida de `pytest` y de `nbconvert` (`docs/evidence/`).
 - D. Bitácora de decisiones (`docs/decisiones.md`).
-- E. Historial de commits y pull requests (capturas).
+
+### E. Evidencia del control de versiones
+
+Las siguientes capturas respaldan las contribuciones identificadas en la sección 6 y muestran los cambios incorporados al repositorio y las ramas utilizadas durante el desarrollo del informe.
+
+**E.1. Historial de commits por integrante**
+
+*Contribuciones de Valentina Carvajal Jacob (`vcjacob`).*
+
+![Commits de vcjacob](../docs/evidence/commits_vcjacob.png)
+
+*Contribuciones de JoseFredes.*
+
+![Commits de JoseFredes](../docs/evidence/commits_josefredes.png)
+
+*Contribuciones de Alejandro Poirier (`poirierunited`).*
+
+![Commits de poirierunited](../docs/evidence/commits_poirierunited.png)
+
+*Contribuciones de Angelo Morales (`angelo-morales-serrano`).*
+
+![Commits de angelo](../docs/evidence/commits_angelo.png)
+
+**E.2. Pull Requests incorporados a la rama main**
+
+*PR #4 – Limpieza y transformación de datos.*
+
+![Pull Request 4](../docs/evidence/pr-4-cleaning.png)
+
+*PR #5 – Instrucciones para ejecutar los notebooks.*
+
+![Pull Request 5](../docs/evidence/pr-5-readme.png)
+
