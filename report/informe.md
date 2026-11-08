@@ -221,10 +221,14 @@ El notebook cuenta con dos celdas de código que ya tienen resultados guardados.
 [PENDIENTE] Revisar algunos resultados que quedaron guardados, ya que muestran información del computador donde se ejecutó originalmente.
 
 ## 13. Notebooks ejecutables de la Fase 2 · 🟡
-- `F2/F2_01_acquisition_exploration.ipynb` ✅ ejecutado de punta a punta, sin errores ni advertencias; secciones 0 a 9 con interpretación y tabla de hallazgos.
-- `F2/F2_03_validation.ipynb` 🟡 ejecutado sobre el dato original, con casos límite y excepciones; falta la validación del dataset procesado.
-- `F2_02` (limpieza y transformación) ⬜.
 
+- **F2_01 – Obtención y exploración:** este notebook ya tiene resultados guardados. En él se descargan los siete archivos del dataset y se revisa cómo están organizados los datos, los tipos de variables, los votos, los idiomas, las fechas y las sesiones.
+
+- **F2_02 – Limpieza y transformación:** ya está incorporado al repositorio mediante el PR #4 y también cuenta con resultados registrados. En este notebook se ordenan las columnas, se ajustan algunos tipos de datos y se crean nuevas variables para el análisis. Al finalizar, se mantienen las 135.634 filas y se obtiene un archivo procesado con 54 columnas. Las revisiones realizadas no muestran errores críticos, aunque queda una advertencia relacionada con 10 registros en que ambos lados corresponden al mismo modelo.
+
+- **F2_03 – Validación:** contiene las revisiones del dataset original y pruebas para comprobar que se detecten errores en los datos. En los resultados guardados se muestran 51 pruebas aprobadas. Todavía falta completar la revisión del dataset después de aplicar la limpieza y transformación.
+
+[PENDIENTE] Completar la validación del dataset procesado y revisar la ejecución de los notebooks desde la versión final del repositorio.
 
 ## 14. Vinculación del mapa conceptual con el avance · 🟡
 
