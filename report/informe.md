@@ -208,8 +208,17 @@ Diagnóstico ya disponible (F2_01): 0 nulos en 11 columnas; 10 filas con `model_
 - **Validador del dataset:** `validate_dataset` devuelve un `ValidationReport` con chequeos críticos (lanzan `ValueError` con `assert_ok()`) y advertencias. Sobre el dato original: 0 fallos críticos y 1 advertencia (10 filas con el mismo modelo en ambos lados). El notebook `F2_03` provoca errores a propósito para mostrar que se detectan.
 `[PENDIENTE]` Pruebas del módulo `preprocessing` y validación del dataset procesado (dependen de F2_02).
 
-## 12. Notebook F1_Definicion.ipynb · ⬜
-`[PENDIENTE]` Texto de problema, objetivos y alcance (reutilizar las secciones 2 y 3), celda de verificación del entorno con todas las dependencias, estructura del proyecto y reconocimiento inicial del dato. No debe limpiar ni transformar. Verificar con *Restart & Run All*.
+## 12. Notebook F1_Definicion.ipynb · 🟡
+
+El notebook F1 ya está incorporado al repositorio. En él se explica el problema que se quiere estudiar, la pregunta de investigación, los objetivos y el alcance del proyecto.
+
+También se incluye información sobre el entorno de trabajo, la semilla utilizada y las carpetas donde se guardan los datos. Además, se muestra cómo se relaciona el proyecto con el mapa conceptual.
+
+El notebook cuenta con dos celdas de código que ya tienen resultados guardados. Sin embargo, todavía es necesario volver a ejecutarlo para comprobar que funcione correctamente desde el inicio.
+
+[PENDIENTE] Reiniciar y ejecutar todas las celdas del notebook para comprobar que no se produzcan errores.
+
+[PENDIENTE] Revisar algunos resultados que quedaron guardados, ya que muestran información del computador donde se ejecutó originalmente.
 
 ## 13. Notebooks ejecutables de la Fase 2 · 🟡
 - `F2/F2_01_acquisition_exploration.ipynb` ✅ ejecutado de punta a punta, sin errores ni advertencias; secciones 0 a 9 con interpretación y tabla de hallazgos.
