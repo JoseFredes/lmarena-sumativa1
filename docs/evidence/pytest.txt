@@ -1,2 +1,25 @@
-.......................................................                  [100%]
-55 passed in 0.71s
+...........F...........................................                  [100%]
+================================== FAILURES ===================================
+__________________________ test_checksums_roundtrip ___________________________
+
+tmp_path = WindowsPath('C:/Users/angel/AppData/Local/Temp/pytest-of-angel/pytest-3/test_checksums_roundtrip0')
+
+    def test_checksums_roundtrip(tmp_path):
+        (tmp_path / "data").mkdir()
+        f = tmp_path / "data" / "x.parquet"
+        f.write_bytes(b"abc")
+        out = write_checksums([f], tmp_path)
+        assert out.name == CHECKSUMS_NAME
+>       assert verify_checksums(tmp_path) == {"data/x.parquet": True}
+E       AssertionError: assert {'data\\x.parquet': True} == {'data/x.parquet': True}
+E         
+E         Left contains 1 more item:
+E         {'data\\x.parquet': True}
+E         Right contains 1 more item:
+E         {'data/x.parquet': True}
+E         Use -v to get more diff
+
+tests\test_io.py:26: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_io.py::test_checksums_roundtrip - AssertionError: assert {'...
+1 failed, 54 passed in 2.84s
