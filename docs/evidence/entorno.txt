@@ -1,8 +1,8 @@
 Python 3.12.13
-commit: cb42166 branch: feat/env-validation-evidence
+commit: 5fd7597 branch: main
 anyio==4.16.0
 appnope==1.0.0
--e git+https://github.com/JoseFredes/lmarena-sumativa1.git@cb42166e8c255451bf614c19683e4e93b79ad33a#egg=arena
+-e git+https://github.com/JoseFredes/lmarena-sumativa1.git@5fd7597e325a871ead5671ed076dcb34f4eb1acd#egg=arena
 asttokens==3.0.2
 attrs==26.1.0
 beautifulsoup4==4.15.0
@@ -15,7 +15,7 @@ debugpy==1.8.22
 defusedxml==0.7.1
 executing==2.3.0
 fastjsonschema==2.22.3
-filelock==4.2.9
+filelock==4.2.7
 fonttools==4.68.0
 fsspec==2026.9.0
 h11==0.16.0
@@ -53,7 +53,7 @@ pandocfilters==1.5.1
 parso==0.8.7
 pexpect==4.9.0
 pillow==13.0.0
-platformdirs==4.14.5
+platformdirs==4.14.3
 pluggy==1.7.0
 prompt_toolkit==3.0.53
 psutil==7.2.2
@@ -65,10 +65,10 @@ pyparsing==3.3.3
 pytest==9.2.0
 python-dateutil==4.0.0
 PyYAML==6.0.3
-pyzmq==27.3.0
+pyzmq==27.2.0
 referencing==0.37.0
 rpds-py==2026.9.1
-soupsieve==4.0.1
+soupsieve==3.0.4
 stack-data==0.6.3
 tinycss2==1.5.1
 tornado==6.6
