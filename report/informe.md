@@ -1,6 +1,11 @@
 # Informe técnico · Avance del proyecto, Fases 1 y 2
 
 > **Borrador de trabajo.** Sigue el orden y la numeración de la guía de desarrollo de la Sumativa 1 (apartados 4.1 a 4.15) para que el índice del informe final coincida con lo que pide la rúbrica.
+<!-- REVISIÓN FINAL ANTES DE LA ENTREGA:
+Cuando el informe esté aproximadamente al 90% de avance, actualizar y verificar la información de todas las secciones.
+Revisar especialmente cifras, resultados, estado de los notebooks, contribuciones, commits, Pull Requests, bibliografía y evidencias del repositorio.
+Confirmar que las capturas correspondan a la versión definitiva del proyecto.
+-->
 > Estado de cada apartado: ✅ redactado · 🟡 redactado con datos pendientes · ⬜ por redactar.
 > Marcas: `[PENDIENTE]` depende de trabajo aún no hecho; `TODO(humano)` lo debe completar el grupo; `[VERIFICAR]` es un dato que hay que confirmar antes de entregar.
 > Este texto es un punto de partida: cada integrante debe leerlo, corregirlo y dejarlo en su propia voz, porque el informe debe ser de elaboración propia.
@@ -29,6 +34,8 @@
 - La lista de "Apartados" no incluye codificación funcional, preprocesamiento, validación técnica ni los notebooks de la Fase 2.
 - No trae índice automático ni estilos de título: hay que agregarlos.
 - Nombre del archivo: la instrucción pide `f1_s01_evaluacion_entregable_grupox` y a la vez "no superar los 20 caracteres", lo que es incompatible (el nombre base ya tiene 35). Consultar al docente.
+
+La estructura y el orden de los apartados del informe siguen lo indicado en la guía de desarrollo de la Sumativa 1 (*Guía de desarrollo — Evaluación Sumativa 1 (Fases 1 y 2)*, s. f.).
 
 ---
 
@@ -103,7 +110,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 ## 4. Aplicación de herramientas científicas · 🟡
 
-**Entorno.** Python 3.12.13 en un entorno virtual (`.venv`). Librerías principales (versiones fijas en `requirements.txt`): NumPy 2.5.4, pandas 3.1.0, pyarrow 26.0.0, matplotlib 3.11.2, huggingface_hub 2.4.0, pytest 9.2.0, nbconvert 7.17.2, ipykernel 7.4.0, ipywidgets 8.1.9. Control de versiones con Git y GitHub.
+**Entorno.** Python 3.12.13 en un entorno virtual (`.venv`), que permite mantener separadas las librerías utilizadas en el proyecto (Python Software Foundation, s. f.). Las principales librerías utilizadas tienen sus versiones fijadas en `requirements.txt`: NumPy 2.5.4, pandas 3.1.0, pyarrow 26.0.0, matplotlib 3.11.2, huggingface_hub 2.4.0, pytest 9.2.0 y nbconvert 7.17.2, entre otras (NumPy Developers, 2026; The pandas development team, 2026).
 
 **Qué hace cada herramienta en el proyecto.**
 | Herramienta | Uso | Dónde |
@@ -138,9 +145,24 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 - **Repositorio:** https://github.com/JoseFredes/lmarena-sumativa1 (público, licencia MIT).
 - **Convención:** commits en inglés con el formato `type(scope): message` (`feat`, `fix`, `docs`, `data`, `build`, `test`, `refactor`); ramas `f1/<tema>`, `f2/<tema>` y `docs/<tema>`; integración a `main` mediante pull request, sin squash.
-- **Contribuciones por integrante:** commits y PRs identificables por cuenta de GitHub (`JoseFredes`, `poirierunited`/`apoirier`, `vcjacob`, `angelo-morales-serrano`), integrados en los PRs #1 a #6.
+- **Historial:** la rama `main` registra commits realizados por las cuentas de GitHub de los cuatro integrantes del grupo (`JoseFredes`, `poirierunited`/`apoirier`, `vcjacob`, `angelo-morales-serrano`).
 
----
+**Contribuciones identificadas:**
+
+- `JoseFredes`: contribuciones relacionadas con la configuración del entorno, reproducibilidad, validación y documentación del proyecto.
+- `poirierunited`: desarrollo de la definición del problema y del proceso de limpieza y transformación de los datos.
+- `vcjacob`: aportes a la documentación del informe, evidencias de control de versiones y trazabilidad del mapa conceptual.
+- `angelo-morales-serrano`: incorporación de instrucciones para ejecutar los notebooks desde `README.md` y verificación multiplataforma en Windows 10.
+
+**Pull Requests incorporados a main:**
+
+- **PR #1 y #2:** definición del problema en F1 y trazabilidad del mapa conceptual (`apoirier`, `vcjacob`).
+- **PR #4 – F2/cleaning:** incorpora el notebook y el proceso de limpieza y transformación de los datos, desarrollado por `poirierunited`.
+- **PR #5 – Instrucciones del README:** incorpora las indicaciones para ejecutar los notebooks, desarrollado por `angelo-morales-serrano`.
+- **PR #6 – Evidencia en Windows:** verifica `make all` y ejecución de notebooks en Windows 10 (`angelo-morales-serrano`).
+- **PR #8 – Informe y evidencia de control de versiones:** actualiza el reporte y agrega las capturas del historial por integrante (`vcjacob`).
+
+La evidencia del historial de commits, los Pull Requests y las ramas se presenta en el Anexo E.
 
 ## 7. Documentación del proceso · ✅
 
@@ -159,7 +181,11 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 ## 8. Repositorio GitHub · ✅
 
-Estructura (ver `README.md`): `F1/`, `F2/`, `F3/` y `F4/` (estas dos con README de fase proyectada), `src/arena/`, `tests/`, `data/` (`raw`, `interim`, `processed`), `docs/` y `report/`. README con descripción, reparto de tareas, calendario, avance, instrucciones de instalación y de ejecución por notebook, y supuestos del dataset.
+El repositorio está organizado en carpetas según las fases y el tipo de trabajo realizado: `F1/` y `F2/` para los notebooks ejecutables, `F3/` y `F4/` para las fases proyectadas, `src/arena/` para el paquete modular de código, `tests/` para las 55 pruebas unitarias, `data/` (`raw`, `interim`, `processed`) para los datos y `docs/` y `report/` para la documentación y evidencias.
+
+El archivo `README.md` contiene la descripción del proyecto, las preguntas de investigación, el reparto de tareas, el calendario, la tabla de avance actualizada de las Fases 1 y 2, los supuestos del dataset y las instrucciones detalladas para instalar el entorno y ejecutar cada notebook o el flujo completo mediante `Makefile`.
+
+Las contribuciones individuales se encuentran respaldadas mediante el historial de commits y los Pull Requests incorporados a `main` (ver sección 6 y Anexo E).
 
 ---
 
@@ -180,7 +206,7 @@ Todas las funciones operativas se encuentran en `src/arena/`:
 
 ## 11. Validación técnica y verificación del código · ✅
 - **Dataset (`validar_dataset.py`):** `docs/validacion_dataset.md` sobre la versión aplanada (135.634 filas × 47 columnas) cumple todos los requisitos obligatorios.
-- **Código (`pytest`):** 55 pruebas unitarias sin red en `tests/` (incluyendo `tests/test_preprocessing.py`), ejecutadas en 0,71 s y registradas en `docs/evidence/pytest.txt`.
+- **Código (`pytest`):** 55 pruebas unitarias sin red en `tests/` (incluyendo `tests/test_preprocessing.py`), ejecutadas en 0,60 s y registradas en `docs/evidence/pytest.txt`.
 - **Validador (`validate_dataset` en `F2_03`):** 0 fallos críticos y 1 advertencia conocida (10 filas con el mismo modelo) tanto en el dato original como en `data/processed/arena_clean.parquet`, además de verificación de errores provocados y consistencia de variables derivadas.
 
 ## 12. Notebook F1_Definicion.ipynb · ✅
@@ -193,6 +219,8 @@ Ejecutado de principio a fin sin errores (`Restart & Run All`), con definición 
 
 ## 14. Vinculación del mapa conceptual con el avance · ✅
 
+A continuación, se muestra cómo se relacionan los elementos del mapa conceptual con los avances implementados en el repositorio en las Fases 1 y 2 y lo proyectado para las Fases 3 y 4:
+
 | Elemento del mapa | Tipo | Estado | Evidencia |
 |---|---|---|---|
 | Python, pandas, NumPy, Jupyter, pytest, Git y GitHub | Herramientas | Implementado | `requirements.txt`, `src/arena/`, `tests/`, notebooks `F1` y `F2` |
@@ -202,34 +230,71 @@ Ejecutado de principio a fin sin errores (`Restart & Run All`), con definición 
 | Carpetas por fase y separación de datos crudos y procesados | Organización del repositorio | Implementado | `F1/` a `F4/`, `data/raw/`, `data/processed/`, `src/`, `tests/`, `docs/`, `.gitignore` |
 | Notebooks modulares con celdas narrativas, código y referencias | Estructura del notebook | Implementado | `F1/F1_Definicion.ipynb`, `F2/F2_01`, `F2/F2_02`, `F2/F2_03` |
 
-## 15. Bibliografía · 🟡
+## 15. Bibliografía · ✅
 
-Mínimo exigido: 5 fuentes en APA 7, con al menos 2 del material docente, 2 de documentación técnica oficial y 1 académica reciente, todas citadas en el texto. **Verificar autores, años y enlaces de cada una antes de entregar.**
+Chiang, W.-L., Zheng, L., Sheng, Y., Angelopoulos, A. N., Li, T., Li, D., Zhu, B., Zhang, H., Jordan, M., Gonzalez, J. E., & Stoica, I. (2024). Chatbot Arena: An open platform for evaluating LLMs by human preference. En *Proceedings of the 41st International Conference on Machine Learning* (Vol. 235, pp. 8359–8388). Proceedings of Machine Learning Research. https://proceedings.mlr.press/v235/chiang24b.html
 
-**Académicas (últimos 5 años), citadas en la introducción**
-- Chiang, W.-L., Zheng, L., Sheng, Y., Angelopoulos, A. N., Li, T., Li, D., Zhu, B., Zhang, H., Jordan, M., Gonzalez, J. E., & Stoica, I. (2024). Chatbot Arena: An open platform for evaluating LLMs by human preference. En *Proceedings of the 41st International Conference on Machine Learning* (Vol. 235, pp. 8359–8388). PMLR. https://proceedings.mlr.press/v235/chiang24b.html `[VERIFICAR orden de autores]`
-- Dubois, Y., Galambosi, B., Liang, P., & Hashimoto, T. B. (2024). *Length-controlled AlpacaEval: A simple way to debias automatic evaluators*. arXiv. https://arxiv.org/abs/2404.04475
-- Wu, M., & Aji, A. F. (2025). Style over substance: Evaluation biases for large language models. En *Proceedings of the 31st International Conference on Computational Linguistics* (pp. 297–312). Association for Computational Linguistics. https://aclanthology.org/2025.coling-main.21
+Dubois, Y., Galambosi, B., Liang, P., & Hashimoto, T. B. (2024). *Length-controlled AlpacaEval: A simple way to debias automatic evaluators* (arXiv:2404.04475). arXiv. https://doi.org/10.48550/arXiv.2404.04475
 
-**Datos**
-- LMArena. (2025). *arena-human-preference-140k* [Conjunto de datos]. Hugging Face. https://huggingface.co/datasets/lmarena-ai/arena-human-preference-140k
+*Guía de desarrollo — Evaluación Sumativa 1 (Fases 1 y 2).* (s. f.). Material docente de MCDI500, Universidad Andrés Bello. https://github.com/magistercienciadatos/Material_Didactico_Semana1/blob/main/4_Gu%C3%ADas_de_Apoyo/Guia_desarrollo_Sumativa1_Fases1y2.docx
 
-**Material docente** `[VERIFICAR autor, año y título exactos]`
-- Salinas Silva, O. (2026). *Guía de desarrollo — Evaluación Sumativa 1 (Fases 1 y 2)* [Documento de apoyo]. MCDI500, Universidad Andrés Bello.
-- Salinas Silva, O. (2026). *MCDI500 · Material didáctico de la Semana 1* [Repositorio]. GitHub. https://github.com/magistercienciadatos/Material_Didactico_Semana1
-- Sugeridas por la guía (verificar datos): Chacon y Straub (2014), *Pro Git*; McKinney (2022), *Python for data analysis*; Wilson et al. (2017), *Good enough practices in scientific computing*, PLOS Computational Biology.
+LMArena. (2025). *Arena-human-preference-140k* [Conjunto de datos]. Hugging Face. https://huggingface.co/datasets/lmarena-ai/arena-human-preference-140k
 
-**Documentación técnica oficial** `[VERIFICAR versión, año y URL]`
-- The pandas development team. *pandas documentation* (v3.1). https://pandas.pydata.org/docs/
-- NumPy Developers. *NumPy documentation* (v2.5). https://numpy.org/doc/
-- Python Software Foundation. *venv — Creation of virtual environments*. https://docs.python.org/3/library/venv.html
-- Project Jupyter. *nbconvert documentation*. https://nbconvert.readthedocs.io/
+magistercienciadatos. (2026). *MCDI500 · Material didáctico de la Semana 1* [Repositorio de materiales del curso]. GitHub. https://github.com/magistercienciadatos/Material_Didactico_Semana1
+
+NumPy Developers. (2026). *NumPy documentation* (Versión 2.5). https://numpy.org/doc/
+
+Project Jupyter. (2026). *nbconvert: Convert Notebooks to other formats* (Versión 7.17). https://nbconvert.readthedocs.io/
+
+Python Software Foundation. (s. f.). *venv — Creation of virtual environments* (Python 3.12 documentation). https://docs.python.org/3.12/library/venv.html
+
+Salinas Silva, O. (2026a). *Apuntes técnicos Semana 1: Estructura de datos, funciones, módulos, manejo de excepciones, NumPy y Pandas* [Material docente]. MCDI500 Programación para la Ciencia de Datos, Universidad Andrés Bello.
+
+The pandas development team. (2026). *pandas documentation* (Versión 3.1). https://pandas.pydata.org/docs/
+
+Wilson, G., Bryan, J., Cranston, K., Kitzes, J., Nederbragt, L., & Teal, T. K. (2017). Good enough practices in scientific computing. *PLOS Computational Biology, 13*(6), e1005510. https://doi.org/10.1371/journal.pcbi.1005510
+
+Wu, M., & Aji, A. F. (2025). Style over substance: Evaluation biases for large language models. En *Proceedings of the 31st International Conference on Computational Linguistics* (pp. 297–312). Association for Computational Linguistics. https://aclanthology.org/2025.coling-main.21/
 
 ---
 
-## Anexos (propuestos)
+
+## Anexos
+
 - A. Informe de validación del dataset (`docs/validacion_dataset.md`).
 - B. Evaluación de criterios del dataset (`docs/evaluacion_criterios_dataset.csv`).
 - C. Salida de `pytest` y de `nbconvert` (`docs/evidence/`).
 - D. Bitácora de decisiones (`docs/decisiones.md`).
-- E. Historial de commits y pull requests (capturas).
+
+### E. Evidencia del control de versiones
+
+Las siguientes capturas respaldan las contribuciones identificadas en la sección 6 y muestran los cambios incorporados al repositorio y las ramas utilizadas durante el desarrollo del informe.
+
+**E.1. Historial de commits por integrante**
+
+*Contribuciones de Valentina Carvajal Jacob (`vcjacob`).*
+
+![Commits de vcjacob](../docs/evidence/commits_vcjacob.png)
+
+*Contribuciones de JoseFredes.*
+
+![Commits de JoseFredes](../docs/evidence/commits_josefredes.png)
+
+*Contribuciones de Alejandro Poirier (`poirierunited`).*
+
+![Commits de poirierunited](../docs/evidence/commits_poirierunited.png)
+
+*Contribuciones de Angelo Morales (`angelo-morales-serrano`).*
+
+![Commits de angelo](../docs/evidence/commits_angelo.png)
+
+**E.2. Pull Requests incorporados a la rama main**
+
+*PR #4 – Limpieza y transformación de datos.*
+
+![Pull Request 4](../docs/evidence/pr-4-cleaning.png)
+
+*PR #5 – Instrucciones para ejecutar los notebooks.*
+
+![Pull Request 5](../docs/evidence/pr-5-readme.png)
+
