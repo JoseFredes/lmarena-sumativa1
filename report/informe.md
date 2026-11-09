@@ -149,12 +149,12 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 - **Convención:** commits en inglés con el formato `type(scope): message` (`feat`, `fix`, `docs`, `data`, `build`, `test`, `refactor`); ramas `f1/<tema>`, `f2/<tema>` y `docs/<tema>`; integración a `main` mediante pull request, sin squash.
 - **Historial:** la rama `main` registra commits realizados por las cuentas de GitHub de los cuatro integrantes del grupo (`JoseFredes`, `poirierunited`/`apoirier`, `vcjacob`, `angelo-morales-serrano`).
 
-**Contribuciones identificadas:**
+**Correspondencia de integrantes, usuarios de GitHub y ejemplos en la traza:**
 
-- `JoseFredes`: contribuciones relacionadas con la configuración del entorno, reproducibilidad, validación y documentación del proyecto.
-- `poirierunited`: desarrollo de la definición del problema y del proceso de limpieza y transformación de los datos.
-- `vcjacob`: aportes a la documentación del informe, evidencias de control de versiones y trazabilidad del mapa conceptual.
-- `angelo-morales-serrano`: incorporación de instrucciones para ejecutar los notebooks desde `README.md` y verificación multiplataforma en Windows 10.
+- **José Fredes Acevedo (`JoseFredes`, 52 commits en traza):** configuración del entorno reproducible, ingesta con verificación SHA-256, validador automatizado, suite de 55 pruebas unitarias e integración de PRs. Ejemplos de commits: `2c892ff feat(io): add dataset download and SHA-256 checksums`, `2078783 feat(validation): add validate_dataset with ValidationReport and tests` y `b647539 fix(io): normalize relative checksum paths to POSIX on Windows (closes #7)` (PRs #1 y #2; apertura y seguimiento de Issues #1, #2, #3 y resolución del Issue #7).
+- **Alejandro Poirier Gómez (`poirierunited` / autor local `apoirier`, 6 commits en traza):** definición metodológica de la Fase 1 y desarrollo del pipeline de limpieza, aplanamiento y derivación de variables de la Fase 2. Ejemplos de commits: `78d7cca docs(f1): define problem, research question, objectives and scope`, `b1d826b feat(preprocessing): implement helper functions used in the data cleaning and transformation pipeline for LMArena dataset` y `3c41aa4 feat(cleaning): add cleaning and transformation notebook for data preparation` (integrados mediante PR de `f1/definition` y PR #4 desde `poirierunited/f2/cleaning`).
+- **Valentina Carvajal Jacob (`vcjacob`, 11 commits en traza):** aportes a la documentación del informe, verificación bibliográfica APA 7, evidencias de control de versiones y trazabilidad del mapa conceptual. Ejemplos de commits: `bec75a6 docs(report): document conceptual map traceability`, `5273268 docs(evidence): add version control screenshots` y `6b2d8a9 docs(report): update bibliography and source citations` (integrados vía PR de `docs/mapa-trazabilidad` y PR #8 desde `vcjacob/docs/report-update`, resolviendo el Issue #2).
+- **Angelo Morales Serrano (`angelo-morales-serrano` / autor local `Angelo Morales`, 2 commits en traza):** incorporación de instrucciones para ejecutar los notebooks desde `README.md`, verificación multiplataforma (`make all` en Windows 10) y reporte de incidencias entre sistemas operativos. Ejemplos de commits: `c24b566 docs(readme): add per-notebook run instructions` y `3f2a5bf docs(evidence): make all run on Windows with notebooks` (integrados en PR #5 y PR #6, resolviendo los Issues #1 y #3 y abriendo el Issue #7).
 
 **Pull Requests incorporados a main:**
 
