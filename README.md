@@ -164,3 +164,8 @@ data/raw/          dato descargado (no se versiona; se verifica con CHECKSUMS.tx
 data/processed/    dato procesado (arena_clean.parquet, generado por F2_02)
 docs/evidence/     test and execution outputs (pytest, nbconvert, entorno)
 ```
+
+## Declaración de uso de herramientas de apoyo (IA)
+
+- **Claude (Anthropic):** utilizado como asistente de apoyo y aprendizaje autodidacta para profundizar en los contenidos técnicos del curso y realizar el seguimiento estructurado de tareas e hitos del proyecto.
+- **Gemini (Google):** utilizado como apoyo editorial para revisar y mejorar la redacción, cohesión y comunicación escrita del informe técnico y la documentación, manteniendo todas las decisiones metodológicas, el código y la verificación de resultados a cargo de los integrantes del equipo.

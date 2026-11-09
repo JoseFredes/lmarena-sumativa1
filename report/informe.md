@@ -124,8 +124,10 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 | pytest | 55 pruebas automáticas sin red | `tests/` |
 | Jupyter / nbconvert | notebooks ejecutables y verificación de ejecución | `F1/`, `F2/` |
 | Git / GitHub | versionado colaborativo y trazabilidad mediante PRs | repositorio |
+| Claude (Anthropic) | apoyo y aprendizaje autodidacta de contenidos técnicos y seguimiento de avances | estudio autónomo y coordinación (F1 y F2) |
+| Gemini (Google) | apoyo editorial para mejorar la redacción y comunicación escrita | informe técnico y documentación |
 
-**Módulos.** `env` (registro del entorno), `io` (descarga y huellas), `profile` (inspección estructural, tablas de frecuencia, columnas anidadas), `preprocessing` (aplanamiento, tipos y variables derivadas), `validation` (chequeos críticos y advertencias), `plots` (gráficos), `sampling` (muestreo por filas y por sesiones). Los notebooks solo llaman a estas funciones.
+**Módulos.** `env` (registro del entorno), `io` (descarga y huellas), `profile` (inspección estructural, tablas de frecuencia, columnas anidadas), `preprocessing` (aplanamiento, tipos y variables derivadas), `validation` (chequeos críticos y advertencias), `plots` (gráficos), `sampling` (muestreo por filas y por sesiones). Los notebooks solo llaman a estas funciones. Como apoyo transversal al equipo, se utilizó Claude para el aprendizaje autodidacta de los contenidos y el seguimiento de tareas, y Gemini para mejorar la redacción y comunicación escrita del documento.
 
 ---
 
