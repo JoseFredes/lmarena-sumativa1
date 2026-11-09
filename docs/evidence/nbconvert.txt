@@ -1,24 +1,16 @@
 == F1/F1_Definicion.ipynb
 [NbConvertApp] Converting notebook F1/F1_Definicion.ipynb to notebook
-C:\Users\angel\proyecto-grupoX-mcdi500\lmarena-sumativa1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
-  self._get_loop()
 [IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
-[NbConvertApp] Writing 11041 bytes to F1\F1_Definicion.ipynb
+[NbConvertApp] Writing 10979 bytes to F1/F1_Definicion.ipynb
 == F2/F2_01_acquisition_exploration.ipynb
 [NbConvertApp] Converting notebook F2/F2_01_acquisition_exploration.ipynb to notebook
-C:\Users\angel\proyecto-grupoX-mcdi500\lmarena-sumativa1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
-  self._get_loop()
 [IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
-[NbConvertApp] Writing 217667 bytes to F2\F2_01_acquisition_exploration.ipynb
+[NbConvertApp] Writing 217586 bytes to F2/F2_01_acquisition_exploration.ipynb
 == F2/F2_02_cleaning_transformation.ipynb
 [NbConvertApp] Converting notebook F2/F2_02_cleaning_transformation.ipynb to notebook
-C:\Users\angel\proyecto-grupoX-mcdi500\lmarena-sumativa1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
-  self._get_loop()
 [IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
-[NbConvertApp] Writing 31352 bytes to F2\F2_02_cleaning_transformation.ipynb
+[NbConvertApp] Writing 31287 bytes to F2/F2_02_cleaning_transformation.ipynb
 == F2/F2_03_validation.ipynb
 [NbConvertApp] Converting notebook F2/F2_03_validation.ipynb to notebook
-C:\Users\angel\proyecto-grupoX-mcdi500\lmarena-sumativa1\.venv\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
-  self._get_loop()
 [IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
-[NbConvertApp] Writing 35047 bytes to F2\F2_03_validation.ipynb
+[NbConvertApp] Writing 33645 bytes to F2/F2_03_validation.ipynb
