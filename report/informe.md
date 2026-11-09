@@ -35,6 +35,8 @@ Confirmar que las capturas correspondan a la versión definitiva del proyecto.
 - No trae índice automático ni estilos de título: hay que agregarlos.
 - Nombre del archivo: la instrucción pide `f1_s01_evaluacion_entregable_grupox` y a la vez "no superar los 20 caracteres", lo que es incompatible (el nombre base ya tiene 35). Consultar al docente.
 
+La estructura y el orden de los apartados del informe siguen lo indicado en la guía de desarrollo de la Sumativa 1 (*Guía de desarrollo — Evaluación Sumativa 1 (Fases 1 y 2)*, s. f.).
+
 ---
 
 ## 2. Introducción y contextualización · ✅
@@ -108,7 +110,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 ## 4. Aplicación de herramientas científicas · 🟡
 
-**Entorno.** Python 3.12.13 en un entorno virtual (`.venv`). Librerías principales (versiones fijas en `requirements.txt`): NumPy 2.5.4, pandas 3.1.0, pyarrow 26.0.0, matplotlib 3.11.2, huggingface_hub 2.4.0, pytest 9.2.0, nbconvert 7.17.2, ipykernel 7.4.0, ipywidgets 8.1.9. Control de versiones con Git y GitHub.
+**Entorno.** Python 3.12.13 en un entorno virtual (`.venv`), que permite mantener separadas las librerías utilizadas en el proyecto (Python Software Foundation, s. f.). Las principales librerías utilizadas tienen sus versiones fijadas en `requirements.txt`: NumPy 2.5.4, pandas 3.1.0, pyarrow 26.0.0, matplotlib 3.11.2, huggingface_hub 2.4.0, pytest 9.2.0 y nbconvert 7.17.2, entre otras (NumPy Developers, 2026; The pandas development team, 2026).
 
 **Qué hace cada herramienta en el proyecto.**
 | Herramienta | Uso | Dónde |
@@ -201,7 +203,7 @@ Las contribuciones individuales se encuentran respaldadas mediante el historial 
 Diagnóstico ya disponible (F2_01): 0 nulos en 11 columnas; 10 filas con `model_a == model_b`; 61 y 58 respuestas con 0 tokens; tokens muy asimétricos (mediana 748, máximo 137.128); 8,7 % de votos con idioma `und`.
 
 ## 11. Validación técnica y verificación del código · 🟡
-- **Dataset:** `docs/validacion_dataset.md`, generado con `validar_dataset.py` del curso sobre la versión aplanada del dato (135.634 filas × 47 columnas). Resultado: cumple todos los requisitos obligatorios y tiene un aviso (sin valores faltantes). El criterio de tamaño (37,6 MB) se evaluó sobre el CSV aplanado; el dato original pesa 1,6 GB.
+- **Dataset:** `docs/validacion_dataset.md`, generado al aplicar el script de validación incluido en el material del curso sobre la versión aplanada del dataset (135.634 filas × 47 columnas). El resultado indica que cumple todos los requisitos obligatorios y presenta un aviso (sin valores faltantes) (magistercienciadatos, 2026).
 - **Código:** 51 pruebas con pytest, sin red, que cubren casos normales (datos válidos), límite (`evaluation_order` en 1 y 28, 0 tokens, archivo vacío, sesión de un voto) y excepciones (columna faltante, ganador inválido, tokens negativos, id repetido, entrada que no es DataFrame, archivo de huellas inexistente, huella que no coincide, tamaños de muestra inválidos). Salida guardada en `docs/evidence/pytest.txt`.
 - **Validador del dataset:** `validate_dataset` devuelve un `ValidationReport` con chequeos críticos (lanzan `ValueError` con `assert_ok()`) y advertencias. Sobre el dato original: 0 fallos críticos y 1 advertencia (10 filas con el mismo modelo en ambos lados). El notebook `F2_03` provoca errores a propósito para mostrar que se detectan.
 `[PENDIENTE]` Pruebas del módulo `preprocessing` y validación del dataset procesado (dependen de F2_02).
@@ -245,26 +247,23 @@ Los avances muestran que ya se cuenta con el entorno, la estructura del reposito
 
 ## 15. Bibliografía · 🟡
 
-Mínimo exigido: 5 fuentes en APA 7, con al menos 2 del material docente, 2 de documentación técnica oficial y 1 académica reciente, todas citadas en el texto. **Verificar autores, años y enlaces de cada una antes de entregar.**
+Chiang, W.-L., Zheng, L., Sheng, Y., Angelopoulos, A. N., Li, T., Li, D., Zhu, B., Zhang, H., Jordan, M., Gonzalez, J. E., & Stoica, I. (2024). Chatbot Arena: An open platform for evaluating LLMs by human preference. En *Proceedings of the 41st International Conference on Machine Learning* (Vol. 235, pp. 8359–8388). Proceedings of Machine Learning Research. https://proceedings.mlr.press/v235/chiang24b.html
 
-**Académicas (últimos 5 años), citadas en la introducción**
-- Chiang, W.-L., Zheng, L., Sheng, Y., Angelopoulos, A. N., Li, T., Li, D., Zhu, B., Zhang, H., Jordan, M., Gonzalez, J. E., & Stoica, I. (2024). Chatbot Arena: An open platform for evaluating LLMs by human preference. En *Proceedings of the 41st International Conference on Machine Learning* (Vol. 235, pp. 8359–8388). PMLR. https://proceedings.mlr.press/v235/chiang24b.html `[VERIFICAR orden de autores]`
-- Dubois, Y., Galambosi, B., Liang, P., & Hashimoto, T. B. (2024). *Length-controlled AlpacaEval: A simple way to debias automatic evaluators*. arXiv. https://arxiv.org/abs/2404.04475
-- Wu, M., & Aji, A. F. (2025). Style over substance: Evaluation biases for large language models. En *Proceedings of the 31st International Conference on Computational Linguistics* (pp. 297–312). Association for Computational Linguistics. https://aclanthology.org/2025.coling-main.21
+Dubois, Y., Galambosi, B., Liang, P., & Hashimoto, T. B. (2024). *Length-controlled AlpacaEval: A simple way to debias automatic evaluators* (arXiv:2404.04475). arXiv. https://doi.org/10.48550/arXiv.2404.04475
 
-**Datos**
-- LMArena. (2025). *arena-human-preference-140k* [Conjunto de datos]. Hugging Face. https://huggingface.co/datasets/lmarena-ai/arena-human-preference-140k
+*Guía de desarrollo — Evaluación Sumativa 1 (Fases 1 y 2).* (s. f.). Material docente de MCDI500, Universidad Andrés Bello. https://github.com/magistercienciadatos/Material_Didactico_Semana1/blob/main/4_Gu%C3%ADas_de_Apoyo/Guia_desarrollo_Sumativa1_Fases1y2.docx
 
-**Material docente** `[VERIFICAR autor, año y título exactos]`
-- Salinas Silva, O. (2026). *Guía de desarrollo — Evaluación Sumativa 1 (Fases 1 y 2)* [Documento de apoyo]. MCDI500, Universidad Andrés Bello.
-- Salinas Silva, O. (2026). *MCDI500 · Material didáctico de la Semana 1* [Repositorio]. GitHub. https://github.com/magistercienciadatos/Material_Didactico_Semana1
-- Sugeridas por la guía (verificar datos): Chacon y Straub (2014), *Pro Git*; McKinney (2022), *Python for data analysis*; Wilson et al. (2017), *Good enough practices in scientific computing*, PLOS Computational Biology.
+LMArena. (2025). ** [Conjunto de datos]. Hugging Face. https://huggingface.co/datasets/lmarena-ai/
 
-**Documentación técnica oficial** `[VERIFICAR versión, año y URL]`
-- The pandas development team. *pandas documentation* (v3.1). https://pandas.pydata.org/docs/
-- NumPy Developers. *NumPy documentation* (v2.5). https://numpy.org/doc/
-- Python Software Foundation. *venv — Creation of virtual environments*. https://docs.python.org/3/library/venv.html
-- Project Jupyter. *nbconvert documentation*. https://nbconvert.readthedocs.io/
+magistercienciadatos. (2026). *MCDI500 · Material didáctico de la Semana 1* [Repositorio de materiales del curso]. GitHub. https://github.com/magistercienciadatos/Material_Didactico_Semana1
+
+NumPy Developers. (2026). *NumPy 2.5.4 release notes*. GitHub. https://github.com/numpy/numpy/releases/tag/v2.5.4
+
+Python Software Foundation. (s. f.). *venv — Creation of virtual environments* (Python 3.12 documentation). https://docs.python.org/3.12/library/venv.html
+
+The pandas development team. (2026). *What’s new in pandas 3.1.0*. pandas documentation. https://pandas.pydata.org/pandas-docs/stable/whatsnew/v3.1.0.html
+
+Wu, M., & Aji, A. F. (2025). Style over substance: Evaluation biases for large language models. En *Proceedings of the 31st International Conference on Computational Linguistics* (pp. 297–312). Association for Computational Linguistics. https://aclanthology.org/2025.coling-main.21/
 
 ---
 
