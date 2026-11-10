@@ -1,6 +1,7 @@
 """Structural inspection of the raw dataset: schema, row counts and per-column summary."""
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
 
@@ -109,3 +110,46 @@ def export_flat_csv(out_path: Path, raw_dir: Path = RAW_DIR) -> Path:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     flat_view(load_raw(raw_dir)).to_csv(out_path, index=False)
     return out_path
+
+
+def numeric_summary(df: pd.DataFrame, columns: list[str], log: bool = False) -> pd.DataFrame:
+    """Descriptive table for numeric columns, one row per column.
+
+    Adds to ``describe()``: coefficient of variation, skewness, excess kurtosis, p95, p99 and the
+    share of values outside the IQR fences (Q1 - 1.5*IQR, Q3 + 1.5*IQR). With ``log=True`` the
+    values go through ``log1p`` first, so zeros stay at 0 instead of dropping out.
+    """
+    data = df[columns].astype(float)
+    if log:
+        data = np.log1p(data)
+    q1, q3 = data.quantile(0.25), data.quantile(0.75)
+    iqr = q3 - q1
+    outside = (data.lt(q1 - 1.5 * iqr) | data.gt(q3 + 1.5 * iqr)).mean() * 100
+    out = data.describe().T
+    out["cv"] = data.std() / data.mean()
+    out["skew"] = data.skew()
+    out["kurtosis"] = data.kurt()
+    out["p95"] = data.quantile(0.95)
+    out["p99"] = data.quantile(0.99)
+    out["outliers_pct"] = outside
+    return out.drop(columns=["25%", "75%"]).round(2)
+
+
+def formatting_summary(meta: pd.DataFrame, columns: list[str] | None = None) -> pd.DataFrame:
+    """Mean, median, std, max and percentage of zeros for formatting counts in ``conv_metadata``.
+
+    Defaults to every header, list and bold column. Grouping them (by level, by side) is left
+    to the cleaning step.
+    """
+    if columns is None:
+        columns = [c for c in meta.columns if c.startswith(("header_count", "list_count", "bold_count"))]
+    data = meta[columns]
+    return pd.DataFrame(
+        {
+            "mean": data.mean(),
+            "median": data.median(),
+            "std": data.std(),
+            "max": data.max(),
+            "zeros_pct": (data == 0).mean() * 100,
+        }
+    ).round(2)

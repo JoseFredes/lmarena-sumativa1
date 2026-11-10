@@ -1,7 +1,15 @@
 import pandas as pd
 import pytest
 
-from arena.profile import count_rows, load_raw, parquet_files, raw_schema, structure_summary
+from arena.profile import (
+    count_rows,
+    formatting_summary,
+    load_raw,
+    numeric_summary,
+    parquet_files,
+    raw_schema,
+    structure_summary,
+)
 
 
 @pytest.fixture
@@ -78,3 +86,33 @@ def test_export_flat_csv_roundtrip(raw_dir, tmp_path):
 
     out = export_flat_csv(tmp_path / "interim" / "flat.csv", raw_dir)
     assert len(pd.read_csv(out)) == 6
+
+
+def test_numeric_summary_values():
+    df = pd.DataFrame({"x": [0, 0, 10, 10, 1000]})
+    out = numeric_summary(df, ["x"])
+    assert out.loc["x", "mean"] == 204.0
+    assert out.loc["x", "outliers_pct"] == 20.0  # only the 1000 is outside the fences
+    assert out.loc["x", "skew"] > 0
+    assert {"cv", "skew", "kurtosis", "p95", "p99", "outliers_pct"} <= set(out.columns)
+
+
+def test_numeric_summary_log_keeps_zeros():
+    df = pd.DataFrame({"x": [0, 0, 10, 10, 1000]})
+    out = numeric_summary(df, ["x"], log=True)
+    assert out.loc["x", "count"] == 5
+    assert out.loc["x", "min"] == 0
+
+
+def test_formatting_summary_picks_formatting_columns():
+    meta = pd.DataFrame(
+        {
+            "sum_user_tokens": [5, 6, 7, 8],
+            "header_count_a_h1": [0, 0, 0, 4],
+            "bold_count_a_**": [0, 2, 0, 2],
+        }
+    )
+    out = formatting_summary(meta)
+    assert list(out.index) == ["header_count_a_h1", "bold_count_a_**"]
+    assert out.loc["header_count_a_h1", "zeros_pct"] == 75.0
+    assert out.loc["bold_count_a_**", "median"] == 1.0
