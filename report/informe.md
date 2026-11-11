@@ -1,45 +1,26 @@
 # Informe técnico · Avance del proyecto, Fases 1 y 2
 
-> **Borrador de trabajo.** Sigue el orden y la numeración de la guía de desarrollo de la Sumativa 1 (apartados 4.1 a 4.15) para que el índice del informe final coincida con lo que pide la rúbrica.
-<!-- REVISIÓN FINAL ANTES DE LA ENTREGA:
-Cuando el informe esté aproximadamente al 90% de avance, actualizar y verificar la información de todas las secciones.
-Revisar especialmente cifras, resultados, estado de los notebooks, contribuciones, commits, Pull Requests, bibliografía y evidencias del repositorio.
-Confirmar que las capturas correspondan a la versión definitiva del proyecto.
--->
-> Estado de cada apartado: ✅ redactado · 🟡 redactado con datos pendientes · ⬜ por redactar.
-> Marcas: `[PENDIENTE]` depende de trabajo aún no hecho; `TODO(humano)` lo debe completar el grupo; `[VERIFICAR]` es un dato que hay que confirmar antes de entregar.
-> Este texto es un punto de partida: cada integrante debe leerlo, corregirlo y dejarlo en su propia voz, porque el informe debe ser de elaboración propia.
-
 ---
 
-## 1. Portada e índice · 🟡
+## 1. Portada e índice
 
 | Campo | Contenido |
 |---|---|
-| Curso y código | MCDI500 · Programación para la Ciencia de Datos (sección MCDI500.202683.1529.EL.ON) `[VERIFICAR]` |
+| Curso y código | MCDI500 · Programación para la Ciencia de Datos (sección MCDI500.202683.1529.EL.ON) |
 | Programa | Magíster en Ciencia de Datos e Inteligencia Artificial · Universidad Andrés Bello |
 | Título del proyecto | ¿Contenido o formato? Preferencias humanas en LMArena |
 | Subtítulo | Avance del proyecto, Fases 1 y 2 |
-| Integrantes | Alejandro Poirier Gomez, Angelo Morales Serrano, Jose Fredes Acevedo y Valentina Carvajal Jacob |
+| Integrantes | Alejandro Poirier Gómez, Angelo Morales Serrano, José Fredes Acevedo y Valentina Carvajal Jacob |
 | Grupo | 6 |
 | Docente responsable | Dr. Omar Salinas Silva |
-| Fecha | 8 de noviembre de 2026 |
+| Fecha | 11 de noviembre de 2026 |
 | Repositorio | https://github.com/JoseFredes/lmarena-sumativa1 |
-
-**Índice:** automático, generado desde los estilos de título (Título 1, 2 y 3) y actualizado justo antes de exportar. Los apartados son los de este documento, en el mismo orden.
-
-**Observaciones sobre la plantilla institucional** (`f1_s01_evaluacion_entregable.docx`), a resolver antes de entregar:
-- Dice "MCDIA500" y "AVANCE DEL PROYECTO FASE 1"; la entrega cubre las Fases 1 y 2 y el curso se llama MCDI500.
-- La plantilla original solo contempla "Nombre integrante/s", "Curso" y "Fecha". En esta portada se agregaron el título del proyecto, docente, grupo y enlace al repositorio. Revisar si faltan otros datos institucionales solicitados.
-- La lista de "Apartados" no incluye codificación funcional, preprocesamiento, validación técnica ni los notebooks de la Fase 2.
-- No trae índice automático ni estilos de título: hay que agregarlos.
-- Nombre del archivo: la instrucción pide `f1_s01_evaluacion_entregable_grupox` y a la vez "no superar los 20 caracteres", lo que es incompatible (el nombre base ya tiene 35). Consultar al docente.
 
 La estructura y el orden de los apartados del informe siguen lo indicado en la guía de desarrollo de la Sumativa 1 (*Guía de desarrollo — Evaluación Sumativa 1 (Fases 1 y 2)*, s. f.).
 
 ---
 
-## 2. Introducción y contextualización · ✅
+## 2. Introducción y contextualización 
 
 Los modelos de lenguaje de gran tamaño se comparan cada vez más mediante evaluaciones basadas en preferencia humana: una persona formula una pregunta, recibe dos respuestas anónimas de modelos distintos y vota por la que prefiere. La plataforma más conocida de este tipo es Chatbot Arena, hoy LMArena, descrita por Chiang et al. (2024) como una plataforma abierta que recoge comparaciones por pares de forma masiva. Sus resultados se utilizan para ordenar modelos y, en la práctica, para decidir cuáles se adoptan.
 
@@ -55,7 +36,7 @@ Las fases del proyecto se articulan así: la **Fase 1** define el problema y con
 
 ---
 
-## 3. Definición de la problemática y objetivos · ✅
+## 3. Definición de la problemática y objetivos
 
 ### 3.1 Problemática
 Las evaluaciones por preferencia humana se utilizan como medida de calidad de los modelos de lenguaje. Sin embargo, los resultados podrían estar asociados a características de las respuestas que no necesariamente reflejan su calidad, como la extensión y el uso de elementos de formato (listas, encabezados y negritas). Se desconoce en qué medida estas características se relacionan con las preferencias humanas registradas en LMArena y cómo podrían variar según el idioma, el modelo evaluado y el tipo de pregunta.
@@ -64,7 +45,6 @@ Las evaluaciones por preferencia humana se utilizan como medida de calidad de lo
 **P1 · Estilo frente a calidad.** ¿Las respuestas más largas y con mayor cantidad de elementos de formato tienden a ganar con mayor frecuencia las evaluaciones de preferencia humana registradas en LMArena?
 
 Esta pregunta será abordada en las Fases 3 y 4 del proyecto, utilizando las variables preparadas y validadas durante las Fases 1 y 2.
-Estas preguntas se responden en las Fases 3 y 4.
 
 ### 3.3 Objetivo general
 Analizar si la extensión y las características de formato de las respuestas se asocian con las preferencias humanas registradas en LMArena, mediante la preparación y validación de un conjunto de datos reproducible que permita desarrollar el análisis en las fases posteriores del proyecto.
@@ -108,7 +88,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 ---
 
-## 4. Aplicación de herramientas científicas · 🟡
+## 4. Aplicación de herramientas científicas
 
 **Entorno.** Python 3.12.13 en un entorno virtual (`.venv`), que permite mantener separadas las librerías utilizadas en el proyecto (Python Software Foundation, s. f.). Las principales librerías utilizadas tienen sus versiones fijadas en `requirements.txt`: NumPy 2.5.4, pandas 3.1.0, pyarrow 26.0.0, matplotlib 3.11.2, huggingface_hub 2.4.0, pytest 9.2.0 y nbconvert 7.17.2, entre otras (NumPy Developers, 2026; The pandas development team, 2026).
 
@@ -127,36 +107,38 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 | Claude (Anthropic) | apoyo y aprendizaje autodidacta de contenidos técnicos y seguimiento de avances | estudio autónomo y coordinación (F1 y F2) |
 | Gemini (Google) | apoyo editorial para mejorar la redacción y comunicación escrita | informe técnico y documentación |
 
-**Módulos.** `env` (registro del entorno), `io` (descarga y huellas), `profile` (inspección estructural, tablas de frecuencia, columnas anidadas), `preprocessing` (aplanamiento, tipos y variables derivadas), `validation` (chequeos críticos y advertencias), `plots` (gráficos), `sampling` (muestreo por filas y por sesiones). Los notebooks utilizan estos módulos y, cuando corresponde, incorporan análisis exploratorios propios. Por ejemplo, `F2_04_token_distribution.ipynb` aplica transformaciones logarítmicas y genera histogramas para examinar la distribución de tokens. Como apoyo transversal al equipo, se utilizó Claude para el aprendizaje autodidacta de los contenidos y el seguimiento de tareas, y Gemini para mejorar la redacción y comunicación escrita del documento.
+**Módulos.** `env` (registro del entorno), `io` (descarga y huellas), `profile` (inspección estructural, tablas de frecuencia, columnas anidadas), `preprocessing` (aplanamiento, tipos y variables derivadas), `validation` (chequeos críticos y advertencias), `plots` (gráficos), `sampling` (muestreo por filas y por sesiones). Los notebooks utilizan estos módulos y, cuando corresponde, incorporan análisis exploratorios propios. Por ejemplo, `F2_04_token_distribution.ipynb` aplica transformaciones logarítmicas y genera histogramas para examinar la distribución de tokens. Como apoyo transversal al equipo, se utilizó Claude para el aprendizaje autodidacta de los contenidos y el seguimiento de tareas, y Gemini para mejorar la redacción y comunicación escrita del documento. Como apoyo teórico para el uso de funciones, módulos y manejo de excepciones, se consideraron los apuntes técnicos de la Semana 1 del curso (Salinas Silva, 2026).
 
 ---
 
-## 5. Reproducibilidad técnica · ✅
+## 5. Reproducibilidad técnica
 
 - **Ambiente virtual:** `make install` crea `.venv` con Python 3.12 e instala `requirements.txt` (versiones fijas con `==`) y el paquete del proyecto en modo editable (`pip install -e .`).
 - **Verificación de la instalación:** `pip check` informa que no hay dependencias rotas.
-- **Pruebas:** `make test` ejecuta 55 pruebas automáticas que no usan la red (`0,71 s`).
+- **Pruebas:** `make test` ejecuta 55 pruebas automáticas que no usan la red, con resultado satisfactorio (`55 passed in 0.60s`), según la evidencia registrada en `docs/evidence/pytest.txt`.
 - **Rutas y semilla:** todas las rutas son relativas a la raíz del proyecto (calculada desde el propio código) y la semilla aleatoria está fijada en 42.
 - **Integridad del dato:** `data/raw/CHECKSUMS.txt` guarda la huella SHA-256 de los 7 archivos y `verify_checksums()` las recalcula.
 - **Evidencia de ejecución de punta a punta y multi-equipo:** `make all` se ejecutó desde un clon limpio y además fue verificado de manera independiente en los equipos de distintos integrantes (`Python 3.12.13` y `Python 3.12.16` en macOS). Las salidas están en `docs/evidence/` (`entorno.txt`, `pytest.txt`, `nbconvert.txt`).
 - **Registro del entorno en los notebooks:** la celda de entorno lista cada dependencia con su versión fijada frente a la instalada, la semilla, la rama y el commit de la ejecución. Los metadatos quedan además en `docs/metadatos_fase1.json` y `docs/metadatos_proyecto.csv`.
 
+Para la verificación automatizada de los notebooks se utiliza `nbconvert`, herramienta que permite ejecutar archivos `.ipynb` y comprobar su funcionamiento mediante línea de comandos (Project Jupyter, 2026).
+
 ---
 
-## 6. Control de versiones · ✅
+## 6. Control de versiones
 
 - **Repositorio:** https://github.com/JoseFredes/lmarena-sumativa1 (público, licencia MIT).
-- **Convención:** commits en inglés con el formato `type(scope): message` (`feat`, `fix`, `docs`, `data`, `build`, `test`, `refactor`); ramas `f1/<tema>`, `f2/<tema>` y `docs/<tema>`; integración a `main` mediante pull request, sin squash.
+- **Convención:** commits en inglés con el formato `type(scope): message` (`feat`, `fix`, `docs`, `data`, `build`, `test`, `refactor`); ramas `f1/<tema>`, `f2/<tema>` y `docs/<tema>`; integración a `main` mediante pull request, sin squash. El uso de control de versiones y la documentación de los cambios realizados por cada integrante permiten mantener la trazabilidad del proyecto, en línea con las buenas prácticas de computación científica descritas por Wilson et al. (2017).
 - **Historial:** la rama `main` registra commits realizados por las cuentas de GitHub de los cuatro integrantes del grupo (`JoseFredes`, `poirierunited`/`apoirier`, `vcjacob`, `angelo-morales-serrano`).
 
 **Correspondencia de integrantes, usuarios de GitHub y ejemplos en la traza:**
 
-- **José Fredes Acevedo (`JoseFredes`, 52 commits en traza):** configuración del entorno reproducible, ingesta con verificación SHA-256, validador automatizado, suite de 55 pruebas unitarias e integración de PRs. Ejemplos de commits: `2c892ff feat(io): add dataset download and SHA-256 checksums`, `2078783 feat(validation): add validate_dataset with ValidationReport and tests` y `b647539 fix(io): normalize relative checksum paths to POSIX on Windows (closes #7)` (PRs #1 y #2; apertura y seguimiento de Issues #1, #2, #3 y resolución del Issue #7).
-- **Alejandro Poirier Gómez (`poirierunited` / autor local `apoirier`, 6 commits en traza):** definición metodológica de la Fase 1 y desarrollo del pipeline de limpieza, aplanamiento y derivación de variables de la Fase 2. Ejemplos de commits: `78d7cca docs(f1): define problem, research question, objectives and scope`, `b1d826b feat(preprocessing): implement helper functions used in the data cleaning and transformation pipeline for LMArena dataset` y `3c41aa4 feat(cleaning): add cleaning and transformation notebook for data preparation` (integrados mediante PR de `f1/definition` y PR #4 desde `poirierunited/f2/cleaning`).
-- **Valentina Carvajal Jacob (`vcjacob`):** documentación del informe técnico, revisión bibliográfica APA 7, evidencias de control de versiones, trazabilidad del mapa conceptual, incorporación de validaciones iniciales del dataset en F1 y desarrollo del análisis exploratorio de distribución de tokens y calidad de datos en F2. Ejemplos de commits: `bec75a6 docs(report): document conceptual map traceability`, `5273268 docs(evidence): add version control screenshots` y `6b2d8a9 docs(report): update bibliography and source citations` (integrados mediante PR #8, #12 y #13, resolviendo el Issue #2).
-- **Angelo Morales Serrano (`angelo-morales-serrano` / autor local `Angelo Morales`, 2 commits en traza):** incorporación de instrucciones para ejecutar los notebooks desde `README.md`, verificación multiplataforma (`make all` en Windows 10) y reporte de incidencias entre sistemas operativos. Ejemplos de commits: `c24b566 docs(readme): add per-notebook run instructions` y `3f2a5bf docs(evidence): make all run on Windows with notebooks` (integrados en PR #5 y PR #6, resolviendo los Issues #1 y #3 y abriendo el Issue #7).
+- **José Fredes Acevedo (`JoseFredes`):** configuración del entorno reproducible, ingesta con verificación SHA-256, validador automatizado, suite de 55 pruebas unitarias e integración de PRs. Ejemplos de commits: `2c892ff feat(io): add dataset download and SHA-256 checksums`, `2078783 feat(validation): add validate_dataset with ValidationReport and tests` y `b647539 fix(io): normalize relative checksum paths to POSIX on Windows (closes #7)` (apertura y seguimiento de los Issues #1, #2 y #3, y resolución del Issue #7).
+- **Alejandro Poirier Gómez (`poirierunited` / autor local `apoirier`):** definición metodológica de la Fase 1 y desarrollo del pipeline de limpieza, aplanamiento y derivación de variables de la Fase 2. Ejemplos de commits: `78d7cca docs(f1): define problem, research question, objectives and scope`, `b1d826b feat(preprocessing): implement helper functions used in the data cleaning and transformation pipeline for LMArena dataset` y `3c41aa4 feat(cleaning): add cleaning and transformation notebook for data preparation` (contribuciones a la definición metodológica de F1 mediante commits y al procesamiento de datos de F2 mediante el PR #4).
+- **Valentina Carvajal Jacob (`vcjacob`):** documentación del informe técnico, revisión bibliográfica APA 7, evidencias de control de versiones, trazabilidad del mapa conceptual, incorporación de validaciones iniciales del dataset en F1 y desarrollo del análisis exploratorio de distribución de tokens y calidad de datos en F2. Ejemplos de commits: `6b2d8a9 docs(report): update bibliography and source citations`, `fb11abf feat(f1): add dataset sample and validation checks` y `f6a03dd feat: add token distribution and data quality analysis` (integrados mediante PR #8, #12 y #13, resolviendo el Issue #2).
+- **Angelo Morales Serrano (`angelo-morales-serrano` / autor local `Angelo Morales`):** documentación de instrucciones para ejecutar los notebooks desde `README.md`, verificación multiplataforma (`make all` en Windows 10), reporte de incidencias entre sistemas operativos, actualización del README, elaboración del diccionario de 54 variables del dataset procesado e incorporación de F2_04 en el informe técnico. Ejemplos de commits: `c24b566 docs(readme): add per-notebook run instructions`, `9e96a16 docs(readme): fix program name, due date and member name` y `f89411d docs: add variable dictionary for the processed dataset` (contribuciones mediante PR #5, #6, #10, #11 y #14, y seguimiento de los Issues #1, #3 y #7).
 
-**Pull Requests incorporados a main:**
+**Pull Requests del proyecto:**
 
 - **PR #4 – F2/cleaning:** incorpora el notebook y el proceso de limpieza y transformación de los datos, desarrollado por `poirierunited`.
 - **PR #5 – Instrucciones del README:** incorpora las indicaciones para ejecutar los notebooks, desarrollado por `angelo-morales-serrano`.
@@ -171,7 +153,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 La evidencia del historial de commits, los Pull Requests y las ramas se presenta en el Anexo E.
 
-## 7. Documentación del proceso · ✅
+## 7. Documentación del proceso
 
 **Flujo de trabajo, de la carga a los resultados.**
 1. `download_dataset()` descarga los 7 archivos parquet a `data/raw/` y `write_checksums()` registra su huella.
@@ -179,6 +161,9 @@ La evidencia del historial de commits, los Pull Requests y las ramas se presenta
 3. `structure_summary()` y `frequency_table()` describen cada variable; `nested_paths()` revela la estructura de las columnas anidadas.
 4. `clean_dataset()` y `save_clean()` (`src/arena/preprocessing.py`) aplanan `conv_metadata` y `category_tag`, ajustan tipos y crean 7 variables derivadas en `data/processed/arena_clean.parquet` (135.634 filas × 54 columnas).
 5. `validate_dataset()` comprueba tanto el dato original como el dataset procesado (`F2_03`).
+6. `F2_04_token_distribution.ipynb` complementa la exploración de datos mediante el análisis de distribución de tokens, la aplicación de transformaciones logarítmicas (`log1p`), la comparación entre caracteres y tokens, y la identificación de casos especiales que podrían influir en el análisis posterior.
+
+El análisis exploratorio de `F2_04` se realizó sobre uno de los siete archivos Parquet del conjunto original, correspondiente a 19.377 registros. Por lo tanto, sus resultados permiten identificar situaciones relevantes para la preparación de los datos, pero no deben interpretarse como conclusiones representativas del dataset completo.
 
 **Decisiones técnicas.** El registro completo (`D-001` a `D-015`), con motivo, impacto y commit, está en `docs/decisiones.md`.
 
@@ -186,24 +171,24 @@ La evidencia del historial de commits, los Pull Requests y las ramas se presenta
 
 ---
 
-## 8. Repositorio GitHub · ✅
+## 8. Repositorio GitHub
 
-El repositorio está organizado en carpetas según las fases y el tipo de trabajo realizado: `F1/` y `F2/` para los notebooks ejecutables, `F3/` y `F4/` para las fases proyectadas, `src/arena/` para el paquete modular de código, `tests/` para las 55 pruebas unitarias, `data/` (`raw`, `interim`, `processed`) para los datos y `docs/` y `report/` para la documentación y evidencias.
+El repositorio está organizado en carpetas según las fases y el tipo de trabajo realizado: `F1/` y `F2/` para los notebooks ejecutables, `F3/` y `F4/` para las fases proyectadas, `src/arena/` para el paquete modular de código, `tests/` para las 55 pruebas unitarias, `data/` (`raw`, `interim`, `processed`) para los datos y `docs/` y `report/` para la documentación y evidencias. Esta organización por fases y carpetas también considera la estructura de referencia presentada en los materiales didácticos de la Semana 1 del curso (magistercienciadatos, 2026).
 
-El archivo `README.md` contiene la descripción del proyecto, las preguntas de investigación, el reparto de tareas, el calendario, la tabla de avance actualizada de las Fases 1 y 2, los supuestos del dataset y las instrucciones detalladas para instalar el entorno y ejecutar cada notebook o el flujo completo mediante `Makefile`.
+El archivo `README.md` contiene la descripción del proyecto, la pregunta de investigación, la distribución inicial de tareas, el calendario, el registro de avance de las Fases 1 y 2, los supuestos del dataset y las instrucciones para instalar el entorno y ejecutar los notebooks o el flujo completo mediante `Makefile`.
 
-Las contribuciones individuales se encuentran respaldadas mediante el historial de commits y los Pull Requests incorporados a `main` (ver sección 6 y Anexo E).
+Las contribuciones individuales se encuentran respaldadas mediante el historial de commits y los Pull Requests registrados en GitHub (ver sección 6 y Anexo E).
 
 ---
 
-## 9. Codificación funcional · ✅
+## 9. Codificación funcional
 
 Todas las funciones operativas se encuentran en `src/arena/`:
 - **Inmutabilidad:** `convert_types()` y `derive_variables()` trabajan sobre `df = df.copy()` para no mutar entradas.
 - **Modularidad y propósito único:** separación explícita entre descarga (`io.py`), perfilamiento (`profile.py`), limpieza (`preprocessing.py`), validación (`validation.py`), muestreo (`sampling.py`) y visualización (`plots.py`).
 - **Iteración estructurada y vectorización:** desanidado programático de las 26 subclaves de `conv_metadata` y 12 de `category_tag`, y cálculo vectorizado de `format_a`, `format_b`, `tokens_log_a`, `tokens_log_b`, `longer_response`, `more_formatted` y `winner_binary` mediante `numpy.log1p` y `numpy.where`.
 
-## 10. Preprocesamiento y transformación del dataset · ✅
+## 10. Preprocesamiento y transformación del dataset
 
 - **Diagnóstico inicial (`F2_01`):** 0 % de nulos en las 11 columnas cargadas; 10 filas con `model_a == model_b`; 61 y 58 respuestas con 0 tokens; fuerte asimetría en tokens (mediana 748, máximo 137.128); 52,5 % de votos en inglés (`en`), 10,2 % en polaco (`pl`) y 8,7 % con código `und`; 27,5 % de votos no binarios (`tie` 16,5 %, `both_bad` 11,0 %).
 - **Transformaciones aplicadas (`F2_02`):**
@@ -211,38 +196,42 @@ Todas las funciones operativas se encuentran en `src/arena/`:
   2. `convert_types()`: convierte `winner` y `language` a `category`, `evaluation_order` a `int16` e `is_code` a `bool`.
   3. `derive_variables()`: agrega `format_a`, `format_b`, `tokens_log_a`, `tokens_log_b`, `longer_response`, `more_formatted` y `winner_binary`, generando `data/processed/arena_clean.parquet` (135.634 filas × 54 columnas, 14 MB) sin pérdida de registros.
 
-## 11. Validación técnica y verificación del código · ✅
+- **Diagnóstico exploratorio complementario (`F2_04`):** análisis de la distribución de tokens de las respuestas A y B mediante histogramas y transformaciones logarítmicas (`log1p`), comparación entre caracteres y tokens, e identificación de casos especiales como valores cero, empates, respuestas `both_bad`, idiomas no determinados y comparaciones entre un mismo modelo. Este análisis se realizó sobre uno de los siete archivos Parquet (19.377 registros), por lo que sus resultados tienen un alcance exploratorio.
+
+## 11. Validación técnica y verificación del código
 - **Dataset (`validar_dataset.py`):** `docs/validacion_dataset.md` sobre la versión aplanada (135.634 filas × 47 columnas) cumple todos los requisitos obligatorios.
 - **Código (`pytest`):** 55 pruebas unitarias sin red en `tests/` (incluyendo `tests/test_preprocessing.py`), ejecutadas en 0,60 s y registradas en `docs/evidence/pytest.txt`.
 - **Validador (`validate_dataset` en `F2_03`):** 0 fallos críticos y 1 advertencia conocida (10 filas con el mismo modelo) tanto en el dato original como en `data/processed/arena_clean.parquet`, además de verificación de errores provocados y consistencia de variables derivadas.
 
-## 12. Notebook F1_Definicion.ipynb · ✅
-Ejecutado de principio a fin sin errores (`Restart & Run All`), con definición del problema, pregunta P1, objetivos, definición operativa de contenido vs. formato, unidad de análisis, verificación del entorno, rutas base, mapa conceptual (`F1/mapa-conceptual.jpeg`) y referencias APA 7.
+## 12. Notebook F1_Definicion.ipynb
+Ejecutado de principio a fin sin errores (`Restart & Run All`), con definición del problema, pregunta P1, objetivos, definición operativa de contenido vs. formato, unidad de análisis, verificación del entorno, rutas base, mapa conceptual (`F1/mapa-conceptual.jpeg`) y referencias APA 7. Además, incorpora una revisión inicial de cinco registros del dataset, verificando columnas, tipos de datos, valores faltantes y resultados válidos, junto con la comprobación de requisitos mínimos en uno de los siete archivos Parquet (19.377 filas × 14 columnas).
 
-## 13. Notebooks ejecutables de la Fase 2 · ✅
+## 13. Notebooks ejecutables de la Fase 2
+
 - `F2/F2_01_acquisition_exploration.ipynb` ✅ ejecutado de punta a punta, sin errores; secciones 0 a 9 con interpretación y tabla de hallazgos.
 - `F2/F2_02_cleaning_transformation.ipynb` ✅ ejecutado de punta a punta; aplanamiento, conversión de tipos, creación de 7 variables derivadas, validación y guardado en `data/processed/arena_clean.parquet`.
 - `F2/F2_03_validation.ipynb` ✅ ejecutado de punta a punta sobre el dato original y sobre el dataset procesado (`arena_clean.parquet`), incluyendo casos límite, excepciones provocadas y evidencia de las 55 pruebas unitarias.
+- `F2/F2_04_token_distribution.ipynb` ✅ ejecutado de punta a punta; distribución de tokens en A y B (original y `log1p`), comparación caracteres/tokens en inglés, y revisión de casos límite (cero tokens, empates, `both_bad`, idioma `und` y dos respuestas del mismo modelo).
 
-## 14. Vinculación del mapa conceptual con el avance · ✅
+## 14. Vinculación del mapa conceptual con el avance
 
 A continuación, se muestra cómo se relacionan los elementos del mapa conceptual con los avances implementados en el repositorio en las Fases 1 y 2 y lo proyectado para las Fases 3 y 4:
 
 | Elemento del mapa | Tipo | Estado | Evidencia |
 |---|---|---|---|
 | Python, pandas, NumPy, Jupyter, pytest, Git y GitHub | Herramientas | Implementado | `requirements.txt`, `src/arena/`, `tests/`, notebooks `F1` y `F2` |
-| Obtención, exploración, limpieza y validación de los datos | Procesos | Implementado en F1–F2 (análisis estadístico proyectado para F3–F4) | `src/arena/io.py`, `profile.py`, `preprocessing.py`, `validation.py`, `F2_01` a `F2_03` |
+| Obtención, exploración, limpieza y validación de los datos | Procesos | Implementado en F1–F2 (análisis estadístico proyectado para F3–F4) | `src/arena/io.py`, `profile.py`, `preprocessing.py`, `validation.py`, `F2_01` a `F2_04` |
 | Instalación de dependencias, descarga de datos y ejecución de pruebas y notebooks | Flujo reproducible | Implementado y verificado en múltiples equipos | `Makefile`, `requirements.txt`, `data/raw/CHECKSUMS.txt`, `docs/evidence/` |
 | Elección del dataset y criterios de preprocesamiento (`D-001` a `D-015`) | Decisiones técnicas | Implementado (pendientes `P-01` a `P-04` proyectados para F3) | `docs/decisiones.md`, `README.md` |
 | Carpetas por fase y separación de datos crudos y procesados | Organización del repositorio | Implementado | `F1/` a `F4/`, `data/raw/`, `data/processed/`, `src/`, `tests/`, `docs/`, `.gitignore` |
-| Notebooks modulares con celdas narrativas, código y referencias | Estructura del notebook | Implementado | `F1/F1_Definicion.ipynb`, `F2/F2_01`, `F2/F2_02`, `F2/F2_03` |
+| Notebooks modulares con celdas narrativas, código y referencias | Estructura del notebook | Implementado | `F1/F1_Definicion.ipynb`, `F2/F2_01`, `F2/F2_02`, `F2/F2_03`, `F2/F2_04` |
 
 Para facilitar la lectura de los bloques que componen el diagrama (`F1/mapa-conceptual.jpeg`), se sintetizan sus tres niveles estructurales:
 - **1. Nodo superior (Problemática y pregunta P1):** Formula la pregunta de investigación —*¿se asocia ganar el voto humano en LMArena con respuestas más largas y con más formato Markdown?*—, delimitando el alcance observacional (asociación en F3–F4, sin causalidad) y la definición operativa de **Contenido** (calidad semántica y corrección factual) frente a **Formato** (extensión en tokens y conteo de encabezados, listas y negritas).
-- **2. Columnas centrales (Explicación breve del flujo y trazabilidad):** Conecta de izquierda a derecha cuatro ejes: (i) *Flujo de datos*, desde la carga de `arena-human-preference-140k` (135.634 votos, 1,6 GB), exploración (`F2_01`), limpieza/aplanamiento y derivación de `format_a/b`, `tokens_log_a/b` y `winner_binary` (`F2_02`), y validación con 55 pruebas (`F2_03`), hasta el modelamiento y comunicación (`F3–F4`); (ii) *Herramientas y entorno* (`Python 3.12`, `pandas`, `pyarrow`, `NumPy`, `Jupyter`, `pytest`, `matplotlib` y GitHub colaborativo con ramas y PRs); (iii) *Detalle del repositorio* (`data/raw/` con `CHECKSUMS.txt` SHA-256, `data/processed/arena_clean.parquet`, `F1/–F4/`, `src/arena/`, `tests/` y `.gitignore`); y (iv) *Documentación e información* (licencia `CC-BY-4.0` sin subir textos por privacidad, celdas narrativas, diccionario de 54 variables, commits descriptivos y bitácora `D-001` a `D-015`).
+- **2. Columnas centrales (Explicación breve del flujo y trazabilidad):** Conecta de izquierda a derecha cuatro ejes: (i) *Flujo de datos*, desde la carga de `arena-human-preference-140k` (135.634 votos, 1,6 GB), exploración (`F2_01`), limpieza/aplanamiento y derivación de `format_a/b`, `tokens_log_a/b` y `winner_binary` (`F2_02`), y validación con 55 pruebas (`F2_03`) y diagnóstico exploratorio de distribución de tokens y calidad de datos (F2_04), hasta el análisis posterior y la comunicación de resultados (F3–F4); (ii) *Herramientas y entorno* (`Python 3.12`, `pandas`, `pyarrow`, `NumPy`, `Jupyter`, `pytest`, `matplotlib` y GitHub colaborativo con ramas y PRs); (iii) *Detalle del repositorio* (`data/raw/` con `CHECKSUMS.txt` SHA-256, `data/processed/arena_clean.parquet`, `F1/–F4/`, `src/arena/`, `tests/` y `.gitignore`); y (iv) *Documentación e información* (licencia `CC-BY-4.0` sin subir textos por privacidad, celdas narrativas, diccionario de 54 variables, commits descriptivos y bitácora `D-001` a `D-015`).
 - **3. Nodo inferior (Reflexión técnica y conclusiones de avance):** Resume las decisiones ejecutadas en las Fases 1 y 2 (adopción del dataset 2025 con 53 modelos, exclusión de conversaciones crudas bajando el uso en RAM de 1,6 GB a ~115 MB, aplanamiento de `conv_metadata` y transformación $\log(1 + \text{tokens})$ conservando las 135.634 filas) y deja explícitos los desafíos pendientes para la Fase 3 (tratamiento estadístico de los empates `tie` y `both_bad` que suman 27,5 %, evaluación de las 10 filas con `model_a == model_b` y de las respuestas con 0 tokens, y control por idioma y capacidad del modelo).
 
-## 15. Bibliografía · ✅
+## 15. Bibliografía
 
 Chiang, W.-L., Zheng, L., Sheng, Y., Angelopoulos, A. N., Li, T., Li, D., Zhu, B., Zhang, H., Jordan, M., Gonzalez, J. E., & Stoica, I. (2024). Chatbot Arena: An open platform for evaluating LLMs by human preference. En *Proceedings of the 41st International Conference on Machine Learning* (Vol. 235, pp. 8359–8388). Proceedings of Machine Learning Research. https://proceedings.mlr.press/v235/chiang24b.html
 
@@ -260,7 +249,7 @@ Project Jupyter. (2026). *nbconvert: Convert Notebooks to other formats* (Versi�
 
 Python Software Foundation. (s. f.). *venv — Creation of virtual environments* (Python 3.12 documentation). https://docs.python.org/3.12/library/venv.html
 
-Salinas Silva, O. (2026a). *Apuntes técnicos Semana 1: Estructura de datos, funciones, módulos, manejo de excepciones, NumPy y Pandas* [Material docente]. MCDI500 Programación para la Ciencia de Datos, Universidad Andrés Bello.
+Salinas Silva, O. (2026). *Apuntes técnicos Semana 1: Estructura de datos, funciones, módulos, manejo de excepciones, NumPy y Pandas* [Material docente]. MCDI500 Programación para la Ciencia de Datos, Universidad Andrés Bello.
 
 The pandas development team. (2026). *pandas documentation* (Versión 3.1). https://pandas.pydata.org/docs/
 
@@ -300,7 +289,9 @@ Las siguientes capturas respaldan las contribuciones identificadas en la secció
 
 ![Commits de angelo](../docs/evidence/commits_angelo.png)
 
-**E.2. Pull Requests incorporados a la rama main**
+**E.2. Evidencia de Pull Requests**
+
+A continuación, se presentan capturas de algunos Pull Requests utilizados como evidencia del trabajo colaborativo. El registro completo de las contribuciones se encuentra disponible en el historial de GitHub y en los Pull Requests descritos en la sección 6.
 
 *PR #4 – Limpieza y transformación de datos.*
 
@@ -310,3 +301,10 @@ Las siguientes capturas respaldan las contribuciones identificadas en la secció
 
 ![Pull Request 5](../docs/evidence/pr-5-readme.png)
 
+**Evidencia complementaria:** Los demás Pull Requests pueden consultarse directamente en GitHub: [PR #6](https://github.com/JoseFredes/lmarena-sumativa1/pull/6), [PR #8](https://github.com/JoseFredes/lmarena-sumativa1/pull/8), [PR #9](https://github.com/JoseFredes/lmarena-sumativa1/pull/9), [PR #10](https://github.com/JoseFredes/lmarena-sumativa1/pull/10), [PR #11](https://github.com/JoseFredes/lmarena-sumativa1/pull/11), [PR #12](https://github.com/JoseFredes/lmarena-sumativa1/pull/12), [PR #13](https://github.com/JoseFredes/lmarena-sumativa1/pull/13) y [PR #14](https://github.com/JoseFredes/lmarena-sumativa1/pull/14).
+
+**E.3. Evidencia de trabajo mediante ramas**
+
+Como evidencia complementaria del control de versiones, se presenta una captura del uso de ramas durante el desarrollo colaborativo del proyecto.
+
+![Evidencia de ramas del repositorio](../docs/evidence/branches_report-update.png)
