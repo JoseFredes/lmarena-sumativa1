@@ -45,9 +45,9 @@ Los modelos de lenguaje de gran tamaño se comparan cada vez más mediante evalu
 
 Ese uso supone que el voto refleja la calidad de la respuesta. Sin embargo, también podría reflejar su estilo: una respuesta más larga o con más listas, encabezados y negritas puede parecer mejor sin serlo. La literatura ya documenta sesgos de este tipo. Dubois et al. (2024) muestran que los evaluadores automáticos favorecen respuestas más largas y proponen corregirlo, y Wu y Aji (2025) encuentran que anotadores colectivos, expertos y modelos pueden calificar mejor respuestas con errores factuales que respuestas cortas o con errores gramaticales. Si un sesgo de forma afecta los rankings, estos miden mal la capacidad real de los modelos, lo que constituye un problema de evaluación y, por extensión, de seguridad: se podrían desplegar o promover modelos por su apariencia y no por su fiabilidad.
 
-Este proyecto estudia esa situación con el conjunto de datos público `lmarena-ai/arena-human-preference-140k` (LMArena, 2025), que reúne 135.634 votos humanos emitidos entre el 17 de abril y el 24 de julio de 2025, con 53 modelos y 126 idiomas. Las preguntas que orientan el proyecto son dos: si el lado ganador tiende a ser el de respuesta más larga y con más formato (estilo frente a calidad), y si la posición en que se presenta el modelo o el orden del voto dentro de la sesión se asocia al resultado (sesgo de posición y de sesión).
+Este proyecto estudia esa situación con el conjunto de datos público `lmarena-ai/arena-human-preference-140k` (LMArena, 2025), que reúne 135.634 votos humanos emitidos entre el 17 de abril y el 24 de julio de 2025, con 53 modelos y 126 idiomas. La pregunta que orienta la investigación busca determinar si las respuestas más largas y con mayor cantidad de elementos de formato tienden a ser preferidas por los usuarios. Para el análisis posterior, también se considerarán factores como el idioma, el modelo evaluado y las características de las preguntas, debido a que podrían influir en los resultados.
 
-El **objetivo general** del proyecto es construir y validar un conjunto de datos reproducible que permita analizar si las características de estilo y de presentación se asocian a la preferencia humana en LMArena. El alcance de este informe se limita a las Fases 1 y 2: definir el problema, dejar el entorno reproducible y preparar el dato. El análisis se reserva para las fases siguientes.
+El **objetivo general** del proyecto es analizar si la extensión y las características de formato de las respuestas se asocian con las preferencias humanas registradas en LMArena. Para ello, se construirá y validará un conjunto de datos reproducible que permita desarrollar el análisis en las fases posteriores. El alcance de este informe se limita a las Fases 1 y 2: definir el problema, configurar el entorno reproducible y preparar los datos para su posterior análisis.
 
 La problemática requiere un enfoque basado en programación y análisis de datos por tres razones: el volumen (más de 135 mil filas en 7 archivos de 1,6 GB en total), la estructura (columnas anidadas que deben aplanarse) y la heterogeneidad (idiomas, longitudes muy asimétricas y votos agrupados en sesiones). Nada de esto puede revisarse a mano ni de forma reproducible sin código.
 
@@ -58,21 +58,21 @@ Las fases del proyecto se articulan así: la **Fase 1** define el problema y con
 ## 3. Definición de la problemática y objetivos · ✅
 
 ### 3.1 Problemática
-Las evaluaciones por preferencia humana se usan como medida de calidad de los modelos de lenguaje, pero su resultado puede depender de factores ajenos al contenido: la longitud de la respuesta, su formato (listas, encabezados, negritas), la posición en que se muestra (lado A o B) y el momento de la sesión en que se vota. Se desconoce cuánto pesa cada factor en datos recientes y cómo varía entre tipos de prompt e idiomas.
+Las evaluaciones por preferencia humana se utilizan como medida de calidad de los modelos de lenguaje. Sin embargo, los resultados podrían estar asociados a características de las respuestas que no necesariamente reflejan su calidad, como la extensión y el uso de elementos de formato (listas, encabezados y negritas). Se desconoce en qué medida estas características se relacionan con las preferencias humanas registradas en LMArena y cómo podrían variar según el idioma, el modelo evaluado y el tipo de pregunta.
 
-### 3.2 Preguntas del análisis
-- **Pregunta central.** ¿En qué medida las preferencias humanas registradas en LMArena se asocian a características de estilo y de presentación de la respuesta, y no solo a su contenido?
-- **P1 · Estilo frente a calidad.** ¿El lado ganador tiende a ser el de respuesta más larga y con más formato? ¿Cambia según categoría de prompt, idioma o modelo?
+### 3.2 Pregunta de investigación
+**P1 · Estilo frente a calidad.** ¿Las respuestas más largas y con mayor cantidad de elementos de formato tienden a ganar con mayor frecuencia las evaluaciones de preferencia humana registradas en LMArena?
 
+Esta pregunta será abordada en las Fases 3 y 4 del proyecto, utilizando las variables preparadas y validadas durante las Fases 1 y 2.
 Estas preguntas se responden en las Fases 3 y 4.
 
 ### 3.3 Objetivo general
-Construir y validar un conjunto de datos reproducible que permita analizar si las características de estilo y de presentación se asocian a la preferencia humana en LMArena.
+Analizar si la extensión y las características de formato de las respuestas se asocian con las preferencias humanas registradas en LMArena, mediante la preparación y validación de un conjunto de datos reproducible que permita desarrollar el análisis en las fases posteriores del proyecto.
 
 ### 3.4 Objetivos específicos
 1. **OE1.** Configurar un entorno reproducible y un repositorio versionado, verificable mediante `make install` y la ejecución de las pruebas automáticas.
 2. **OE2.** Obtener los 7 archivos del dataset con verificación de integridad (SHA-256) y documentar su estructura real: columnas, tipos, nulos y cardinalidades.
-3. **OE3.** Limpiar y transformar el dato: aplanar las columnas anidadas, tipificar, tratar casos atípicos y duplicados, derivar variables de estilo y de posición, y escalar las que lo requieran, justificando cada decisión con una medición.
+3. **OE3.** Limpiar y transformar el conjunto de datos mediante el aplanamiento de columnas anidadas, la conversión de tipos y la creación de variables derivadas de extensión y formato, identificando valores atípicos y casos especiales, y justificando las decisiones de procesamiento.
 4. **OE4.** Validar el conjunto resultante con chequeos automáticos y pruebas unitarias que cubran casos normales, límite y excepciones.
 5. **OE5.** Dejar documentadas las limitaciones y el dataset procesado como entrada directa de la Fase 3.
 
@@ -92,18 +92,18 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 ### 3.7 Supuestos
 - La ficha de Hugging Face describe correctamente las columnas; las diferencias detectadas con el dato real se documentan (por ejemplo, `conv_metadata` trae 26 valores y no un conteo único por variable).
-- Los conteos de `conv_metadata` (tokens, encabezados, listas, negritas) miden con fidelidad el estilo de cada respuesta.
+- Los conteos de `conv_metadata` (tokens, encabezados, listas, negritas) se utilizan como indicadores de extensión y formato de las respuestas, sin asumir que representan directamente su calidad.
 - Un voto `model_a` o `model_b` expresa una preferencia real del votante.
 - Las filas de una misma sesión no son independientes; cualquier análisis posterior debe considerarlo.
 - El estudio es observacional: se hablará de asociaciones y no de causas.
-- El dataset no tiene valores faltantes en las 11 columnas cargadas (se verifica en la Fase 2); su “suciedad” se encuentra en los ceros, los valores extremos, los idiomas no determinados (`und`), los empates y 10 filas en que ambos lados son el mismo modelo.
+- El dataset no presenta valores faltantes en las 11 columnas originales cargadas. Sin embargo, en el conjunto procesado se identificaron 17 valores nulos en variables derivadas de categorías. También se observan casos especiales como valores cero, valores extremos, idiomas no determinados (`und`), empates (`tie`), respuestas clasificadas como `both_bad` y comparaciones entre un mismo modelo.
 
 ### 3.8 Articulación con las fases
 | Fase | Pregunta que responde | Producto |
 |---|---|---|
 | F1 | ¿Qué problema, con qué alcance y con qué límites? | Notebook `F1_Definicion`, entorno, repositorio |
-| F2 | ¿Se dispone de un dato limpio, tipificado y validado? | Notebooks `F2_01` a `F2_03`, dataset procesado |
-| F3 | ¿Qué asociaciones hay entre estilo, posición y resultado? | Análisis bivariado con incertidumbre |
+| F2 | ¿Se dispone de un dato explorado, limpio, tipificado y validado? | Notebooks `F2_01` a `F2_04`, dataset procesado y análisis exploratorio de tokens |
+| F3 | ¿Qué asociaciones hay entre extensión, formato y preferencia humana? | Análisis bivariado con incertidumbre |
 | F4 | ¿Qué se concluye y qué implica para evaluar modelos? | Informe final |
 
 ---
@@ -116,9 +116,9 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 | Herramienta | Uso | Dónde |
 |---|---|---|
 | pandas | carga, tipificación, resúmenes y tablas de frecuencia | `src/arena/profile.py`, `src/arena/preprocessing.py` |
-| pyarrow | lectura y escritura de archivos parquet por columnas | `src/arena/profile.py`, `src/arena/preprocessing.py` |
-| NumPy | operaciones vectorizadas (`log1p`, `where`) bajo pandas | `src/arena/preprocessing.py` |
-| matplotlib | gráficos de barras, histogramas y serie diaria | `src/arena/plots.py` |
+| pyarrow | lectura y escritura de archivos parquet por columnas | `src/arena/profile.py`, `src/arena/preprocessing.py`, `F2/F2_04_token_distribution.ipynb` |
+| NumPy | operaciones vectorizadas y transformación logarítmica (`log1p`) | `src/arena/preprocessing.py`, `F2/F2_04_token_distribution.ipynb` |
+| matplotlib | gráficos de barras, histogramas y serie diaria | `src/arena/plots.py`, `F2/F2_04_token_distribution.ipynb` |
 | huggingface_hub | descarga de los archivos del dataset | `src/arena/io.py` |
 | hashlib (estándar) | huella SHA-256 de cada archivo | `src/arena/io.py` |
 | pytest | 55 pruebas automáticas sin red | `tests/` |
@@ -127,7 +127,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 | Claude (Anthropic) | apoyo y aprendizaje autodidacta de contenidos técnicos y seguimiento de avances | estudio autónomo y coordinación (F1 y F2) |
 | Gemini (Google) | apoyo editorial para mejorar la redacción y comunicación escrita | informe técnico y documentación |
 
-**Módulos.** `env` (registro del entorno), `io` (descarga y huellas), `profile` (inspección estructural, tablas de frecuencia, columnas anidadas), `preprocessing` (aplanamiento, tipos y variables derivadas), `validation` (chequeos críticos y advertencias), `plots` (gráficos), `sampling` (muestreo por filas y por sesiones). Los notebooks solo llaman a estas funciones. Como apoyo transversal al equipo, se utilizó Claude para el aprendizaje autodidacta de los contenidos y el seguimiento de tareas, y Gemini para mejorar la redacción y comunicación escrita del documento.
+**Módulos.** `env` (registro del entorno), `io` (descarga y huellas), `profile` (inspección estructural, tablas de frecuencia, columnas anidadas), `preprocessing` (aplanamiento, tipos y variables derivadas), `validation` (chequeos críticos y advertencias), `plots` (gráficos), `sampling` (muestreo por filas y por sesiones). Los notebooks utilizan estos módulos y, cuando corresponde, incorporan análisis exploratorios propios. Por ejemplo, `F2_04_token_distribution.ipynb` aplica transformaciones logarítmicas y genera histogramas para examinar la distribución de tokens. Como apoyo transversal al equipo, se utilizó Claude para el aprendizaje autodidacta de los contenidos y el seguimiento de tareas, y Gemini para mejorar la redacción y comunicación escrita del documento.
 
 ---
 
@@ -153,16 +153,21 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 - **José Fredes Acevedo (`JoseFredes`, 52 commits en traza):** configuración del entorno reproducible, ingesta con verificación SHA-256, validador automatizado, suite de 55 pruebas unitarias e integración de PRs. Ejemplos de commits: `2c892ff feat(io): add dataset download and SHA-256 checksums`, `2078783 feat(validation): add validate_dataset with ValidationReport and tests` y `b647539 fix(io): normalize relative checksum paths to POSIX on Windows (closes #7)` (PRs #1 y #2; apertura y seguimiento de Issues #1, #2, #3 y resolución del Issue #7).
 - **Alejandro Poirier Gómez (`poirierunited` / autor local `apoirier`, 6 commits en traza):** definición metodológica de la Fase 1 y desarrollo del pipeline de limpieza, aplanamiento y derivación de variables de la Fase 2. Ejemplos de commits: `78d7cca docs(f1): define problem, research question, objectives and scope`, `b1d826b feat(preprocessing): implement helper functions used in the data cleaning and transformation pipeline for LMArena dataset` y `3c41aa4 feat(cleaning): add cleaning and transformation notebook for data preparation` (integrados mediante PR de `f1/definition` y PR #4 desde `poirierunited/f2/cleaning`).
-- **Valentina Carvajal Jacob (`vcjacob`, 11 commits en traza):** aportes a la documentación del informe, verificación bibliográfica APA 7, evidencias de control de versiones y trazabilidad del mapa conceptual. Ejemplos de commits: `bec75a6 docs(report): document conceptual map traceability`, `5273268 docs(evidence): add version control screenshots` y `6b2d8a9 docs(report): update bibliography and source citations` (integrados vía PR de `docs/mapa-trazabilidad` y PR #8 desde `vcjacob/docs/report-update`, resolviendo el Issue #2).
+- **Valentina Carvajal Jacob (`vcjacob`):** documentación del informe técnico, revisión bibliográfica APA 7, evidencias de control de versiones, trazabilidad del mapa conceptual, incorporación de validaciones iniciales del dataset en F1 y desarrollo del análisis exploratorio de distribución de tokens y calidad de datos en F2. Ejemplos de commits: `bec75a6 docs(report): document conceptual map traceability`, `5273268 docs(evidence): add version control screenshots` y `6b2d8a9 docs(report): update bibliography and source citations` (integrados mediante PR #8, #12 y #13, resolviendo el Issue #2).
 - **Angelo Morales Serrano (`angelo-morales-serrano` / autor local `Angelo Morales`, 2 commits en traza):** incorporación de instrucciones para ejecutar los notebooks desde `README.md`, verificación multiplataforma (`make all` en Windows 10) y reporte de incidencias entre sistemas operativos. Ejemplos de commits: `c24b566 docs(readme): add per-notebook run instructions` y `3f2a5bf docs(evidence): make all run on Windows with notebooks` (integrados en PR #5 y PR #6, resolviendo los Issues #1 y #3 y abriendo el Issue #7).
 
 **Pull Requests incorporados a main:**
 
-- **PR #1 y #2:** definición del problema en F1 y trazabilidad del mapa conceptual (`apoirier`, `vcjacob`).
 - **PR #4 – F2/cleaning:** incorpora el notebook y el proceso de limpieza y transformación de los datos, desarrollado por `poirierunited`.
 - **PR #5 – Instrucciones del README:** incorpora las indicaciones para ejecutar los notebooks, desarrollado por `angelo-morales-serrano`.
 - **PR #6 – Evidencia en Windows:** verifica `make all` y ejecución de notebooks en Windows 10 (`angelo-morales-serrano`).
 - **PR #8 – Informe y evidencia de control de versiones:** actualiza el reporte y agrega las capturas del historial por integrante (`vcjacob`).
+- **PR #9 – Resumen de tokens:** incorpora mejoras relacionadas con el análisis y resumen de tokens, desarrollado por `JoseFredes`.
+- **PR #10 – Correcciones del README:** actualiza información del programa, fecha de entrega y datos de integrantes (`angelo-morales-serrano`).
+- **PR #11 – Diccionario de variables:** documenta las 54 variables del dataset procesado (`angelo-morales-serrano`).
+- **PR #12 – Revisión inicial del dataset en F1:** incorpora una muestra de cinco registros, validaciones iniciales y verificación de dimensiones de un archivo Parquet (`vcjacob`).
+- **PR #13 – Distribución de tokens y calidad de datos:** incorpora un notebook exploratorio con análisis de tokens, empates, idiomas no determinados y otros casos relevantes para el procesamiento de datos (`vcjacob`).
+- **PR #14 – Actualización del informe F2_04:** incorpora la descripción del notebook de distribución de tokens y diagnóstico exploratorio de calidad de datos en la sección 13 del informe (`angelo-morales-serrano`).
 
 La evidencia del historial de commits, los Pull Requests y las ramas se presenta en el Anexo E.
 
