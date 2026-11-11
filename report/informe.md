@@ -218,6 +218,7 @@ Ejecutado de principio a fin sin errores (`Restart & Run All`), con definición 
 - `F2/F2_01_acquisition_exploration.ipynb` ✅ ejecutado de punta a punta, sin errores; secciones 0 a 9 con interpretación y tabla de hallazgos.
 - `F2/F2_02_cleaning_transformation.ipynb` ✅ ejecutado de punta a punta; aplanamiento, conversión de tipos, creación de 7 variables derivadas, validación y guardado en `data/processed/arena_clean.parquet`.
 - `F2/F2_03_validation.ipynb` ✅ ejecutado de punta a punta sobre el dato original y sobre el dataset procesado (`arena_clean.parquet`), incluyendo casos límite, excepciones provocadas y evidencia de las 55 pruebas unitarias.
+- `F2/F2_04_token_distribution.ipynb` ✅ ejecutado de punta a punta; distribución de tokens en A y B (original y `log1p`), comparación caracteres/tokens en inglés, y revisión de casos límite (cero tokens, empates, `both_bad`, idioma `und` y dos respuestas del mismo modelo).
 
 ## 14. Vinculación del mapa conceptual con el avance · ✅
 
