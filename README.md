@@ -1,9 +1,9 @@
 # ¿Contenido o formato? Preferencias humanas en LMArena
 
-Sumativa 1 · Fases 1 y 2 · MCDI500 Programación para la Ciencia de Datos · Magíster en Inteligencia Artificial, UNAB
-Entrega: **domingo 8 de noviembre de 2026, 23:59** · Vale 40 % de la nota · Trabajo grupal
+Sumativa 1 · Fases 1 y 2 · MCDI500 Programación para la Ciencia de Datos · Magíster en Ciencia de Datos e Inteligencia Artificial, UNAB
+Entrega: **Miércoles 11 de noviembre de 2026, 23:59** · Vale 40 % de la nota · Trabajo grupal
 
-**Integrantes:** Jose Fredes, Alejandro Poirer, Valentina Carvajal, Angelo Morales
+**Integrantes:** José Fredes, Alejandro Poirier, Valentina Carvajal, Angelo Morales
 **Docente:** Omar Salinas
 
 ---
