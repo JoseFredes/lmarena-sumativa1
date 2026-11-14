@@ -28,11 +28,11 @@ Ese uso supone que el voto refleja la calidad de la respuesta. Sin embargo, tamb
 
 Este proyecto estudia esa situación con el conjunto de datos público `lmarena-ai/arena-human-preference-140k` (LMArena, 2025), que reúne 135.634 votos humanos emitidos entre el 17 de abril y el 24 de julio de 2025, con 53 modelos y 126 idiomas. La pregunta que orienta la investigación busca determinar si las respuestas más largas y con mayor cantidad de elementos de formato tienden a ser preferidas por los usuarios. Para el análisis posterior, también se considerarán factores como el idioma, el modelo evaluado y las características de las preguntas, debido a que podrían influir en los resultados.
 
-El **objetivo general** del proyecto es analizar si la extensión y las características de formato de las respuestas se asocian con las preferencias humanas registradas en LMArena. Para ello, se construirá y validará un conjunto de datos reproducible que permita desarrollar el análisis en las fases posteriores. El alcance de este informe se limita a las Fases 1 y 2: definir el problema, configurar el entorno reproducible y preparar los datos para su posterior análisis.
+El **objetivo general** del proyecto es determinar si la extensión y el formato visual de las respuestas se asocian con la preferencia humana en LMArena, considerando el par de modelos comparados. El alcance de este informe se limita a las Fases 1 y 2: definir el problema, configurar el entorno reproducible y preparar y validar los datos que se utilizarán en las fases posteriores.
 
 La problemática requiere un enfoque basado en programación y análisis de datos por tres razones: el volumen (más de 135 mil filas en 7 archivos de 1,6 GB en total), la estructura (columnas anidadas que deben aplanarse) y la heterogeneidad (idiomas, longitudes muy asimétricas y votos agrupados en sesiones). Nada de esto puede revisarse a mano ni de forma reproducible sin código.
 
-Las fases del proyecto se articulan así: la **Fase 1** define el problema y configura el entorno; la **Fase 2** obtiene, explora, limpia, transforma y valida el dato; la **Fase 3** analiza las asociaciones planteadas con incertidumbre; y la **Fase 4** integra los resultados, concluye y discute sus implicancias para la evaluación de modelos.
+Las fases del proyecto se articulan de la siguiente manera: la **Fase 1** define el problema, los objetivos y el entorno de trabajo; la **Fase 2** obtiene, explora, limpia, transforma y valida los datos; la **Fase 3** desarrolla el núcleo algorítmico mediante la reorganización del código en un diseño orientado a objetos, la verificación de que se conservan los resultados y la comparación de la eficiencia de distintas implementaciones. Este núcleo permitirá abordar la pregunta de investigación y evaluar las decisiones sobre empates, idiomas y dependencia entre votos de una misma sesión. Finalmente, la **Fase 4** integrará los resultados y sus limitaciones para formular las conclusiones del proyecto.
 
 ---
 
@@ -47,7 +47,7 @@ Las evaluaciones por preferencia humana se utilizan como medida de calidad de lo
 Esta pregunta será abordada en las Fases 3 y 4 del proyecto, utilizando las variables preparadas y validadas durante las Fases 1 y 2.
 
 ### 3.3 Objetivo general
-Analizar si la extensión y las características de formato de las respuestas se asocian con las preferencias humanas registradas en LMArena, mediante la preparación y validación de un conjunto de datos reproducible que permita desarrollar el análisis en las fases posteriores del proyecto.
+Determinar si la extensión y el formato visual de las respuestas (encabezados, listas y negritas) se asocian con la preferencia humana en votaciones de LMArena, considerando el par de modelos comparados, a partir de los 135.634 votos de texto registrados entre el 17 de abril y el 24 de julio de 2025.
 
 ### 3.4 Objetivos específicos
 1. **OE1.** Configurar un entorno reproducible y un repositorio versionado, verificable mediante `make install` y la ejecución de las pruebas automáticas.
@@ -83,14 +83,14 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 |---|---|---|
 | F1 | ¿Qué problema, con qué alcance y con qué límites? | Notebook `F1_Definicion`, entorno, repositorio |
 | F2 | ¿Se dispone de un dato explorado, limpio, tipificado y validado? | Notebooks `F2_01` a `F2_04`, dataset procesado y análisis exploratorio de tokens |
-| F3 | ¿Qué asociaciones hay entre extensión, formato y preferencia humana? | Análisis bivariado con incertidumbre |
+| F3 | ¿Cómo implementar y validar el núcleo algorítmico con un diseño orientado a objetos y evaluar su eficiencia? | Componentes reutilizables, pruebas de equivalencia, mediciones de eficiencia y decisiones metodológicas documentadas |
 | F4 | ¿Qué se concluye y qué implica para evaluar modelos? | Informe final |
 
 ---
 
 ## 4. Aplicación de herramientas científicas
 
-**Entorno.** Python 3.12.13 en un entorno virtual (`.venv`), que permite mantener separadas las librerías utilizadas en el proyecto (Python Software Foundation, s. f.). Las principales librerías utilizadas tienen sus versiones fijadas en `requirements.txt`: NumPy 2.5.4, pandas 3.1.0, pyarrow 26.0.0, matplotlib 3.11.2, huggingface_hub 2.4.0, pytest 9.2.0 y nbconvert 7.17.2, entre otras (NumPy Developers, 2026; The pandas development team, 2026).
+**Entorno.** Python 3.12, con la reejecución del 13 de noviembre de 2026 realizada en la versión 3.12.10, en un entorno virtual (`.venv`), que permite mantener separadas las librerías utilizadas en el proyecto (Python Software Foundation, s. f.). Las principales librerías utilizadas tienen sus versiones fijadas en `requirements.txt`: NumPy 2.5.4, pandas 3.1.0, pyarrow 26.0.0, matplotlib 3.11.2, huggingface_hub 2.4.0, pytest 9.2.0 y nbconvert 7.17.2, entre otras (NumPy Developers, 2026; The pandas development team, 2026).
 
 **Qué hace cada herramienta en el proyecto.**
 | Herramienta | Uso | Dónde |
@@ -101,7 +101,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 | matplotlib | gráficos de barras, histogramas y serie diaria | `src/arena/plots.py`, `F2/F2_04_token_distribution.ipynb` |
 | huggingface_hub | descarga de los archivos del dataset | `src/arena/io.py` |
 | hashlib (estándar) | huella SHA-256 de cada archivo | `src/arena/io.py` |
-| pytest | 55 pruebas automáticas sin red | `tests/` |
+| pytest | Pruebas automáticas; 58 aprobadas en la verificación del 13 de noviembre de 2026 | `tests/` y `docs/evidence/pytest.txt` |
 | Jupyter / nbconvert | notebooks ejecutables y verificación de ejecución | `F1/`, `F2/` |
 | Git / GitHub | versionado colaborativo y trazabilidad mediante PRs | repositorio |
 | Claude (Anthropic) | apoyo y aprendizaje autodidacta de contenidos técnicos y seguimiento de avances | estudio autónomo y coordinación (F1 y F2) |
@@ -115,10 +115,11 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 
 - **Ambiente virtual:** `make install` crea `.venv` con Python 3.12 e instala `requirements.txt` (versiones fijas con `==`) y el paquete del proyecto en modo editable (`pip install -e .`).
 - **Verificación de la instalación:** `pip check` informa que no hay dependencias rotas.
-- **Pruebas:** `make test` ejecuta 55 pruebas automáticas que no usan la red, con resultado satisfactorio (`55 passed in 0.60s`), según la evidencia registrada en `docs/evidence/pytest.txt`.
+- **Pruebas:** la verificación del 13 de noviembre de 2026 se realizó en Windows mediante `.\.venv\Scripts\python.exe -m pytest -q`, con 58 pruebas aprobadas. La salida se encuentra en `docs/evidence/pytest.txt`.
+- **Reejecución de F2:** el 13 de noviembre de 2026 se reejecutaron los cuatro notebooks de F2 mediante reinicio del kernel y ejecución completa, utilizando el entorno `.venv` con Python 3.12.10. Posteriormente, se verificó que los archivos guardados presentaran contadores consecutivos, sin errores registrados y sin cambios en el código ni en los textos de sus celdas. El resumen de contadores, errores y versión de Python se conserva en `docs/evidence/f2_notebook_check.txt`. Este archivo corresponde a una comprobación de los notebooks guardados, no a un registro de ejecución con `nbconvert`.
 - **Rutas y semilla:** todas las rutas son relativas a la raíz del proyecto (calculada desde el propio código) y la semilla aleatoria está fijada en 42.
 - **Integridad del dato:** `data/raw/CHECKSUMS.txt` guarda la huella SHA-256 de los 7 archivos y `verify_checksums()` las recalcula.
-- **Evidencia de ejecución de punta a punta y multi-equipo:** `make all` se ejecutó desde un clon limpio y además fue verificado de manera independiente en los equipos de distintos integrantes (`Python 3.12.13` y `Python 3.12.16` en macOS). Las salidas están en `docs/evidence/` (`entorno.txt`, `pytest.txt`, `nbconvert.txt`).
+- **Alcance de la verificación reciente:** la reejecución del 13 de noviembre de 2026 se realizó en Windows con Python 3.12.10. Comprendió los cuatro notebooks de F2 y la ejecución independiente de las pruebas automatizadas. Esta verificación respalda el funcionamiento en el entorno utilizado; no constituye una nueva comprobación en otros equipos o sistemas operativos.
 - **Registro del entorno en los notebooks:** la celda de entorno lista cada dependencia con su versión fijada frente a la instalada, la semilla, la rama y el commit de la ejecución. Los metadatos quedan además en `docs/metadatos_fase1.json` y `docs/metadatos_proyecto.csv`.
 
 Para la verificación automatizada de los notebooks se utiliza `nbconvert`, herramienta que permite ejecutar archivos `.ipynb` y comprobar su funcionamiento mediante línea de comandos (Project Jupyter, 2026).
@@ -165,6 +166,8 @@ La evidencia del historial de commits, los Pull Requests y las ramas se presenta
 
 El análisis exploratorio de `F2_04` se realizó sobre uno de los siete archivos Parquet del conjunto original, correspondiente a 19.377 registros. Por lo tanto, sus resultados permiten identificar situaciones relevantes para la preparación de los datos, pero no deben interpretarse como conclusiones representativas del dataset completo.
 
+**Disponibilidad del dataset procesado.** El archivo `data/processed/arena_clean.parquet` se genera localmente al ejecutar `F2/F2_02_cleaning_transformation.ipynb` y no está versionado en GitHub. Para reproducirlo, se debe configurar el entorno, disponer de los archivos originales y ejecutar el notebook completo. En la reejecución del 13 de noviembre de 2026 se obtuvo un archivo de 135.634 filas y 54 columnas, con un tamaño aproximado de 15,1 MB. Su lectura posterior confirmó las mismas dimensiones. La evidencia disponible en el repositorio corresponde al código de generación en `src/arena/preprocessing.py` y a las salidas guardadas de los notebooks `F2_02` y `F2_03`, donde se documentan su generación y validación.
+
 **Decisiones técnicas.** El registro completo (`D-001` a `D-015`), con motivo, impacto y commit, está en `docs/decisiones.md`.
 
 **Coherencia.** Cada cifra del informe proviene de una salida ejecutada en los notebooks o de `docs/validacion_dataset.md`.
@@ -173,7 +176,7 @@ El análisis exploratorio de `F2_04` se realizó sobre uno de los siete archivos
 
 ## 8. Repositorio GitHub
 
-El repositorio está organizado en carpetas según las fases y el tipo de trabajo realizado: `F1/` y `F2/` para los notebooks ejecutables, `F3/` y `F4/` para las fases proyectadas, `src/arena/` para el paquete modular de código, `tests/` para las 55 pruebas unitarias, `data/` (`raw`, `interim`, `processed`) para los datos y `docs/` y `report/` para la documentación y evidencias. Esta organización por fases y carpetas también considera la estructura de referencia presentada en los materiales didácticos de la Semana 1 del curso (magistercienciadatos, 2026).
+El repositorio está organizado en carpetas según las fases y el tipo de trabajo realizado: `F1/` y `F2/` para los notebooks ejecutables, `F3/` y `F4/` para las fases proyectadas, `src/arena/` para el paquete modular de código, `tests/` para las pruebas unitarias, `data/` (`raw`, `interim`, `processed`) para los datos y `docs/` y `report/` para la documentación y evidencias. Esta organización por fases y carpetas también considera la estructura de referencia presentada en los materiales didácticos de la Semana 1 del curso (magistercienciadatos, 2026).
 
 El archivo `README.md` contiene la descripción del proyecto, la pregunta de investigación, la distribución inicial de tareas, el calendario, el registro de avance de las Fases 1 y 2, los supuestos del dataset y las instrucciones para instalar el entorno y ejecutar los notebooks o el flujo completo mediante `Makefile`.
 
@@ -194,13 +197,13 @@ Todas las funciones operativas se encuentran en `src/arena/`:
 - **Transformaciones aplicadas (`F2_02`):**
   1. `flatten()`: expande `conv_metadata` (26 columnas) y `category_tag` (12 columnas), pasando de 11 a 47 columnas.
   2. `convert_types()`: convierte `winner` y `language` a `category`, `evaluation_order` a `int16` e `is_code` a `bool`.
-  3. `derive_variables()`: agrega `format_a`, `format_b`, `tokens_log_a`, `tokens_log_b`, `longer_response`, `more_formatted` y `winner_binary`, generando `data/processed/arena_clean.parquet` (135.634 filas × 54 columnas, 14 MB) sin pérdida de registros.
+  3. `derive_variables()`: agrega `format_a`, `format_b`, `tokens_log_a`, `tokens_log_b`, `longer_response`, `more_formatted` y `winner_binary`, generando `data/processed/arena_clean.parquet` (135.634 filas × 54 columnas, aproximadamente 15,1 MB en la reejecución del 13 de noviembre de 2026) sin pérdida de registros.
 
 - **Diagnóstico exploratorio complementario (`F2_04`):** análisis de la distribución de tokens de las respuestas A y B mediante histogramas y transformaciones logarítmicas (`log1p`), comparación entre caracteres y tokens, e identificación de casos especiales como valores cero, empates, respuestas `both_bad`, idiomas no determinados y comparaciones entre un mismo modelo. Este análisis se realizó sobre uno de los siete archivos Parquet (19.377 registros), por lo que sus resultados tienen un alcance exploratorio.
 
 ## 11. Validación técnica y verificación del código
 - **Dataset (`validar_dataset.py`):** `docs/validacion_dataset.md` sobre la versión aplanada (135.634 filas × 47 columnas) cumple todos los requisitos obligatorios.
-- **Código (`pytest`):** 55 pruebas unitarias sin red en `tests/` (incluyendo `tests/test_preprocessing.py`), ejecutadas en 0,60 s y registradas en `docs/evidence/pytest.txt`.
+- **Código (`pytest`):** en la verificación del 13 de noviembre de 2026 se ejecutaron las pruebas de `tests/` con el intérprete del entorno `.venv` (Python 3.12.10). El resultado fue de 58 pruebas aprobadas en 2,58 segundos, registrado en `docs/evidence/pytest.txt`.
 - **Validador (`validate_dataset` en `F2_03`):** 0 fallos críticos y 1 advertencia conocida (10 filas con el mismo modelo) tanto en el dato original como en `data/processed/arena_clean.parquet`, además de verificación de errores provocados y consistencia de variables derivadas.
 
 ## 12. Notebook F1_Definicion.ipynb
@@ -210,7 +213,7 @@ Ejecutado de principio a fin sin errores (`Restart & Run All`), con definición 
 
 - `F2/F2_01_acquisition_exploration.ipynb` ✅ ejecutado de punta a punta, sin errores; secciones 0 a 9 con interpretación y tabla de hallazgos.
 - `F2/F2_02_cleaning_transformation.ipynb` ✅ ejecutado de punta a punta; aplanamiento, conversión de tipos, creación de 7 variables derivadas, validación y guardado en `data/processed/arena_clean.parquet`.
-- `F2/F2_03_validation.ipynb` ✅ ejecutado de punta a punta sobre el dato original y sobre el dataset procesado (`arena_clean.parquet`), incluyendo casos límite, excepciones provocadas y evidencia de las 55 pruebas unitarias.
+- `F2/F2_03_validation.ipynb` ✅ ejecutado de punta a punta sobre el dato original y sobre el dataset procesado (`arena_clean.parquet`), incluyendo casos límite, excepciones provocadas y verificación de las variables derivadas.
 - `F2/F2_04_token_distribution.ipynb` ✅ ejecutado de punta a punta; distribución de tokens en A y B (original y `log1p`), comparación caracteres/tokens en inglés, y revisión de casos límite (cero tokens, empates, `both_bad`, idioma `und` y dos respuestas del mismo modelo).
 
 ## 14. Vinculación del mapa conceptual con el avance
@@ -219,17 +222,45 @@ A continuación, se muestra cómo se relacionan los elementos del mapa conceptua
 
 | Elemento del mapa | Tipo | Estado | Evidencia |
 |---|---|---|---|
-| Python, pandas, NumPy, Jupyter, pytest, Git y GitHub | Herramientas | Implementado | `requirements.txt`, `src/arena/`, `tests/`, notebooks `F1` y `F2` |
-| Obtención, exploración, limpieza y validación de los datos | Procesos | Implementado en F1–F2 (análisis estadístico proyectado para F3–F4) | `src/arena/io.py`, `profile.py`, `preprocessing.py`, `validation.py`, `F2_01` a `F2_04` |
-| Instalación de dependencias, descarga de datos y ejecución de pruebas y notebooks | Flujo reproducible | Implementado y verificado en múltiples equipos | `Makefile`, `requirements.txt`, `data/raw/CHECKSUMS.txt`, `docs/evidence/` |
-| Elección del dataset y criterios de preprocesamiento (`D-001` a `D-015`) | Decisiones técnicas | Implementado (pendientes `P-01` a `P-04` proyectados para F3) | `docs/decisiones.md`, `README.md` |
-| Carpetas por fase y separación de datos crudos y procesados | Organización del repositorio | Implementado | `F1/` a `F4/`, `data/raw/`, `data/processed/`, `src/`, `tests/`, `docs/`, `.gitignore` |
-| Notebooks modulares con celdas narrativas, código y referencias | Estructura del notebook | Implementado | `F1/F1_Definicion.ipynb`, `F2/F2_01`, `F2/F2_02`, `F2/F2_03`, `F2/F2_04` |
+| Python | Herramienta | Utilizado en la reejecución con Python 3.12.10 | Metadatos de los notebooks F2 y `docs/evidence/f2_notebook_check.txt` |
+| pandas | Herramienta | Utilizada para cargar y transformar datos | `src/arena/profile.py` y `src/arena/preprocessing.py` |
+| NumPy | Herramienta | Utilizada para calcular variables derivadas | `src/arena/preprocessing.py` |
+| Jupyter | Herramienta | Utilizada para ejecutar y documentar el proceso | Notebooks de `F1/` y `F2/` |
+| pytest | Herramienta | Verificado: 58 pruebas aprobadas en la reejecución | `tests/` y `docs/evidence/pytest.txt` |
+| Git | Herramienta | Utilizado para versionar los cambios | Historial de commits del proyecto |
+| GitHub | Herramienta | Utilizado para colaborar y revisar contribuciones | Repositorio y Pull Requests del equipo |
+| Obtención de datos | Proceso | Implementado en F2 | `src/arena/io.py` y `F2/F2_01_acquisition_exploration.ipynb` |
+| Exploración inicial | Proceso | Implementado en F2 | `src/arena/profile.py` y `F2/F2_01_acquisition_exploration.ipynb` |
+| Exploración de tokens | Proceso | Implementado sobre uno de los siete archivos originales | `F2/F2_04_token_distribution.ipynb` |
+| Aplanamiento de columnas anidadas | Proceso | Implementado | Función `flatten()` en `src/arena/preprocessing.py` y notebook F2_02 |
+| Conversión de tipos | Proceso | Implementado | Función `convert_types()` en `src/arena/preprocessing.py` y notebook F2_02 |
+| Creación de variables derivadas | Proceso | Implementado: siete variables adicionales | Función `derive_variables()` en `src/arena/preprocessing.py` y notebook F2_02 |
+| Generación del dataset procesado | Proceso | Generado localmente; archivo no versionado en GitHub | Función `save_clean()` y salidas de `F2/F2_02_cleaning_transformation.ipynb` |
+| Validación de datos | Proceso | Implementado y ejecutado | `src/arena/validation.py` y `F2/F2_03_validation.ipynb` |
+| Instalación de dependencias | Flujo reproducible | Documentado | `requirements.txt`, `pyproject.toml` y `Makefile` |
+| Verificación de integridad de los archivos originales | Flujo reproducible | Implementado mediante SHA-256 | `src/arena/io.py` y `data/raw/CHECKSUMS.txt` |
+| Ejecución de pruebas | Flujo reproducible | Verificada el 13 de noviembre de 2026 | `docs/evidence/pytest.txt` |
+| Ejecución de notebooks F2 | Flujo reproducible | Cuatro notebooks reejecutados; contadores consecutivos y sin errores guardados | Salidas de los notebooks F2 y `docs/evidence/f2_notebook_check.txt` |
+| Elección del dataset | Decisión técnica | Documentada | `F1/F1_Definicion.ipynb` y `docs/decisions.md` |
+| Criterios de preprocesamiento | Decisión técnica | Documentados para F2 | `docs/decisions.md` y `docs/f2_02_handoff.md` |
+| Tratamiento de empates | Decisión metodológica | Pendiente de evaluación cuantitativa en F3 | Casos identificados en F2; decisión final pendiente |
+| Tratamiento de idiomas | Decisión metodológica | Pendiente de evaluación cuantitativa en F3 | Exploración de idiomas en F2; decisión final pendiente |
+| Dependencia entre votos de una sesión | Decisión metodológica | Diagnosticada; tratamiento en el análisis pendiente | `src/arena/sampling.py` y `F2/F2_01_acquisition_exploration.ipynb` |
+| Organización por fases | Organización del repositorio | Implementada; las carpetas no implican que todas las fases estén terminadas | Carpetas `F1/`, `F2/`, `F3/` y `F4/` |
+| Separación de datos crudos y procesados | Organización del repositorio | Implementada en el flujo local | Rutas de generación en `src/arena/` y reglas de `.gitignore` |
+| Separación entre código y pruebas | Organización del repositorio | Implementada | Carpetas `src/arena/` y `tests/` |
+| Documentación y evidencias | Organización del repositorio | Disponible y en revisión tras la retroalimentación | Carpetas `docs/` y `report/` |
+| Celdas narrativas | Estructura del notebook | Incorporadas | Celdas Markdown de los notebooks F1 y F2 |
+| Celdas de código | Estructura del notebook | Incorporadas; ejecución de F2 verificada | Notebooks de `F2/` y `docs/evidence/f2_notebook_check.txt` |
+| Referencias bibliográficas | Estructura del notebook | Incorporadas; coherencia con el informe en revisión | Notebook F1 y bibliografía del informe |
 
-Para facilitar la lectura de los bloques que componen el diagrama (`F1/mapa-conceptual.jpeg`), se sintetizan sus tres niveles estructurales:
-- **1. Nodo superior (Problemática y pregunta P1):** Formula la pregunta de investigación —*¿se asocia ganar el voto humano en LMArena con respuestas más largas y con más formato Markdown?*—, delimitando el alcance observacional (asociación en F3–F4, sin causalidad) y la definición operativa de **Contenido** (calidad semántica y corrección factual) frente a **Formato** (extensión en tokens y conteo de encabezados, listas y negritas).
-- **2. Columnas centrales (Explicación breve del flujo y trazabilidad):** Conecta de izquierda a derecha cuatro ejes: (i) *Flujo de datos*, desde la carga de `arena-human-preference-140k` (135.634 votos, 1,6 GB), exploración (`F2_01`), limpieza/aplanamiento y derivación de `format_a/b`, `tokens_log_a/b` y `winner_binary` (`F2_02`), y validación con 55 pruebas (`F2_03`) y diagnóstico exploratorio de distribución de tokens y calidad de datos (F2_04), hasta el análisis posterior y la comunicación de resultados (F3–F4); (ii) *Herramientas y entorno* (`Python 3.12`, `pandas`, `pyarrow`, `NumPy`, `Jupyter`, `pytest`, `matplotlib` y GitHub colaborativo con ramas y PRs); (iii) *Detalle del repositorio* (`data/raw/` con `CHECKSUMS.txt` SHA-256, `data/processed/arena_clean.parquet`, `F1/–F4/`, `src/arena/`, `tests/` y `.gitignore`); y (iv) *Documentación e información* (licencia `CC-BY-4.0` sin subir textos por privacidad, celdas narrativas, diccionario de 54 variables, commits descriptivos y bitácora `D-001` a `D-015`).
-- **3. Nodo inferior (Reflexión técnica y conclusiones de avance):** Resume las decisiones ejecutadas en las Fases 1 y 2 (adopción del dataset 2025 con 53 modelos, exclusión de conversaciones crudas bajando el uso en RAM de 1,6 GB a ~115 MB, aplanamiento de `conv_metadata` y transformación $\log(1 + \text{tokens})$ conservando las 135.634 filas) y deja explícitos los desafíos pendientes para la Fase 3 (tratamiento estadístico de los empates `tie` y `both_bad` que suman 27,5 %, evaluación de las 10 filas con `model_a == model_b` y de las respuestas con 0 tokens, y control por idioma y capacidad del modelo).
+El mapa conceptual (`F1/mapa-conceptual.jpeg`) organiza el proyecto en tres niveles. Su versión original corresponde a la primera entrega y requiere actualizar las referencias a las pruebas, los notebooks y el alcance de la Fase 3.
+
+- **1. Problemática y pregunta de investigación:** presenta la relación que se busca estudiar entre la extensión y el formato de las respuestas y la preferencia humana en LMArena, considerando el par de modelos comparados. El estudio tiene un alcance observacional: busca identificar asociaciones, sin establecer causalidad. Los indicadores de extensión y formato no constituyen una medición directa de la calidad semántica ni de la corrección factual.
+
+- **2. Flujo de trabajo y trazabilidad:** relaciona cuatro ejes: flujo de datos, herramientas y entorno, organización del repositorio y documentación. En F2 se implementaron la obtención y exploración inicial (`F2_01`), la limpieza y transformación (`F2_02`), la validación técnica (`F2_03`) y la exploración complementaria de tokens sobre uno de los siete archivos originales (`F2_04`). El dataset procesado se genera localmente y su archivo no está versionado en GitHub; su generación y validación están documentadas en los notebooks correspondientes. La ejecución independiente de la suite de pruebas registró 58 pruebas aprobadas el 13 de noviembre de 2026, según `docs/evidence/pytest.txt`.
+
+- **3. Decisiones y continuidad del proyecto:** resume las decisiones de preparación de datos, como el aplanamiento de columnas anidadas y la creación de variables derivadas, conservando los 135.634 registros. Para F3 se proyecta desarrollar el núcleo algorítmico mediante un diseño orientado a objetos, comprobar la equivalencia de resultados y comparar la eficiencia de las implementaciones. También quedan pendientes la justificación cuantitativa del tratamiento de empates e idiomas, la evaluación de respuestas con cero tokens y comparaciones entre un mismo modelo, y el tratamiento de la dependencia entre votos de una sesión. F4 integrará los resultados y sus limitaciones en las conclusiones del proyecto.
 
 ## 15. Bibliografía
 
