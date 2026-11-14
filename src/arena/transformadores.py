@@ -9,7 +9,7 @@ import pandas as pd
 
 from .preprocessing import derive_variables
 
-# ---- 1. Clase base (igual a la del proyecto modelo) -----------------
+# 1. Clase base (igual a la del proyecto modelo)
 class Transformador:
     """Clase base: lo que todos los pasos del pipeline comparten.
 
@@ -58,7 +58,7 @@ class Transformador:
         """Atajo: aprender y aplicar sobre el mismo conjunto."""
         return self.ajustar(df).transformar(df)
 
-    # ---- Métodos que cada clase hija DEBE implementar -------------------
+    #  Métodos que cada clase hija DEBE implementar 
 
     def aprender(self, df):
         """Calcula y devuelve los parámetros. Lo implementa cada clase hija."""
@@ -69,7 +69,7 @@ class Transformador:
         raise NotImplementedError("Cada clase hija debe implementar aplicar().")
 
 
-# ---- 2. Aplanamiento de columnas anidadas (recursivo) ---------------
+# 2. Aplanamiento de columnas anidadas (recursivo)
 
 
 def recorrer(valor, ruta=()):
@@ -159,7 +159,7 @@ class AplanadorCategoryTag(AplanadorAnidado):
         return "_".join(["cat", grupo, *resto])
 
 
-# ---- 3. Conversión de tipos ------------------------------------------
+# 3. Conversión de tipos
 
 
 class ConversorCategoria(Transformador):
@@ -196,7 +196,7 @@ class ConversorTipo(Transformador):
         return df
 
 
-# ---- Variables de estilo para P1 -------------------------------------
+#  Variables de estilo para P1
 
 
 class DerivadorEstilo(Transformador):
@@ -227,6 +227,18 @@ class DerivadorEstilo(Transformador):
         return derive_variables(df)
 
 
+# Se revisa que cat_creative_writing (bool) y cat_creative_writing_score (str) miden lo mismo, eliminar car_creative_writing_score en F3
+
+class EliminadorColumnas(Transformador):
+    """Quita columnas que no aportan al análisis, como el identificador."""
+
+    def aprender(self, df):
+        return {"existe": self.columna in df.columns}
+
+    def aplicar(self, df):
+        return df.drop(columns=[self.columna]) if self.columna in df.columns else df
+
+
 def pasos_f2():
     """Los pasos del pipeline de F2, en el mismo orden que clean_dataset().
 
@@ -240,4 +252,25 @@ def pasos_f2():
         ConversorTipo("is_code", "bool"),
         ConversorTipo("evaluation_order", "int16"),
         DerivadorEstilo(),
+    ]
+
+def pasos_f3():
+    """ Los pasos del pipeline hasta F3 (incluye los de F2)
+
+    Devuelve: una lista de 9 transformadores orden.
+    """
+    return [
+        # Pasos de F2 (los mismos de pasos_f2)
+        AplanadorConvMetadata(),
+        AplanadorCategoryTag(),
+        ConversorCategoria("winner"),
+        ConversorCategoria("language"),
+        ConversorTipo("is_code", "bool"),
+        ConversorTipo("evaluation_order", "int16"),
+        DerivadorEstilo(),
+        # Correcciones de F3
+        # Las columnas cat_creative_writing y cat_creative_writing_score miden lo mismo. Se elimina la segunda por tener valores anómalos que al comparar corresponden a False en la primera columna.
+        EliminadorColumnas("cat_creative_writing_score"),
+        # Solo tiene enteros de 0 a 5 y 2 nulos: entero que acepta faltantes
+        ConversorTipo("cat_if_score", "Int8"),
     ]
