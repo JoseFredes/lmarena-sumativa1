@@ -14,6 +14,7 @@
 | Grupo | 6 |
 | Docente responsable | Dr. Omar Salinas Silva |
 | Fecha | 11 de noviembre de 2026 |
+| Última revisión del informe | 13 de noviembre de 2026, tras la retroalimentación de la Sumativa 1 |
 | Repositorio | https://github.com/JoseFredes/lmarena-sumativa1 |
 
 La estructura y el orden de los apartados del informe siguen lo indicado en la guía de desarrollo de la Sumativa 1 (*Guía de desarrollo — Evaluación Sumativa 1 (Fases 1 y 2)*, s. f.).
@@ -106,6 +107,7 @@ Condiciones impuestas por el dato o por el contexto, distintas de las decisiones
 | Git / GitHub | versionado colaborativo y trazabilidad mediante PRs | repositorio |
 | Claude (Anthropic) | apoyo y aprendizaje autodidacta de contenidos técnicos y seguimiento de avances | estudio autónomo y coordinación (F1 y F2) |
 | Gemini (Google) | apoyo editorial para mejorar la redacción y comunicación escrita | informe técnico y documentación |
+| ChatGPT (OpenAI) | apoyo para interpretar la retroalimentación, revisar la coherencia del informe y orientar la ejecución de comandos de verificación | revisión posterior a la Sumativa 1 |
 
 **Módulos.** `env` (registro del entorno), `io` (descarga y huellas), `profile` (inspección estructural, tablas de frecuencia, columnas anidadas), `preprocessing` (aplanamiento, tipos y variables derivadas), `validation` (chequeos críticos y advertencias), `plots` (gráficos), `sampling` (muestreo por filas y por sesiones). Los notebooks utilizan estos módulos y, cuando corresponde, incorporan análisis exploratorios propios. Por ejemplo, `F2_04_token_distribution.ipynb` aplica transformaciones logarítmicas y genera histogramas para examinar la distribución de tokens. Como apoyo transversal al equipo, se utilizó Claude para el aprendizaje autodidacta de los contenidos y el seguimiento de tareas, y Gemini para mejorar la redacción y comunicación escrita del documento. Como apoyo teórico para el uso de funciones, módulos y manejo de excepciones, se consideraron los apuntes técnicos de la Semana 1 del curso (Salinas Silva, 2026).
 
@@ -168,7 +170,7 @@ El análisis exploratorio de `F2_04` se realizó sobre uno de los siete archivos
 
 **Disponibilidad del dataset procesado.** El archivo `data/processed/arena_clean.parquet` se genera localmente al ejecutar `F2/F2_02_cleaning_transformation.ipynb` y no está versionado en GitHub. Para reproducirlo, se debe configurar el entorno, disponer de los archivos originales y ejecutar el notebook completo. En la reejecución del 13 de noviembre de 2026 se obtuvo un archivo de 135.634 filas y 54 columnas, con un tamaño aproximado de 15,1 MB. Su lectura posterior confirmó las mismas dimensiones. La evidencia disponible en el repositorio corresponde al código de generación en `src/arena/preprocessing.py` y a las salidas guardadas de los notebooks `F2_02` y `F2_03`, donde se documentan su generación y validación.
 
-**Decisiones técnicas.** El registro completo (`D-001` a `D-015`), con motivo, impacto y commit, está en `docs/decisiones.md`.
+**Decisiones técnicas.** El registro completo (`D-001` a `D-015`), con motivo, impacto y commit, está en `docs/decisions.md`.
 
 **Coherencia.** Cada cifra del informe proviene de una salida ejecutada en los notebooks o de `docs/validacion_dataset.md`.
 
@@ -197,7 +199,8 @@ Todas las funciones operativas se encuentran en `src/arena/`:
 - **Transformaciones aplicadas (`F2_02`):**
   1. `flatten()`: expande `conv_metadata` (26 columnas) y `category_tag` (12 columnas), pasando de 11 a 47 columnas.
   2. `convert_types()`: convierte `winner` y `language` a `category`, `evaluation_order` a `int16` e `is_code` a `bool`.
-  3. `derive_variables()`: agrega `format_a`, `format_b`, `tokens_log_a`, `tokens_log_b`, `longer_response`, `more_formatted` y `winner_binary`, generando `data/processed/arena_clean.parquet` (135.634 filas × 54 columnas, aproximadamente 15,1 MB en la reejecución del 13 de noviembre de 2026) sin pérdida de registros.
+  3. `derive_variables()`: agrega `format_a`, `format_b`, `tokens_log_a`, `tokens_log_b`, `longer_response`, `more_formatted` y `winner_binary`, obteniendo 135.634 filas y 54 columnas, sin pérdida de registros.
+  4. `save_clean()`: guarda el resultado en `data/processed/arena_clean.parquet`. En la reejecución del 13 de noviembre de 2026, el archivo generado localmente tuvo un tamaño aproximado de 15,1 MB y su lectura posterior confirmó las mismas dimensiones.
 
 - **Diagnóstico exploratorio complementario (`F2_04`):** análisis de la distribución de tokens de las respuestas A y B mediante histogramas y transformaciones logarítmicas (`log1p`), comparación entre caracteres y tokens, e identificación de casos especiales como valores cero, empates, respuestas `both_bad`, idiomas no determinados y comparaciones entre un mismo modelo. Este análisis se realizó sobre uno de los siete archivos Parquet (19.377 registros), por lo que sus resultados tienen un alcance exploratorio.
 
@@ -296,7 +299,7 @@ Wu, M., & Aji, A. F. (2025). Style over substance: Evaluation biases for large l
 - A. Informe de validación del dataset (`docs/validacion_dataset.md`).
 - B. Evaluación de criterios del dataset (`docs/evaluacion_criterios_dataset.csv`).
 - C. Salida de `pytest` y de `nbconvert` (`docs/evidence/`).
-- D. Bitácora de decisiones (`docs/decisiones.md`).
+- D. Bitácora de decisiones (`docs/decisions.md`).
 
 ### E. Evidencia del control de versiones
 
