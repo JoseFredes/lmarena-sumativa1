@@ -19,6 +19,7 @@ Una línea por decisión, con su motivo, su impacto medido y el commit donde que
 | D-013 | 2026-11-04 | `make data` usa `CHECKSUMS.txt` versionado como referencia y no lo reescribe | Detectar descargas corruptas o distintas entre integrantes | 7 de 7 archivos coinciden en un clon limpio | `828d3ec` |
 | D-014 | 2026-11-04 | No usar transporte IPC para silenciar el aviso del kernel en `nbconvert` | Falló en un clon con ruta larga y no existe en Windows | El log conserva un aviso informativo de Jupyter; se documenta en el README | `cb42166` |
 | D-015 | 2026-11-07 | Aplanar `conv_metadata` y `category_tag` renombrando claves Markdown (`**` → `asterisk`, `__` → `underscore`) y derivar 7 variables (`format_a/b`, `tokens_log_a/b`, `longer_response`, `more_formatted`, `winner_binary`) sin eliminar filas en F2 | Conservar las 135.634 filas íntegras para evitar sesgos de selección prematuros y corregir la fuerte asimetría de tokens mediante `log1p` | De 11 a 54 columnas en `data/processed/arena_clean.parquet`; 0 fallos críticos en `F2_03` | `b1d826b`, `3c41aa4` |
+| D-016 | 2026-11-14 | En F3, eliminar `cat_creative_writing_score` y pasar `cat_if_score` a entero (`Int8`) | La columna de texto repite a `cat_creative_writing`: todos los `yes` son `True`, todos los `no` son `False`, y sus 30 casos anómalos (15 textos raros y 15 nulos) son `False`. `cat_if_score` solo tiene enteros de 0 a 5 y 2 nulos | De 54 a 53 columnas con `pasos_f3()`; F2 y `arena_clean.parquet` no cambian | 1c5edc9 |
 
 ## Pendientes de decisión para Fase 3
 
