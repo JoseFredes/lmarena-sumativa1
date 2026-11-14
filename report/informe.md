@@ -210,7 +210,7 @@ Todas las funciones operativas se encuentran en `src/arena/`:
 - **Validador (`validate_dataset` en `F2_03`):** 0 fallos críticos y 1 advertencia conocida (10 filas con el mismo modelo) tanto en el dato original como en `data/processed/arena_clean.parquet`, además de verificación de errores provocados y consistencia de variables derivadas.
 
 ## 12. Notebook F1_Definicion.ipynb
-Ejecutado de principio a fin sin errores (`Restart & Run All`), con definición del problema, pregunta P1, objetivos, definición operativa de contenido vs. formato, unidad de análisis, verificación del entorno, rutas base, mapa conceptual (`F1/mapa-conceptual.jpeg`) y referencias APA 7. Además, incorpora una revisión inicial de cinco registros del dataset, verificando columnas, tipos de datos, valores faltantes y resultados válidos, junto con la comprobación de requisitos mínimos en uno de los siete archivos Parquet (19.377 filas × 14 columnas).
+Ejecutado de principio a fin sin errores (`Restart & Run All`), con definición del problema, pregunta P1, objetivos, definición operativa de contenido vs. formato, unidad de análisis, verificación del entorno, rutas base, mapa conceptual (`F1/mapa-conceptual-revisado.png`) y referencias APA 7. Además, incorpora una revisión inicial de cinco registros del dataset, verificando columnas, tipos de datos, valores faltantes y resultados válidos, junto con la comprobación de requisitos mínimos en uno de los siete archivos Parquet (19.377 filas × 14 columnas).
 
 ## 13. Notebooks ejecutables de la Fase 2
 
@@ -257,7 +257,9 @@ A continuación, se muestra cómo se relacionan los elementos del mapa conceptua
 | Celdas de código | Estructura del notebook | Incorporadas; ejecución de F2 verificada | Notebooks de `F2/` y `docs/evidence/f2_notebook_check.txt` |
 | Referencias bibliográficas | Estructura del notebook | Incorporadas; coherencia con el informe en revisión | Notebook F1 y bibliografía del informe |
 
-El mapa conceptual (`F1/mapa-conceptual.jpeg`) organiza el proyecto en tres niveles. Su versión original corresponde a la primera entrega y requiere actualizar las referencias a las pruebas, los notebooks y el alcance de la Fase 3.
+El mapa conceptual (`F1/mapa-conceptual-revisado.png`) organiza el proyecto en tres niveles: problemática y pregunta de investigación, flujo de trabajo y trazabilidad, y reflexión técnica. La versión revisada incorpora los cuatro notebooks de F2, las evidencias de ejecución y la definición de F3 como núcleo algorítmico. Su archivo editable se conserva en `F1/mapa-conceptual-revisado.excalidraw`.
+
+![Mapa conceptual revisado del proyecto](../F1/mapa-conceptual-revisado.png)
 
 - **1. Problemática y pregunta de investigación:** presenta la relación que se busca estudiar entre la extensión y el formato de las respuestas y la preferencia humana en LMArena, considerando el par de modelos comparados. El estudio tiene un alcance observacional: busca identificar asociaciones, sin establecer causalidad. Los indicadores de extensión y formato no constituyen una medición directa de la calidad semántica ni de la corrección factual.
 
