@@ -43,3 +43,19 @@ def plot_daily_counts(timestamps: pd.Series, title: str) -> Figure:
     fig.tight_layout()
     plt.close(fig)
     return fig
+
+
+def plot_escalamiento(tabla: pd.DataFrame, columna: str, title: str, xlabel: str = "n") -> Figure:
+    """Líneas en escala log-log de ``columna`` contra ``n``, una por implementación."""
+    fig, ax = plt.subplots(figsize=(7, 4))
+    for nombre, g in tabla.groupby("implementacion", sort=False):
+        ax.plot(g["n"], g[columna], marker="o", label=nombre)
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(columna)
+    ax.legend()
+    fig.tight_layout()
+    plt.close(fig)
+    return fig
