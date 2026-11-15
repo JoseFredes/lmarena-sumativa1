@@ -46,7 +46,7 @@ Variables comunes a ambas respuestas:
 | Variable | Tipo | Descripción |
 |---|---|---|
 | `cat_creative_writing` | bool | El prompt pide escritura creativa |
-| `cat_creative_writing_score` | str | Puntaje asociado a la etiqueta de escritura creativa |
+| `cat_creative_writing_score` | str | Puntaje asociado a la etiqueta de escritura creativa es equivalente a `cat_creative_writing` y contiene valores anomalos se elimina en F3 (D-016)|
 | `cat_criteria_complexity` | bool | El prompt es complejo |
 | `cat_criteria_creativity` | bool | El prompt requiere creatividad |
 | `cat_criteria_domain_knowledge` | bool | El prompt requiere conocimiento especializado |
@@ -55,7 +55,7 @@ Variables comunes a ambas respuestas:
 | `cat_criteria_specificity` | bool | El prompt es específico |
 | `cat_criteria_technical_accuracy` | bool | El prompt exige precisión técnica |
 | `cat_if` | bool | El prompt evalúa seguimiento de instrucciones (*instruction following*) |
-| `cat_if_score` | float64 | Puntaje de seguimiento de instrucciones, de 0 a 5 valores enteros |
+| `cat_if_score` | float64 | Puntaje de seguimiento de instrucciones, de 0 a 5 valores enteros se pasa a `Int8` en F3 |
 | `cat_math` | bool | El prompt es de matemáticas |
 
 Las etiquetas fueron asignadas por un sistema automático de LMArena, no por personas.
