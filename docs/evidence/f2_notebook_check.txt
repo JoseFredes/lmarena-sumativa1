@@ -1,0 +1,9 @@
+Verificacion de notebooks F2 guardados
+Fecha: 2026-11-13T18:20:40-03:00
+Revision de contadores, errores guardados y version de Python.
+Esta comprobacion no vuelve a ejecutar los notebooks.
+
+F2_01_acquisition_exploration.ipynb: celdas=32, numeracion_correcta=True, errores=0, Python=3.12.10
+F2_02_cleaning_transformation.ipynb: celdas=15, numeracion_correcta=True, errores=0, Python=3.12.10
+F2_03_validation.ipynb: celdas=10, numeracion_correcta=True, errores=0, Python=3.12.10
+F2_04_token_distribution.ipynb: celdas=33, numeracion_correcta=True, errores=0, Python=3.12.10
