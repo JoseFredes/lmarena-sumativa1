@@ -73,7 +73,7 @@ Entregables: informe PDF, este repo (carpetas `F1/` y `F2/`, README, dependencia
 
 Revisamos el dataset con el `validar_dataset.py` del curso, sobre una muestra aplanada (1 de los 7 archivos, 19.377 filas). Cumple todos los requisitos obligatorios (filas, columnas, roles analíticos, variable numérica y categórica). Lo que no cumple o no podemos asegurar, lo declaramos acá:
 
-- **Sin valores faltantes.** La muestra tiene 0 % de nulos. Lo "sucio" de este dataset está en otro lado: 126 idiomas, empates (`tie`, `both_bad`), votos agrupados en sesiones y etiquetas puestas por un sistema automático.
+- **Casi sin valores faltantes.** Las columnas originales no tienen nulos. Al aplanar `category_tag` aparecen 17 nulos en las columnas `*_score` (0,0125 % de las 135.634 filas; vienen así en el dato original), y el validador los redondea a 0,0 %. Lo "sucio" de este dataset está en otro lado: 126 idiomas, empates (`tie`, `both_bad`), votos agrupados en sesiones y etiquetas puestas por un sistema automático.
 - **Tamaño.** El dato original pesa ~1,6 GB, más que los 100 MB sugeridos. No se sube al repo (`data/raw/` está ignorado); se descarga con `make data`. El dataset procesado no incluye texto, así que debería pesar mucho menos.
 - **Datos personales.** Los prompts son texto libre de personas reales y no podemos asegurar que no contengan datos identificables. Solo usamos su largo y no publicamos ningún texto.
 - **Licencia.** Los prompts son CC-BY-4.0; las respuestas de los modelos dependen de cada proveedor.
@@ -112,7 +112,7 @@ cd lmarena-sumativa1
 make all
 ```
 
-`make all` crea `.venv` e instala `requirements.txt` (versiones fijas), descarga los 7 archivos del dataset (~1,6 GB) y los verifica contra `data/raw/CHECKSUMS.txt`, corre las pruebas, ejecuta los notebooks y guarda las evidencias en `docs/evidence/`. Se probó desde un clon limpio: termina sin errores en unos 3 minutos.
+`make all` crea `.venv` e instala `requirements.txt` (versiones fijas), descarga los 7 archivos del dataset (~1,6 GB) y los verifica contra `data/raw/CHECKSUMS.txt`, corre las pruebas, ejecuta los notebooks y guarda las evidencias en `docs/evidence/`. Se probó desde un clon limpio: terminó sin errores en unos 3 minutos antes de sumar F3; los dos notebooks de `F3/` agregan unos 3 minutos más (medimos 3 min 7 s).
 
 También se puede ir por partes:
 
@@ -121,7 +121,7 @@ También se puede ir por partes:
 | `make install` | crea el entorno virtual e instala las dependencias |
 | `make data` | descarga lo que falte y verifica las huellas SHA-256 |
 | `make test` | corre `pytest` (sin red) y guarda la salida en `docs/evidence/pytest.txt` |
-| `make run` | ejecuta los notebooks de `F1/` y `F2/` y guarda el log en `docs/evidence/nbconvert.txt` |
+| `make run` | ejecuta los notebooks de `F1/`, `F2/` y `F3/` y guarda el log en `docs/evidence/nbconvert.txt` |
 | `make evidence` | guarda versión de Python, commit y `pip freeze` en `docs/evidence/entorno.txt` |
 | `make validate-dataset` | valida el dato con el script del curso y escribe `docs/validacion_dataset.md` |
 | `make metadata` | genera `docs/metadatos_fase1.json` y `docs/metadatos_proyecto.csv` |

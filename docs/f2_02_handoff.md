@@ -20,7 +20,7 @@ sección 9 de `F2/F2_01_acquisition_exploration.ipynb` dicen qué hay que resolv
 - Una ordinal no se deja en orden alfabético.
 - Trabajar sobre una copia (`df.copy()`); cada paso es una función pura en `src/`.
 - Dejar `assert` o pruebas en cada paso y **conservar las salidas** del notebook.
-- Como el dataset no tiene nulos, el manejo de NA se justifica con el diagnóstico (0 nulos) y con lo que sí es "sucio": ceros, extremos, `und`, empates.
+- Las columnas originales no tienen nulos y solo hay 17 en `cat_*_score` (0,0125 %, vienen en el dato original), así que el manejo de NA se justifica con ese diagnóstico y con lo que sí es "sucio": ceros, extremos, `und`, empates.
 
 ## Cómo trabajar
 
