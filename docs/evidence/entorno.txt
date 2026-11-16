@@ -1,8 +1,8 @@
 Python 3.12.13
-commit: 0ccff6a branch: main
+commit: 1256665 branch: docs/readme-f3-evidencias
 anyio==4.16.0
 appnope==1.0.0
--e git+https://github.com/JoseFredes/lmarena-sumativa1.git@0ccff6a11018df4ed1b3dec2806baca9f5503d4e#egg=arena
+-e git+https://github.com/JoseFredes/lmarena-sumativa1.git@125666564ec1a393349878d5ee942e9ff4d8ddba#egg=arena
 asttokens==3.0.2
 attrs==26.1.0
 beautifulsoup4==4.15.0

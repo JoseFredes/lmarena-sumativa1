@@ -1,7 +1,8 @@
 # ¿Contenido o formato? Preferencias humanas en LMArena
 
-Sumativa 1 · Fases 1 y 2 · MCDI500 Programación para la Ciencia de Datos · Magíster en Ciencia de Datos e Inteligencia Artificial, UNAB
-Entrega: **Miércoles 11 de noviembre de 2026, 23:59** · Vale 40 % de la nota · Trabajo grupal
+Sumativas 1 y 2 · Fases 1, 2 y 3 · MCDI500 Programación para la Ciencia de Datos · Magíster en Ciencia de Datos e Inteligencia Artificial, UNAB
+Entrega Sumativa 1 (Fases 1 y 2): **miércoles 11 de noviembre de 2026, 23:59** · Vale 40 % de la nota · Trabajo grupal
+Entrega Sumativa 2 (Fase 3): **domingo 15 de noviembre de 2026, 23:59** · Vale 20 % de la nota · Trabajo grupal
 
 **Integrantes:** José Fredes, Alejandro Poirier, Valentina Carvajal, Angelo Morales
 **Docente:** Omar Salinas
@@ -26,14 +27,15 @@ Descartamos `Anthropic/persuasion` (nuestra idea inicial) porque es de 2024 y so
 
 Son preguntas para la Fase 3. Solo vamos a hablar de **asociación**, no de causas.
 
-## Qué hacemos en esta entrega (Fases 1 y 2)
+## Qué hacemos en cada fase
 
 | Fase | Qué hacemos | Qué dejamos para después |
 |---|---|---|
 | **F1** | Definir problema, objetivos, alcance y supuestos; dejar el entorno reproducible y un código base mínimo | Todo análisis |
-| **F2** | Descargar el dataset, explorarlo, limpiarlo, transformarlo (tipos, columnas anidadas, variables derivadas, escalamiento) y validarlo con pruebas | Comparar ganadores con perdedores, tasas de victoria, tests, modelos |
+| **F2** | Descargar el dataset, explorarlo, limpiarlo, transformarlo (tipos, columnas anidadas, variables derivadas y logaritmo de los tokens) y validarlo con pruebas | Comparar ganadores con perdedores, tasas de victoria, tests, modelos |
+| **F3** | Pasar el pipeline de F2 a clases (`Transformador`, `Pipeline`), comprobar que da el mismo resultado, probar el código (120 pruebas) y medir tiempo y memoria de varias implementaciones | Responder P1, decidir qué hacer con empates e idiomas, conclusiones (F4) |
 
-Entregables: informe PDF, este repo (carpetas `F1/` y `F2/`, README, dependencias, historial de commits), notebook `F1_Definición.ipynb` (en el repo `F1_Definicion.ipynb`, sin tilde), notebooks de F2 y evidencias de ejecución y pruebas.
+Entregables: informe PDF, este repo (carpetas `F1/`, `F2/` y `F3/`, README, dependencias, historial de commits), notebook `F1_Definición.ipynb` (en el repo `F1_Definicion.ipynb`, sin tilde), notebooks de F2 y F3 y evidencias de ejecución y pruebas. El informe de F3 está en `report/f3_s02_ev_grupo6.pdf` (fuente en `report/informe_f3.md`).
 
 ## Cómo nos repartimos el trabajo
 
@@ -89,6 +91,10 @@ Revisamos el dataset con el `validar_dataset.py` del curso, sobre una muestra ap
 - [x] Validación (`validation.py`, 55 pruebas con `pytest`) y notebook `F2/F2_03_validation.ipynb` sobre dato original y procesado (Jose)
 - [x] Evidencias de `make all` desde un clon limpio y verificación en múltiples equipos, en `docs/evidence/`
 - [x] Informe técnico integrado, mapa conceptual actualizado y bibliografía APA 7 (Valentina, Angelo, Alejandro, Jose)
+- [x] F3, clases y carga: `Transformador`, aplanadores, conversores, `Pipeline`, `carga.py` y `medicion.py` en `src/arena/` (Angelo)
+- [x] F3, notebook de POO y recursión con la equivalencia con F2: `F3/F3_01_pipeline_poo.ipynb` (Alejandro)
+- [x] F3, pruebas (120 en total, 62 nuevas) y eficiencia: `src/arena/eficiencia.py` y `F3/F3_02_eficiencia.ipynb` (Jose)
+- [x] Informe de F3: `report/f3_s02_ev_grupo6.pdf` (todos revisan antes de entregar)
 
 ## Decisiones cerradas y pendientes para Fase 3
 
@@ -147,6 +153,11 @@ Pasos comunes, desde la raíz:
 | `F2/F2_01_acquisition_exploration.ipynb` | descarga, estructura, variables, tiempo, sesiones y muestreo | listo |
 | `F2/F2_02_cleaning_transformation.ipynb` | limpieza, aplanamiento, conversión de tipos y variables derivadas | listo |
 | `F2/F2_03_validation.ipynb` | validación y pruebas (casos normales, límite y excepciones sobre dato original y procesado) | listo |
+| `F2/F2_04_token_distribution.ipynb` | distribución de tokens y casos especiales | listo |
+| `F3/F3_01_pipeline_poo.ipynb` | pipeline en clases, recursión con `recorrer()`, equivalencia con F2 y validaciones | listo |
+| `F3/F3_02_eficiencia.ipynb` | comparación de implementaciones (tiempo, memoria, complejidad) y decisiones | listo |
+
+Los dos notebooks de F3 usan el dato crudo, así que antes hay que correr `make data`. Juntos tardan unos 3 minutos (3 min 7 s medidos); `F3_02` es el más lento porque mide con las 135.634 filas. Para ejecutar solo F3 desde la raíz: `.venv/bin/python -m jupyter nbconvert --to notebook --execute --inplace F3/*.ipynb`.
 
 ## Estructura del repo
 
@@ -156,10 +167,13 @@ LICENSE            MIT
 Makefile           install, test, data, run, all
 requirements.txt   dependencias con versión fija
 pytest.ini         configuración de pytest
-src/arena/         paquete: env, io (descarga y SHA-256), profile (inspección), preprocessing, plots, sampling, validation
+src/arena/         paquete: env, io (descarga y SHA-256), profile (inspección), preprocessing, plots, sampling, validation,
+                   carga, transformadores, pipeline (POO de F3), medicion y eficiencia (F3)
 tests/             pruebas con datos sintéticos, sin red
 F1/                notebook de la Fase 1 y mapa conceptual
-F2/                notebooks de la Fase 2 (01 exploración, 02 limpieza, 03 validación)
+F2/                notebooks de la Fase 2 (01 exploración, 02 limpieza, 03 validación, 04 tokens)
+F3/                notebooks de la Fase 3 (01 pipeline POO, 02 eficiencia) y su README
+report/            informes (informe.md de F1 y F2; informe_f3.md y su PDF de F3)
 data/raw/          dato descargado (no se versiona; se verifica con CHECKSUMS.txt)
 data/processed/    dato procesado (arena_clean.parquet, generado por F2_02)
 docs/evidence/     test and execution outputs (pytest, nbconvert, entorno)
