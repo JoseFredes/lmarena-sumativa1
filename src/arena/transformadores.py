@@ -72,7 +72,7 @@ class Transformador:
 # 2. Aplanamiento de columnas anidadas (recursivo)
 
 
-def recorrer(valor, ruta=()):
+def recorrer(valor, ruta: tuple[str, ...] = ()):
     """Entrega (ruta, hoja) por cada hoja de un diccionario anidado, a cualquier profundidad.
 
     Recibe: un valor (diccionario o no) y la ruta recorrida hasta él.
@@ -96,7 +96,7 @@ class AplanadorAnidado(Transformador):
     definen nombre_columna(): cómo se nombra cada hoja.
     """
 
-    def nombre_columna(self, ruta):
+    def nombre_columna(self, ruta: tuple[str, ...]) -> str:
         """Convierte la ruta de una hoja en nombre de columna. Lo implementa cada hija."""
         raise NotImplementedError("Cada aplanador debe implementar nombre_columna().")
 
@@ -133,7 +133,7 @@ class AplanadorConvMetadata(AplanadorAnidado):
     def __init__(self, columna="conv_metadata"):
         super().__init__(columna)
 
-    def nombre_columna(self, ruta):
+    def nombre_columna(self, ruta: tuple[str, ...]) -> str:
         if len(ruta) == 1:                                    # p. ej. sum_user_tokens
             return ruta[0]
         prefijo = ruta[0].replace("_count", "")              # header_count_a → header_a
@@ -151,7 +151,7 @@ class AplanadorCategoryTag(AplanadorAnidado):
     def __init__(self, columna="category_tag"):
         super().__init__(columna)
 
-    def nombre_columna(self, ruta):
+    def nombre_columna(self, ruta: tuple[str, ...]) -> str:
         if len(ruta) == 1:                                    # grupo sin subclaves (como F2)
             return f"cat_{ruta[0]}"
         grupo = ruta[0].rsplit("_v", 1)[0]                   
@@ -224,7 +224,30 @@ class DerivadorEstilo(Transformador):
         return parametros
 
     def aplicar(self, df):
-        return derive_variables(df)
+        import numpy as np
+
+        cols_a = self._parametros["columnas_format_a"]
+        cols_b = self._parametros["columnas_format_b"]
+
+        df["format_a"] = df[cols_a].sum(axis=1).astype(int)
+        df["format_b"] = df[cols_b].sum(axis=1).astype(int)
+
+        df["tokens_log_a"] = np.log1p(df["sum_assistant_a_tokens"]).astype("float32")
+        df["tokens_log_b"] = np.log1p(df["sum_assistant_b_tokens"]).astype("float32")
+
+        df["longer_response"] = np.where(
+            df["sum_assistant_a_tokens"] > df["sum_assistant_b_tokens"], "a",
+            np.where(df["sum_assistant_a_tokens"] < df["sum_assistant_b_tokens"], "b", "equal"),
+        )
+        df["more_formatted"] = np.where(
+            df["format_a"] > df["format_b"], "a",
+            np.where(df["format_a"] < df["format_b"], "b", "equal"),
+        )
+
+        df["winner_binary"] = df[self.columna].map(
+            {"model_a": "a", "model_b": "b", "tie": "other", "both_bad": "other"}
+        )
+        return df
 
 
 # Se revisa que cat_creative_writing (bool) y cat_creative_writing_score (str) miden lo mismo, eliminar car_creative_writing_score en F3
