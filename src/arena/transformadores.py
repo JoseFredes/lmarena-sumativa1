@@ -175,8 +175,11 @@ class ConversorCategoria(Transformador):
         return {"categorias": list(df[self.columna].astype("category").cat.categories)}
 
     def aplicar(self, df):
-        tipo = pd.CategoricalDtype(self._parametros["categorias"])
-        df[self.columna] = df[self.columna].astype(tipo)
+        # Lo que el ajuste no vio se pasa a nulo antes de convertir: es lo mismo que hacía
+        # astype(), pero explícito y sin el aviso de pandas (que pronto será un error)
+        categorias = self._parametros["categorias"]
+        columna = df[self.columna]
+        df[self.columna] = columna.where(columna.isin(categorias)).astype(pd.CategoricalDtype(categorias))
         return df
 
 
