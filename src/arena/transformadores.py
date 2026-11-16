@@ -202,8 +202,9 @@ class ConversorTipo(Transformador):
 class DerivadorEstilo(Transformador):
     """Crea las 7 variables de estilo de F2 (format_a/b, tokens_log_a/b, ...).
 
-    No reescribe el cálculo: llama a derive_variables() de F2, para que haya una
-    sola versión del código. Aprende qué columnas Markdown suman format_a y format_b.
+    Aprende en ajustar() qué columnas Markdown suman format_a y format_b, y las usa
+    en aplicar(). El resultado tiene que ser igual al de derive_variables() de F2;
+    eso lo comprueba el test de equivalencia (tests/test_transformadores.py).
     """
 
     _PREFIJOS = ("header", "list", "bold")
