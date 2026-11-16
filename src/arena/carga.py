@@ -1,8 +1,8 @@
 """Carga y verificación del conjunto de datos de LMArena.
 
 Se adapta modulo de carga.py. Se mantiene leer_archivo, verificar_esquema y cargar.
-Se agrega asegurar_archivos y cargar_lmarena, que dejan disponiblos los 7 parquet del dataset y los cargan.
-El código es el mismo que se desarrolla paso a paso en F3/S2_F3_NucleoAlgoritmico_Eficiencia_POO.ipynb; el cuaderno verifica que ambas
+Se agrega asegurar_archivos y cargar_lmarena, que dejan disponibles los 7 parquet del dataset y los cargan.
+El código es el mismo que se desarrolla paso a paso en F3/F3_01_pipeline_poo.ipynb; el cuaderno verifica que ambas
 versiones producen el mismo resultado.
 """
 
