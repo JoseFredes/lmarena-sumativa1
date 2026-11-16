@@ -2,7 +2,7 @@ PYTHON    ?= python3.12
 VENV      := .venv
 PY        := $(VENV)/bin/python
 EVIDENCE  := docs/evidence
-NOTEBOOKS := $(wildcard F1/*.ipynb) $(wildcard F2/*.ipynb)
+NOTEBOOKS := $(wildcard F1/*.ipynb) $(wildcard F2/*.ipynb) $(wildcard F3/*.ipynb)
 
 .PHONY: venv install data validate-dataset test run evidence metadata all clean
 

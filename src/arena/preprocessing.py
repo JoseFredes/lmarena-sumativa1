@@ -115,7 +115,7 @@ def derive_variables(df: pd.DataFrame) -> pd.DataFrame:
     format_a, format_b : int
         Sum of all formatting marks (headers h1–h6 + lists + bolds) per side.
     tokens_log_a, tokens_log_b : float
-        log₁₀(1 + tokens) for each side.
+        ln(1 + tokens) (natural log, ``np.log1p``) for each side.
     longer_response : str {"a", "b", "equal"}
         Which side wrote more tokens.
     more_formatted : str {"a", "b", "equal"}
