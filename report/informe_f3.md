@@ -65,6 +65,8 @@ El pipeline de F3 tiene nueve pasos, que parten de los siete de F2 (`pasos_f2()`
 
 **Transformación de variables.** Los tokens tienen una distribución muy asimétrica (mediana de 748 y máximo de 137.128 en F2). Por eso se conserva el conteo crudo y se agrega `tokens_log_a/b = log(1 + tokens)` con `np.log1p`, que es el logaritmo natural y admite los 61 y 58 casos de respuestas con 0 tokens. El tipo `float32` basta para esa variable derivada.
 
+**Normalización y escalamiento.** No se estandarizan ni se llevan a un rango común las variables numéricas, y es una decisión, no un olvido. La pregunta P1 compara conteos y proporciones (cuántas veces gana la respuesta más larga o con más formato), y esas medidas no cambian si se reescalan las variables. El escalamiento sí importa en modelos que usan distancias o gradientes, como regresiones regularizadas o k vecinos más cercanos, que quedan para una fase posterior. La corrección de la asimetría, que es lo que sí afecta a las comparaciones, se resuelve con `log1p`. Si más adelante se necesita escalar, el diseño lo permite sin tocar el resto: bastaría un transformador que aprenda la media y la desviación en `ajustar()` y las aplique en `aplicar()`, de modo que los parámetros salgan del conjunto de ajuste y no del de prueba.
+
 **Validación del resultado.** El notebook `F3_01` comprueba que el resultado de `pasos_f2()` es idéntico al de `clean_dataset()` sobre las 135.634 filas y las 54 columnas, y que `pasos_f3()` solo difiere de F2 en la columna eliminada y en el cambio de tipo. Las comprobaciones se repiten de forma automática en `tests/test_transformadores.py`.
 
 ### c. Validación técnica y verificación del código
