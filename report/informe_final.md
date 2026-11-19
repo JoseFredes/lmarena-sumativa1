@@ -23,7 +23,7 @@ Los modelos de lenguaje de gran tamaño se comparan cada vez más con evaluacion
 
 El proyecto estudia esa situación con el conjunto público `arena-human-preference-140k` (LMArena, 2025): 135.634 votos entre el 17 de abril y el 24 de julio de 2025, con 53 modelos y 126 idiomas. **El objetivo general** es determinar si la extensión y el formato de las respuestas se asocian con la preferencia humana, considerando el par de modelos comparados. El alcance es descriptivo: se habla de asociaciones, no de causas.
 
-El problema requiere programación por tres razones: el volumen (7 archivos, 1,6 GB), la estructura (columnas anidadas que hay que aplanar) y la heterogeneidad (idiomas, longitudes muy asimétricas y votos agrupados en sesiones). Las cuatro fases se encadenan: **F1** define el problema y el entorno; **F2** obtiene, explora, limpia y valida el dato; **F3** reorganiza el código en clases, comprueba que el resultado no cambia y mide su eficiencia; **F4** responde la pregunta y comunica los resultados.
+El problema requiere programación por tres razones: el volumen (7 archivos, 1,6 GB), la estructura (columnas anidadas que hay que aplanar) y la heterogeneidad (idiomas, longitudes muy asimétricas y votos agrupados en sesiones). Las cuatro fases siguen la estructura del proyecto integrador (*Sumativa 3*, 2026) y se encadenan: **F1** define el problema y el entorno; **F2** obtiene, explora, limpia y valida el dato; **F3** reorganiza el código en clases, comprueba que el resultado no cambia y mide su eficiencia; **F4** responde la pregunta y comunica los resultados.
 
 ## III. Definición de la problemática y objetivos
 
@@ -41,7 +41,7 @@ El problema requiere programación por tres razones: el volumen (7 archivos, 1,6
 
 **Librerías.** NumPy y pandas para el procesamiento, Matplotlib para los gráficos, pyarrow para leer Parquet, Jupyter y `nbconvert` para los notebooks y pytest para las pruebas. La regresión logística de F4 se escribió con NumPy (mínimos cuadrados ponderados iterados), así no se agregaron dependencias (Harris et al., 2020; The pandas development team, 2026).
 
-**Reproducibilidad.** El entorno es un `.venv` de Python 3.12 con las versiones fijadas en `requirements.txt`. `make all` instala, descarga los 7 archivos y los verifica contra `CHECKSUMS.txt`, corre las pruebas, ejecuta los notebooks de F1 a F4 y guarda las evidencias en `docs/evidence/` (pruebas, log de `nbconvert` y versiones). Se probó desde un clon limpio y en Windows, y cada notebook registra versiones y commit al inicio.
+**Reproducibilidad.** Siguiendo las prácticas del curso (magistercienciadatos, 2026; Salinas Silva, 2026), el entorno es un `.venv` de Python 3.12 con las versiones fijadas en `requirements.txt`. `make all` instala, descarga los 7 archivos y los verifica contra `CHECKSUMS.txt`, corre las pruebas, ejecuta los notebooks de F1 a F4 y guarda las evidencias en `docs/evidence/` (pruebas, log de `nbconvert` y versiones). Se probó desde un clon limpio y en Windows, y cada notebook registra versiones y commit al inicio.
 
 **Control de versiones.** El repositorio tiene 100 commits propios de las cuatro personas (JoseFredes 59, Valentina Carvajal 21, Angelo Morales 11, Alejandro Poirier 9), con mensajes de la forma `tipo(ámbito): qué se hizo`, 27 pull requests y ramas por tema. No se hace *squash*: el historial es la evidencia.
 
