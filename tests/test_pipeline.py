@@ -63,6 +63,7 @@ def test_pasos_f3_solo_cambia_dos_columnas_respecto_de_f2(raw_anidado):
 
 def test_equivalencia_con_clean_dataset_sobre_datos_reales(tmp_path):
     """Con un archivo real de LMArena, las clases dan lo mismo que F2 (se omite si no hay datos)."""
+    from shutil import copyfile
     from arena.io import RAW_DIR
     from arena.preprocessing import clean_dataset
     from arena.profile import load_raw
@@ -70,7 +71,8 @@ def test_equivalencia_con_clean_dataset_sobre_datos_reales(tmp_path):
     archivos = sorted(RAW_DIR.rglob("train-00000-of-*.parquet"))
     if not archivos:
         pytest.skip("falta data/raw (corre `make data`)")
-    (tmp_path / archivos[0].name).symlink_to(archivos[0])
+    
+    copyfile(archivos[0], tmp_path / archivos[0].name)
 
     esperado = clean_dataset(tmp_path)
     crudo = load_raw(tmp_path)
