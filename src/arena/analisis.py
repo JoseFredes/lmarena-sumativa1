@@ -49,6 +49,24 @@ def intervalo_wilson(exitos, n, z: float = Z95):
     return bajo, alto
 
 
+def resumen_posicion_ab(d: pd.DataFrame) -> dict:
+    """Cuenta las victorias de A y B y calcula la tasa de A con su IC del 95 %."""
+    ganador = d["winner_binary"]
+    victorias_a = int(ganador.eq("a").sum())
+    victorias_b = int(ganador.eq("b").sum())
+    n = victorias_a + victorias_b
+
+    bajo, alto = intervalo_wilson(victorias_a, n)
+
+    return {
+        "n": n,
+        "victorias_a": victorias_a,
+        "victorias_b": victorias_b,
+        "tasa_a": victorias_a / n if n else float("nan"),
+        "ic_bajo": bajo,
+        "ic_alto": alto,
+    }
+
 def gana_el_mayor(d: pd.DataFrame, columna: str) -> dict:
     """Proporción de votos en que gana el lado que tiene "más" según `columna`.
 

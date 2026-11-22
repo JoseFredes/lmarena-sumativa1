@@ -257,3 +257,29 @@ def test_efecto_con_modelos_errores():
     d = _votos_con_modelos(300)
     with pytest.raises(ValueError, match="al menos dos modelos"):
         efecto_con_modelos(d, minimo=10_000)
+
+def test_resumen_posicion_ab_excluye_votos_sin_ganador():
+    import pandas as pd
+    from arena.analisis import resumen_posicion_ab
+
+    votos = pd.DataFrame({"winner_binary": ["a", "b", "a", "other", "a"]})
+    resultado = resumen_posicion_ab(votos)
+
+    assert resultado["n"] == 4
+    assert resultado["victorias_a"] == 3
+    assert resultado["victorias_b"] == 1
+    assert resultado["tasa_a"] == 0.75
+
+def test_resumen_posicion_ab_sin_votos_decisivos():
+    import pandas as pd
+    from arena.analisis import resumen_posicion_ab
+
+    votos = pd.DataFrame({"winner_binary": ["other", "other"]})
+    resultado = resumen_posicion_ab(votos)
+
+    assert resultado["n"] == 0
+    assert resultado["victorias_a"] == 0
+    assert resultado["victorias_b"] == 0
+    assert pd.isna(resultado["tasa_a"])
+    assert pd.isna(resultado["ic_bajo"])
+    assert pd.isna(resultado["ic_alto"])
